@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title></title>
+    <url>/2023/07/29/learn/</url>
+    <content><![CDATA[<p>#你好 </p>
+<blockquote>
+<p>我是中国人</p>
+</blockquote>
+<p>国旗是红色的</p>
+]]></content>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/2023/08/24/%E5%90%B8%E9%99%84%E7%A7%91%E5%AD%A6%E4%B9%8Braspa-1/</url>
+    <content><![CDATA[<h1 id="吸附科学"><a href="#吸附科学" class="headerlink" title="吸附科学"></a>吸附科学</h1><p>吸附是一个很古老的词语，相传古人用炭清洁牙齿，这是利用了炭多孔的特性，可以吸附吸附质。当然，随处可见的化学反应的第一步也是发生在催化剂上的吸附。</p>
+<p>因为金属有机框架（MOF）、沸石等（zeolite）结构具有很大的空腔，具有很大的比表面积，所以其可以广泛应用于污染气体防治。</p>
+]]></content>
+  </entry>
+  <entry>
     <title>Hello World</title>
     <url>/2023/07/29/hello-world/</url>
     <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
@@ -24,21 +41,11 @@
     <content><![CDATA[<h1 id="光催化入门（1）"><a href="#光催化入门（1）" class="headerlink" title="光催化入门（1）"></a>光催化入门（1）</h1><p>随着不可再生资源的消耗，我国提出双碳目标，伴随着能源转型，光催化技术的发展便异军突起。</p>
 <h1 id="物质分类"><a href="#物质分类" class="headerlink" title="物质分类"></a>物质分类</h1><p>将按照禁带宽度进行分类，禁带宽度为0的是导体，而禁带宽度小于4的为半导体，而禁带宽度大于4的一般为绝缘体。</p>
 <h2 id="半导体"><a href="#半导体" class="headerlink" title="半导体"></a>半导体</h2><p>半导体最先被应用于芯片领域，传递信号，其具有一定宽度的禁带，当光的能量高于禁带宽度时，电子能够从价带被激发到导带上，而在价带上产生广生空穴，显正电性。这样，在光的激发下产生载流子，其可在一定程度上促进发生催化反应。</p>
-<h2 id="光解水"><a href="#光解水" class="headerlink" title="光解水"></a>光解水</h2><p><img src="D:\blog\source\pic\光解水示意图.jpg"></p>
+<h2 id="光解水"><a href="#光解水" class="headerlink" title="光解水"></a>光解水</h2><p><img src="/2023/08/24/%E5%85%89%E5%82%AC%E5%8C%96%E5%85%A5%E9%97%A8%EF%BC%881%EF%BC%89/blog\source\pic\光解水示意图.jpg"></p>
 <p>例如上面的光解水示意图，如果其可用于光解水，首先其应具有大于1.23 eV 的带隙，导带处产生电子，故其吸附物得到电子（升失氧化，降得还原），所以导带处主导还原反应，对于光解水来说H<sup>+</sup>  + e<sup>-</sup>  &#x3D;  H<sub>2 </sub> [a] 的还原电势为 0 V，要想此反应能够发生 （通过物理学知识我们了解到电子向电势高的位置移动），必须使得导带的带边位置比方程式[a]的还原电势更负。对于 H<sub>2</sub>O + h<sup>+</sup> &#x3D; 1&#x2F;2 O<sub>2</sub> + H<sup>+</sup>  [b]的还原电位为1.23 eV，因为空穴显正电性，其会向电势底的位置移动，为保证方程式{b}可以得到空穴，故价带的带边位置要比等式{b}的还原电位更正。因此也就得到了其禁带宽度必大于1.23 eV。</p>
 <pre><code>在此挖一个坑，上述分析类似于化学热力学的范畴，他从能不能的角度来回答，而带边位置与目标还原反应的标准电势的电势差决定了反应的动力学，类似于化学反应动力学，一经类比，这理论就没有那么陌生和可怕了！
 </code></pre>
 <p>  光催化曾经是一个让我很畏惧的方向，因为其涉及到半导体物理、表面化学、光化学等等，是一门发展起来的新兴学科。</p>
-]]></content>
-  </entry>
-  <entry>
-    <title></title>
-    <url>/2023/07/29/learn/</url>
-    <content><![CDATA[<p>#你好 </p>
-<blockquote>
-<p>我是中国人</p>
-</blockquote>
-<p>国旗是红色的</p>
 ]]></content>
   </entry>
   <entry>
@@ -79,13 +86,6 @@
 <li>处理问题以及拓宽眼界……</li>
 </ol>
 <p>总之，如果你也有这样的机会，我还是会选择这样的生活，对应前文，虽然我没有成功发表文章，也没有被保送研究生（仅与前一名差0.02分），但是这段经历带给了我很多很多，他很大程度上提升了我的眼界，并使我有了自己感兴趣的科研方向更加坚定了自己对于未来道路的确定，认识到该领域的很多知名大家(他们没有一个人知道我，呜呜。。。)，但是很幸运，我最后进入了自己的第一志愿院校，将在北京度过自己的研究生生活。<img src="http://a1.qpic.cn/psc?/V11MilXf13Ctm5/ruAMsa53pVQWN7FLK88i5srpenDZijMgsrhpM0TlSfaTFLoW1DhSEgEi2tWNYfz*bpxGYZeoi3nXyDtieYsMlQa5izHTjs1YHbfqRo4a.zw!/c&ek=1&kp=1&pt=0&bo=QAZWCEAGVggWECA!&tl=3&vuin=1647922103&tm=1690045200&dis_t=1690046498&dis_k=a45f5ef0d211debdf5a7090b27e3085a&sce=60-2-2&rf=viewer_311" alt="研究生录取通知书"></p>
-]]></content>
-  </entry>
-  <entry>
-    <title></title>
-    <url>/2023/08/24/%E5%90%B8%E9%99%84%E7%A7%91%E5%AD%A6%E4%B9%8Braspa-1/</url>
-    <content><![CDATA[<h1 id="吸附科学"><a href="#吸附科学" class="headerlink" title="吸附科学"></a>吸附科学</h1><p>吸附是一个很古老的词语，相传古人用炭清洁牙齿，这是利用了炭多孔的特性，可以吸附吸附质。当然，随处可见的化学反应的第一步也是发生在催化剂上的吸附。</p>
-<p>因为金属有机框架（MOF）、沸石等（zeolite）结构具有很大的空腔，具有很大的比表面积</p>
 ]]></content>
   </entry>
 </search>
