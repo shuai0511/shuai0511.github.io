@@ -1,224 +1,711 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="renderer" content="webkit">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <meta name="google-site-verification" content="TZE0rZyIqLl10trYu3BWBWa1Vmz6HFwhb2OcNEK4u-s" />
-     <link rel="shortcut icon" href= /img/favicon.ico >
-    <title>
-        Hexo
-    </title>
-    <meta name="description" content= 嘿，我是尚恒帅，欢迎访问我的博客！ >
-    <meta name="keywords" content= Blog,Hexo,Theme,尚恒帅,Shanghengshuai >
-    
-<link rel="stylesheet" href="/libs/highlight/styles/monokai-sublime.css">
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
-    
-<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/main.css">
 
-    
-<link rel="stylesheet" href="/css/style.css">
 
-<meta name="generator" content="Hexo 6.3.0"></head>
-<body id="bodyx">
-    <div class="hd logodiv">
-    <img src="/img/male.png" class="logopng" alt="logo">
-    <p class="logot">
-         尚恒帅的博客 
-         <span class="logo_2"></span>
-        <h3 class="words" style="font-weight: bold;font-family: Georgia;"> 
-            Your Words 
-        </h3>
-    </p>
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
 </div>
 
 
-<div class="hd">
-    <ol class="breadcrumb">
-        
-            <li><a class="ba" href="/about">关于我👀</a></li>
-        
-            <li><a class="ba" target="_blank" rel="noopener" href="https://liuxunzhuo.tech">访问主站🎉</a></li>
-        
-            <li><a class="ba" target="_blank" rel="noopener" href="https://github.com/xunzhuo">GitHub🐒</a></li>
-        
 
-            
-<script src="/libs/jquery.min.js"></script>
 
-            
-<script src="/js/search.js"></script>
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
 
-            
-                <form class="site-search-form">
-                    <i class="fa fa-search" id="search-logo"><input type="text" id="local-search-input" class="st-search-input" /></i>
-                </form>
-                <div id="local-search-result" class="local-search-result-cls"></div>
-            
-            <script type="text/javascript" id="local.search.active">
-                var inputArea       = document.querySelector("#local-search-input");
-                var getSearchFile = function(){
-                    var path = "/search.xml";
-                    searchFunc(path, 'local-search-input', 'local-search-result');
-                }
-                inputArea.onfocus = function(){ getSearchFile() }
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
 
-                var $resetButton = $("#search-form .fa-times");
-                var $resultArea = $("#local-search-result");
+  </li>
+        <li class="menu-item menu-item-tags">
 
-                inputArea.oninput = function(){ $resetButton.show(); }
-                resetSearch = function(){
-                    $resultArea.html("");
-                    document.querySelector("#search-form").reset();
-                    $resetButton.hide();
-                    $(".no-result").hide();
-                }
-                inputArea.onkeydown = function(){ if(event.keyCode == 13) return false }
-                //No search result
-                $resultArea.bind("DOMNodeRemoved DOMNodeInserted", function(e) {
-                    if (!$(e.target).text()) {
-                        $(".no-result").show(100);
-                    } else {
-                        $(".no-result").hide();
-                    }
-                })
-            </script>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
 
-    </ol>
-    <hr>
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
 </div>
-<div class="hd">
-    
-    
-        
-        
-            <div class="titlex">
-                <p><span class="jing"></span><span style="color: #6d9ee7;"> 公元</span> 
-                 2023年 🕛
-                </p>
-            </div>
-            
-        
-        <a class="flink" href="/2023/08/24/%E5%90%B8%E9%99%84%E7%A7%91%E5%AD%A6%E4%B9%8Braspa-1/">
-            <div class="list">
-                <div class="postname">
-                    
-                </div>
-                <div class="posttime">
-                    August 24th
-                </div>
-            </div>
-        </a>
-    
-        
-        
-        <a class="flink" href="/2023/08/24/%E5%85%89%E5%82%AC%E5%8C%96%E5%85%A5%E9%97%A8%EF%BC%881%EF%BC%89/">
-            <div class="list">
-                <div class="postname">
-                    光催化入门（1）
-                </div>
-                <div class="posttime">
-                    August 24th
-                </div>
-            </div>
-        </a>
-    
-        
-        
-        <a class="flink" href="/2023/07/29/%E9%A2%84%E7%A0%94%E7%A9%B6%E7%94%9F%E7%94%9F%E6%B4%BB%E4%B9%8B%E6%88%91%E8%A7%81/">
-            <div class="list">
-                <div class="postname">
-                    研究生生活之我见
-                </div>
-                <div class="posttime">
-                    July 29th
-                </div>
-            </div>
-        </a>
-    
-        
-        
-        <a class="flink" href="/2023/07/29/learn/">
-            <div class="list">
-                <div class="postname">
-                    
-                </div>
-                <div class="posttime">
-                    July 29th
-                </div>
-            </div>
-        </a>
-    
-        
-        
-        <a class="flink" href="/2023/07/29/hello-world/">
-            <div class="list">
-                <div class="postname">
-                    Hello World
-                </div>
-                <div class="posttime">
-                    July 29th
-                </div>
-            </div>
-        </a>
-    
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
 </div>
 
-    <div class="footer" id="footer">
-    <p><h4>Copyright © 2020 | Author: 尚恒帅 | Theme By <a class="theme-author" target="_blank" rel="noopener" href="https://github.com/Xunzhuo/hexo-theme-coder" style="font-size:14px; color: #969696">Coder</a></h4>
-    
-        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-        <span id="busuanzi_container_site_pv">Page Views: <span id="busuanzi_value_site_pv"></span></span>
-        <span class="post-meta-divider">|</span>
-        <span id="busuanzi_container_site_uv">Unique Visitors: <span id="busuanzi_value_site_uv"></span></span>
-    
-    <label class="el-switch el-switch-blue el-switch-sm" style="vertical-align: sub;">
-        <input type="checkbox" name="switch" id="update_style">
-        <span class="el-switch-style"></span>
-    </label>
+    </div>
+  </div>
 
-    <!--         <script type="text/javascript">
-    var cnzz_protocol = (("https:" == document.location.protocol) ? "https://" : "http://");
-    document.write(unescape("%3Cspan id='cnzz_stat_icon_1278548644'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "v1.cnzz.com/stat.php%3Fid%3D1278548644%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
-    </script> -->
-</p>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/08/24/%E5%90%B8%E9%99%84%E7%A7%91%E5%AD%A6%E4%B9%8Braspa-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/08/24/%E5%90%B8%E9%99%84%E7%A7%91%E5%AD%A6%E4%B9%8Braspa-1/" class="post-title-link" itemprop="url">Untitled</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-08-24 23:01:03 / Modified: 23:20:36" itemprop="dateCreated datePublished" datetime="2023-08-24T23:01:03+08:00">2023-08-24</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="吸附科学"><a href="#吸附科学" class="headerlink" title="吸附科学"></a>吸附科学</h1><p>吸附是一个很古老的词语，相传古人用炭清洁牙齿，这是利用了炭多孔的特性，可以吸附吸附质。当然，随处可见的化学反应的第一步也是发生在催化剂上的吸附。</p>
+<p>因为金属有机框架（MOF）、沸石等（zeolite）结构具有很大的空腔，具有很大的比表面积</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/08/24/%E5%85%89%E5%82%AC%E5%8C%96%E5%85%A5%E9%97%A8%EF%BC%881%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/08/24/%E5%85%89%E5%82%AC%E5%8C%96%E5%85%A5%E9%97%A8%EF%BC%881%EF%BC%89/" class="post-title-link" itemprop="url">光催化入门（1）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-08-24 22:06:45 / Modified: 23:30:27" itemprop="dateCreated datePublished" datetime="2023-08-24T22:06:45+08:00">2023-08-24</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="光催化入门（1）"><a href="#光催化入门（1）" class="headerlink" title="光催化入门（1）"></a>光催化入门（1）</h1><p>随着不可再生资源的消耗，我国提出双碳目标，伴随着能源转型，光催化技术的发展便异军突起。</p>
+<h1 id="物质分类"><a href="#物质分类" class="headerlink" title="物质分类"></a>物质分类</h1><p>将按照禁带宽度进行分类，禁带宽度为0的是导体，而禁带宽度小于4的为半导体，而禁带宽度大于4的一般为绝缘体。</p>
+<h2 id="半导体"><a href="#半导体" class="headerlink" title="半导体"></a>半导体</h2><p>半导体最先被应用于芯片领域，传递信号，其具有一定宽度的禁带，当光的能量高于禁带宽度时，电子能够从价带被激发到导带上，而在价带上产生广生空穴，显正电性。这样，在光的激发下产生载流子，其可在一定程度上促进发生催化反应。</p>
+<h2 id="光解水"><a href="#光解水" class="headerlink" title="光解水"></a>光解水</h2><p><img src="D:\blog\source\pic\光解水示意图.jpg"></p>
+<p>例如上面的光解水示意图，如果其可用于光解水，首先其应具有大于1.23 eV 的带隙，导带处产生电子，故其吸附物得到电子（升失氧化，降得还原），所以导带处主导还原反应，对于光解水来说H<sup>+</sup>  + e<sup>-</sup>  &#x3D;  H<sub>2 </sub> [a] 的还原电势为 0 V，要想此反应能够发生 （通过物理学知识我们了解到电子向电势高的位置移动），必须使得导带的带边位置比方程式[a]的还原电势更负。对于 H<sub>2</sub>O + h<sup>+</sup> &#x3D; 1&#x2F;2 O<sub>2</sub> + H<sup>+</sup>  [b]的还原电位为1.23 eV，因为空穴显正电性，其会向电势底的位置移动，为保证方程式{b}可以得到空穴，故价带的带边位置要比等式{b}的还原电位更正。因此也就得到了其禁带宽度必大于1.23 eV。</p>
+<pre><code>在此挖一个坑，上述分析类似于化学热力学的范畴，他从能不能的角度来回答，而带边位置与目标还原反应的标准电势的电势差决定了反应的动力学，类似于化学反应动力学，一经类比，这理论就没有那么陌生和可怕了！
+</code></pre>
+<p>  光催化曾经是一个让我很畏惧的方向，因为其涉及到半导体物理、表面化学、光化学等等，是一门发展起来的新兴学科。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/07/29/%E9%A2%84%E7%A0%94%E7%A9%B6%E7%94%9F%E7%94%9F%E6%B4%BB%E4%B9%8B%E6%88%91%E8%A7%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/07/29/%E9%A2%84%E7%A0%94%E7%A9%B6%E7%94%9F%E7%94%9F%E6%B4%BB%E4%B9%8B%E6%88%91%E8%A7%81/" class="post-title-link" itemprop="url">研究生生活之我见</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2023-07-29 17:51:06" itemprop="dateCreated datePublished" datetime="2023-07-29T17:51:06+08:00">2023-07-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-07-23 01:38:34" itemprop="dateModified" datetime="2023-07-23T01:38:34+08:00">2023-07-23</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>#研究生生活之我见</p>
+<blockquote>
+<p>研究生苦行僧的日子，如果你能坚持下来并最终取得优异的成果，那么你就非常成功。——佚名</p>
+</blockquote>
+<p>##对于未来的预见<br>其实对于研究生生活，我还是非常的渴望的，即使这是一个链接学生时代与社会时代的过渡阶段，在大学阶段，有幸跟随吴老师课题组工作近两年，通过和研究生的接触，只是感觉其生活略有枯燥，三点一线的生活：宿舍——食堂——实验室；与备战研究生考试时相比，感觉这种生活或许更令人向往。但是他们的最大的心里压力来自于实验结果不尽人意，长时间的心理煎熬。</p>
+<p>##研究生生活初体验<br>大二下学期的时候进入课题组的目的很单纯，就是想学一点课程之外的东西；但是通过和老师沟通并在这样的环境之中泡着，有一次两位老师跟我聊天，他们告知我：你在我们课题组好好干，最好能发一篇文章，如果这样的话将来对你保送研究生有好处，其实说到这我还是很有信心的。但是作为一名大二学生，我似乎什么也不知道，即使老师，由于刚开始的时候老师给的课题我做着还可以，跟着研究生学习，课题组电催化、有机小分子催化、单原子催化方向，我主要做的氧化物负载金属颗粒催化剂，在其中学会了管式炉、冷冻干燥机、真空干燥箱等实验室常用仪器的操作。但是受限于没有打开思路，工作不够系统，整理工作杂乱，处理实验数据不及时、备份不足等各种问题。由于思路的限制，重复文献的催化剂制备完成之后，不知道要干什么，就等着老师安排任务了，我想这种混吃等死的放养生活应该是我们应该摒弃的，就像西交王树国校长说的那样：“学习，只有主动作为，才能带给你深刻的印象，否则你那就不叫学习。”其实，对于个人来讲，只有能够主动作为，打开自己，勇于作为，才能在实践中成长，不断修正自己。</p>
+<blockquote>
+<p>主动作为，才能深刻体会学习带来的快乐，你才知道为什么学习、如何学习。被动学习是一件很痛苦的事情，因为没有目标、没有驱动，不知道方向。而主动学习，则是知道为什么学。少年毛泽东13岁的时候和他的弟弟毛泽民以及一个亲戚家的朋友去给长辈拜年，毛泽东的堂叔问这三个孩子，你们将来要做什么人？他亲戚家的孩子说我要做有钱的人，他的弟弟说我要做不受别人欺负的人，少年毛泽东说了一句远远超出他们这个年龄所应该说的话，他说我要做惊天动地之人。少年毛泽东就有这样一种雄心壮志，当他进入师范学院学习的时候，他和同学定了“约法三则”，不谈金钱之事，不谈男女之事，不谈琐碎之事。由此可见，主动作为对他在学习成长过程当中所产生的作用是多么重要。进入大学时代，他仍然严格要求自己主动作为，他博览群书，通今博古，所以才成为一代领袖。我之所以举这个例子，是想让大家知道，少年当有志，人无志不立，国无志不强。所以，大学的学习是一件主动作为之事，而不是在被动要求下学习。如果你具备了这种主动进取之心，你一定会在学业上卓有成就。所以，学习要主动作为，未来做事也是如此，不要在别人的要求下被动地、不情愿地去做一些事情。主动作为，才能把你学习的东西深刻融化在自己的血液之中，变成自己的能力，被动的学习只能在你的头脑当中留下一些印象，考试完后一切烟消云散，只有主动作为才能把所学知识内化为自己的能力。<br><a target="_blank" rel="noopener" href="http://www.ef.xjtu.edu.cn/info/1019/4949.htm">王树国校长2021新生演讲稿</a></p>
+</blockquote>
+<p>“学习要主动作为，未来做事也是如此，不要在别人的要求下被动地、不情愿地去做一些事情。主动作为，才能把你学习的东西深刻融化在自己的血液之中，变成自己的能力，被动的学习只能在你的头脑当中留下一些印象，考试完后一切烟消云散，只有主动作为才能把所学知识内化为自己的能力。”这段话我深有感触：故事是这样的，由于我性格比较开朗、大大咧咧的，总喜欢插嘴，不管别人在说什么，总能上去插一嘴；或许这在自己看来是比较潇洒，但是在别人看来，这估计刚好起到负面作用，更有甚呢？我插嘴之后，当别人在深入问一句，我就立刻露馅，故又菜又爱装X。这个的原因之一就是自己知识广泛，对什么都有一点兴趣，但是我所看到的甚至连冰山一角都没有，所以对于别人的研究领域，别人问一句我就回答不上来了。真的时当你主动学习，才能把这种东西内化为自己的，变成自己的能力，当别人再向你请教时，你就可以大大方方、慢悠悠的跟他们去讲述。这体现在我身上的最重要的一点就是我学习计算模拟——密度泛函理论(DFT)，起初接触到Materials Studio，windows上的软件，但是这个软件天价，所以转向价格更便宜的VASP，刚开始学习的时候，该软件在linux系统上运行，开始的时候啥也不会，因为对于linux甚至都没有听说过，就硬着头皮在微信搜索框里搜索，里有虚拟机安装软件的系统，最初就慢慢的靠着百度和微信搜索开始了学习，现在虽然不能说是个行家，但是现在我已经能够对于给定的计算任务进行合理安排时间，能够整理资料去想别人讲授，或许还有些磕巴，但是勇敢迈出了第一步。这对应了古人的那个“事必躬亲”，正是在经历了这样那样的困难之后，你才能够练就火眼金睛。举一个例子我们应该就能瞬间明白：出租车司机。我曾看到出租车司机一边看手机一边开车，各种操作溜得很，我曾问他，他回答道：我们每天就这么多的事，每天干这么久，要是让你，或许你比我还6，还是那句话，面对每行每业的困难时，工程师心中的底气来自丰富的处理案例经验。</p>
+<p>##本科生提前科研之ABC</p>
+<ol>
+<li>学习课外知识</li>
+</ol>
+<pre><code>对于理工类学生来说，课本上的知识已经是上个世纪的知识了，现在的社会发展之快，进入科研领域你可以关注课本之外的东西，也极有可能会找到你感兴趣的一个点，或许其可以成为你一生为之奋斗！
+</code></pre>
+<ol start="2">
+<li>关注前沿领域</li>
+</ol>
+<pre><code>做科研就会自觉去关注文献阅读，其中你需要时刻关注该方向的研究进展以及研究痛点，可以提前了解并为以后就业或升学等奠定一定的基础，你知道了哪儿有不足，我就知道应该到哪个方向去努力，清晰前进方向。
+</code></pre>
+<ol start="3">
+<li>判断未来方向</li>
+</ol>
+<pre><code>这是一个双面性的，但是都是有优点，首先你可以通过一段时间的科研生活看自己是否对科研感兴趣，以此来判断自己是否要继续坚持求学这条路；如果你发现你对科研很感兴趣，那么这点科研经历对你来说或许是一个很有裨益的工作，它可以锻炼你的科研思维，面对难题时的思考问题方式及处理问题能力。
+</code></pre>
+<ol start="4">
+<li>养成良好习惯</li>
+</ol>
+<pre><code>做实验也是程序性工作，可以锻炼个人的时间安排能力以及提高执行力，你会提前安排好你的schedule。
+</code></pre>
+<ol start="5">
+<li>处理问题以及拓宽眼界……</li>
+</ol>
+<p>总之，如果你也有这样的机会，我还是会选择这样的生活，对应前文，虽然我没有成功发表文章，也没有被保送研究生（仅与前一名差0.02分），但是这段经历带给了我很多很多，他很大程度上提升了我的眼界，并使我有了自己感兴趣的科研方向更加坚定了自己对于未来道路的确定，认识到该领域的很多知名大家(他们没有一个人知道我，呜呜。。。)，但是很幸运，我最后进入了自己的第一志愿院校，将在北京度过自己的研究生生活。<img src="http://a1.qpic.cn/psc?/V11MilXf13Ctm5/ruAMsa53pVQWN7FLK88i5srpenDZijMgsrhpM0TlSfaTFLoW1DhSEgEi2tWNYfz*bpxGYZeoi3nXyDtieYsMlQa5izHTjs1YHbfqRo4a.zw!/c&ek=1&kp=1&pt=0&bo=QAZWCEAGVggWECA!&tl=3&vuin=1647922103&tm=1690045200&dis_t=1690046498&dis_k=a45f5ef0d211debdf5a7090b27e3085a&sce=60-2-2&rf=viewer_311" alt="研究生录取通知书"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/07/29/learn/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/07/29/learn/" class="post-title-link" itemprop="url">Untitled</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2023-07-29 17:51:06" itemprop="dateCreated datePublished" datetime="2023-07-29T17:51:06+08:00">2023-07-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-07-22 23:49:28" itemprop="dateModified" datetime="2023-07-22T23:49:28+08:00">2023-07-22</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>#你好 </p>
+<blockquote>
+<p>我是中国人</p>
+</blockquote>
+<p>国旗是红色的</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/07/29/hello-world/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/07/29/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2023-07-29 17:39:10" itemprop="dateCreated datePublished" datetime="2023-07-29T17:39:10+08:00">2023-07-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-07-22 22:13:20" itemprop="dateModified" datetime="2023-07-22T22:13:20+08:00">2023-07-22</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+  </nav>
 </div>
 
-<input type="hidden" id="web_style" value="black">
-<input type="hidden" id="valine_appid" value="">
-<input type="hidden" id="valine_appKey" value="">
-
-<script src="/libs/jquery.min.js"></script>
 
 
-<script src="/libs/highlight/highlight.pack.js"></script>
+      </div>
 
-<script src='//cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
 
-<script src="/js/js.js"></script>
 
-<style type="text/css">
-.v * {
-color: #698fca;
-}
-.v .vlist .vcard .vhead .vsys {
-color: #3a3e4a;
-}
-.v .vlist .vcard .vh .vmeta .vat {
-color: #638fd5;
-}
-.v .vlist .vcard .vhead .vnick {
-color: #6ba1ff;
-}
-.v a {
-color: #8696b1;
-}
-.v .vlist .vcard .vhead .vnick:hover {
-color: #669bfc;
-}
-</style>
-    <script type="text/javascript" color="173,174,173" opacity='1' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
 </body>
 </html>
