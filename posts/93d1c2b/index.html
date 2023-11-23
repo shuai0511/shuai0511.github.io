@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="平时，很少有机会能够以论文撰写者的角度来解析一篇文章，最近，趁着假期有机会和时间来试着从作者的角度来解读文章，并为以后写文章提供一些思路和方法！  前言笔者之前没有写过这种解读文章，也是一种新的尝试！ 文献链接此为一篇笔者即将入门的研究领域，光催化NO3-盐机理研究，该文章来自[Insight into the Overlooked Photochemical Decomposition of">
+<meta property="og:type" content="article">
+<meta property="og:title" content="文献精读-光催化机理">
+<meta property="og:url" content="http://example.com/posts/93d1c2b/index.html">
+<meta property="og:site_name" content="Hengshuai Shang">
+<meta property="og:description" content="平时，很少有机会能够以论文撰写者的角度来解析一篇文章，最近，趁着假期有机会和时间来试着从作者的角度来解读文章，并为以后写文章提供一些思路和方法！  前言笔者之前没有写过这种解读文章，也是一种新的尝试！ 文献链接此为一篇笔者即将入门的研究领域，光催化NO3-盐机理研究，该文章来自[Insight into the Overlooked Photochemical Decomposition of">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/shuai0511/blog-img/main/S1.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/shuai0511/blog-img/main/F1.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/shuai0511/blog-img/main/S2.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/shuai0511/blog-img/main/S3.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/shuai0511/blog-img/main/%E5%88%86%E6%9E%901.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/shuai0511/blog-img/main/F2.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/shuai0511/blog-img/main/%E5%8F%8D%E5%BA%94%E5%8E%86%E7%A8%8B.png">
+<meta property="article:published_time" content="2023-10-06T15:29:57.000Z">
+<meta property="article:modified_time" content="2023-10-13T03:28:21.823Z">
+<meta property="article:author" content="Hengshuai Shang">
+<meta property="article:tag" content="机理研究">
+<meta property="article:tag" content="文献翻译">
+<meta property="article:tag" content="硝酸盐">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/shuai0511/blog-img/main/S1.png">
+
+<link rel="canonical" href="http://example.com/posts/93d1c2b/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.css"><style>
+#needsharebutton-postbottom {
+  cursor: pointer;
+  height: 26px;
+  margin-top: 10px;
+  position: relative;
+}
+#needsharebutton-postbottom .btn {
+  border: 1px solid $btn-default-border-color;
+  border-radius: 3px;
+  display: initial;
+  padding: 1px 4px;
+}
+</style>
+  <title>文献精读-光催化机理 | Hengshuai Shang</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hengshuai Shang</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">hengshuai shang</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/93d1c2b/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hengshuai Shang">
+      <meta itemprop="description" content="study">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hengshuai Shang">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          文献精读-光催化机理
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-10-06 23:29:57" itemprop="dateCreated datePublished" datetime="2023-10-06T23:29:57+08:00">2023-10-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-10-13 11:28:21" itemprop="dateModified" datetime="2023-10-13T11:28:21+08:00">2023-10-13</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%85%89%E5%82%AC%E5%8C%96/" itemprop="url" rel="index"><span itemprop="name">光催化</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%85%89%E5%82%AC%E5%8C%96/%E7%A1%9D%E9%85%B8%E7%9B%90%E5%85%89%E8%A7%A3/" itemprop="url" rel="index"><span itemprop="name">硝酸盐光解</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/93d1c2b/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/93d1c2b/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <pre><code>  平时，很少有机会能够以论文撰写者的角度来解析一篇文章，最近，趁着假期有机会和时间来试着从作者的角度来解读文章，并为以后写文章提供一些思路和方法！
+</code></pre>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>笔者之前没有写过这种解读文章，也是一种新的尝试！</p>
+<h1 id="文献链接"><a href="#文献链接" class="headerlink" title="文献链接"></a>文献链接</h1><p>此为一篇笔者即将入门的研究领域，光催化NO<sub>3</sub><sup>-</sup>盐机理研究，该文章来自[<a target="_blank" rel="noopener" href="https://onlinelibrary.wiley.com/doi/10.1002/anie.202209201">Insight into the Overlooked Photochemical Decomposition of Atmospheric Surface Nitrates Triggered by Visible Light </a>](<a target="_blank" rel="noopener" href="https://onlinelibrary.wiley.com/doi/10.1002/anie.202209201">Insight into the Overlooked Photochemical Decomposition of Atmospheric Surface Nitrates Triggered by Visible Light - Wang - 2022 - Angewandte Chemie International Edition - Wiley Online Library</a>)，有兴趣的同志可以下载结合本博客来阅读！</p>
+<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>氮氧化物很大程度上来自于表面光催化硝酸盐的分解过程，然而我们对于λ&gt;380 nm的可见光对该过程的影响认识还很少。（<strong>作者找到了一个科学问题。</strong>）为此，作者研究了可见光作用下表面硝酸盐的降解机理，结果表示可见光对该过程有很大的影响，单齿配位的硝酸盐(m-no<sub>3</sub><sup>-</sup>)因其较弱的单配位N-O键会被光生电子攻击而产生NO<sub>X</sub>，水蒸气可以通过表面羟基化的氢键作用使单齿硝酸盐(m-no<sub>3</sub><sup>-</sup>)转变为更稳定的双齿硝酸盐(b-no<sub>3</sub><sup>-</sup>)，从而促进产生NO<sub>X</sub>。另外双齿硝酸盐(b-no<sub>3</sub><sup>-</sup>)可以被NO攻击而分解为NO<sub>2</sub>，但是这个过程主要是光催化剂的氧化作用。这个工作对于大气中NO<sub>X</sub>的来源从硝酸盐分解过程提供了一点新思考！</p>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>大气环境对人类生命健康和可持续发展息息相关。近年来，颗粒物(PM2.5)和臭氧已经成为造成雾霾、影响全球气候、增加大气氧化性等的主要原因。NO<sub>X</sub>是(PM2.5)和臭氧的前体物，对于促进他们的形成起重要作用。已经有文献报道：NO<sub>X</sub>浓度限制了PM2.5浓度的进一步降低、加速了臭氧浓度的提高。为了应对空气污染，理解大气中NO<sub>X</sub>浓度的来源很关键！！！<br>相比于已知的NO<sub>X</sub>浓度的排放，如热电厂和小汽车燃放，他们可以被系统检测和管理。但是与复杂环境相关的很难管理。尤其是，硝酸盐广泛存在于自然界中，是NO<sub>X</sub>浓度的一个显著贡献者。在一些环境媒介中已经发现了硝酸盐生成气相NO<sub>X</sub>和HONO产物，包括：空气颗粒物、建筑物表面和溶液。通俗来说，硝酸盐的光解有助于产生气相的NO<sub>X</sub>。因为硝酸盐的光化学活性起始于300 nm的光，许多研究揭示：硝酸盐光解为NO<sub>X</sub>主要是在紫外条件下。值得注意的是，紫外光（200-380 nm）仅占据了太阳光谱的4<del>5%，远低于可见光（380</del>760 nm）的比重——45~50%。然而，现有研究着眼于可见光是否促进硝酸盐的光化学转化。（<strong>鲜有人涉足，因此发在了高档次文章，仅个人看法。</strong>）<br>可见光的能量比较低不足以触发硝酸盐的直接光解因此没有引起足够的重视。然而，最近有报道：矿物氧化物实现了硝酸盐光解为NO<sub>X</sub>。例如，随处可见的TiO<sub>2</sub>纳米颗粒，被广泛用于多种工业和广泛分布的颗粒物，因为其对可见光有吸收或许就可以为硝酸盐光解为NO<sub>X</sub>提供一个场所。<br>为此，我们研究了可见光在TiO<sub>2</sub>纳米颗粒表面的硝酸盐光解做扮演的角色。表面硝酸盐来自于NO<sub>X</sub>的光化学氧化为了与自然条件一样。表面光催化硝酸盐的分解过程使用原位漫反射红外傅里叶光谱(DRIFTS)，本工作通过严格控制实验条件研究光生载流子和反应物分子对光解硝酸盐的影响。进一步，为了硝酸盐转化，气相产物的生成，并且结合理论计算来阐明可见光下引发的分解机理。据我们所知：这是第一次报道在可见光下的表面硝酸盐光解工作。我们揭示了表面配位模式不同造成不同的分解反应路径。该工作为大气中氮氧化物的产生提供了新思考，并且为表面硝酸盐分解过程提供了更深的理解。</p>
+<h2 id="结果与讨论"><a href="#结果与讨论" class="headerlink" title="结果与讨论"></a>结果与讨论</h2><p>由于纳米TiO<sub>2</sub>对可见光有吸收，因此作者选择了原位产生表面硝酸盐的方法：可见光下NO的光氧化（如图 S1a-S1c）。为了确认硝酸盐的产生，作者使用40ml的去离子水清洗实验样品，反应后使用离子色谱进行检测（如图S1d）。具体如下图一。从图中可以看到硝酸盐的浓度为2.81mg&#x2F;L，其含量比亚硝酸盐含量（0.49mg&#x2F;L）高，硝酸盐的存在证明纳米TiO<sub>2</sub>对可见光有活性，桥接亚硝酸盐（NO<sub>2</sub><sup>-</sup>在1203cm<sup>-1</sup>）和硝酸盐可以被检测到通过光催化氧化NO反应（如图F1a-1b）。结果发现产生的硝酸盐有两种配位模式，包括单齿配位（m-NO<sub>3</sub><sup>-</sup> at 1293 and 1464 cm<sup>-1</sup>）双齿配位（b-NO<sub>3</sub><sup>-</sup> at 1254 and 1577 cm<sup>-1</sup>）。两种硝酸盐的振动频率（V<sub>3高</sub>和V<sub>3低</sub>）都是反对称性的伸缩振动（V<sub>3</sub>）因为吸附的硝酸盐失去了本来的对称性并从D<sub>3h</sub>变成C<sub>2v</sub>。两者的峰强度也说明了表面几乎上是被（b-NO<sub>3</sub><sup>-</sup>）所占据的。<br><img src="https://raw.githubusercontent.com/shuai0511/blog-img/main/S1.png" alt="S1.png"><br>图一 支持信息 S1<br><img src="https://raw.githubusercontent.com/shuai0511/blog-img/main/F1.png" alt="F1.png"><br>图二 正文 F1<br>为了准确理解表面硝酸盐的分解机理，使用理论计算指认他们的振动模式。正如图S2所示，V<sub>3高</sub>是没有和表面配位的N-O键的振动和V<sub>3低</sub>是和表面配位的N-O键的振动。都对峰指认（C-b-NO<sub>3</sub><sup>-</sup>at 1254 cm<sup>-1</sup>，F-b-NO<sub>3</sub><sup>-</sup>at 1577 cm<sup>-1</sup>，C-m-NO<sub>3</sub><sup>-</sup>at 1293 cm<sup>-1</sup>，F-m-NO<sub>3</sub><sup>-</sup>at 1464 cm<sup>-1</sup>) 如图F1c所示。然后，可见光下表面硝酸盐的分解反应在可见光照射（波长范围为380~700 nm）的持续流反应器中进行。我们都知道分解产物（NO和NO2）均是空气污染物，并且，NO2比NO的危害更大，更易转化为酸性（HONO）增加大气的氧化能力。产生的NO<sub>X</sub>作为照射时间的函数在不同条件下如图F1d-1i所示。当灯光被打开时，NO和NO2的浓度在惰性条件和空气条件下均快速上升，空白实验为了排除反应器的影响（如图S3a所示）。<br><img src="https://raw.githubusercontent.com/shuai0511/blog-img/main/S2.png" alt="S2.png"><br>图三 支持信息 S2<br><img src="https://raw.githubusercontent.com/shuai0511/blog-img/main/S3.png" alt="S3.png"><br>图四 支持信息 S3</p>
+<p><code>旁白：我们可以分析，首先在F1的d、g是干氩气，e、h为湿氩气，f、i为湿空气，通过分析三个平行实验，当灯光开始照射时：NO和NO2含量都上升，但是NO的含量远高于NO2，而且为NO2先上升，后面等一小段时间（5min左右才会有NO含量的上升)，根据化学反应动力学的知识，可以猜测硝酸盐先生成NO2，然后NO2再生成NO,这是在惰性氛围里，即左边的第一组实验。对比第二组平行实验，多了水分，但是NO的生成速率显著增大，可以猜测，水分可以加速NO2向NO的转变，再对比第二个和第三个平行实验，可以分析在氧气存在的条件下，其会更复杂。</code><br><img src="https://raw.githubusercontent.com/shuai0511/blog-img/main/%E5%88%86%E6%9E%901.png" alt="分析1.png"><br>图五 分析用的图<br>为了进一步说明可见光对于硝酸盐的分解有作用，作者将硝酸钾分别负载在氧化铝和纳米二氧化钛，然而在氧化铝表面几乎没有NO<sub>X</sub>浓度的上升，说明在惰性表面并没有可见光催化活性。如图S3b。值得注意的是，在惰性气氛和空气气氛下都有检测到TiO2表面负载的硝酸盐分解为NO<sub>X</sub>，解释了其在可见光下可以分解硝酸盐(如图S3c-3d)。这也进一步说明了可见光可以触发硝酸盐的光解反应。然而在F1d-1e，1g-1h均发现NO浓度高于NO<sub>2</sub>，但是当空气存在时结果却相反(如图F1f和)。以上的结果说明可见光催化中，水分子、氧分子对硝酸盐的分解贡献不同。因此，在下面的章节中将一步步的探讨他们的相互作用。<br>光催化剂工作主要是产生载流子。为了调查可见光照射下的载流子触发的表面硝酸盐的降解，在惰性气氛中使用红外光谱记录其变化（如图F2a和2d）。m-NO<sub>3</sub><sup>-</sup>和b-NO<sub>3</sub><sup>-</sup>的强度作为照射时间的函数已展示在F2b、2c和F2d、2e。随着照射时间的增加，m-NO<sub>3</sub><sup>-</sup>和NO2的强度有所降低（如图F2e-2f，S4），然而b-NO<sub>3</sub><sup>-</sup>的浓度却有所上升（图F2b-2c）。为了区别m-NO<sub>3</sub><sup>-</sup>和NO2的消耗，通过在氧气条件下将NO2光化学氧化为NO3制造一个NO2缺乏的表面（如图S5）.正如在图S6中那样，在光照下b-NO<sub>3</sub><sup>-</sup>的浓度提高，以为着b-NO<sub>3</sub><sup>-</sup>的增长主要来自于光生空穴对NO2的氧化（见反应4）。然而，m-NO<sub>3</sub><sup>-</sup>的消耗维持（如图S6d-S6e）。结合图F1d和F1g，它可以得出结论：气相产物是来自于光生电子激发的m-NO<sub>3</sub><sup>-</sup>。光生电子的产生与消耗也被证明了（如图S7）。正如反应（1）~（3）所描述的那样，硝酸盐中的N元素是其最高价态（+5），然后被将到（+2）价。相比于b-NO<sub>3</sub><sup>-</sup>，m-NO<sub>3</sub><sup>-</sup>的先行消耗也与表面硝酸盐的稳定性一致，因为b-NO<sub>3</sub><sup>-</sup>的强度比m-NO<sub>3</sub><sup>-</sup>强（图F2d）。<br><img src="https://raw.githubusercontent.com/shuai0511/blog-img/main/F2.png" alt="F2.png"><br>图六 正文中的 F2<br><img src="https://raw.githubusercontent.com/shuai0511/blog-img/main/%E5%8F%8D%E5%BA%94%E5%8E%86%E7%A8%8B.png" alt="反应历程.png"><br>图七 反应历程</p>
+<p>为了更好理解光催化消耗催化剂表面m-NO<sub>3</sub><sup>-</sup>的机理，我们使用理论计算来说明。正如在F3a和S8中所示，当硝酸盐单齿配位时，其N-O1从1.25变为1.43 Å，同时N-O2，3键从1.25变为1.22 Å。并且其对称性和角度也变化了，这些结果均说明m-NO<sub>3</sub><sup>-</sup>中的N-O1键在催化剂表面被削弱，有助于m-NO<sub>3</sub><sup>-</sup>的光解。进一步，态密度（DOS）计算说明纳米TiO2的导带主要由Ti元素组成（图F3b），有助于直接向m-NO<sub>3</sub><sup>-</sup>传递光生电子。总体来说，在可见光照射下，光生电子从价带跳至导带（图F3c），然后吸附的m-NO<sub>3</sub><sup>-</sup>捕获电子，导致其N-O1键断裂产生NO2。然后由于在惰性氛围中NO浓度高于NO2预示着大多数的NO2将会在催化剂表面进一步还原至NO。留下的光生空穴将消耗NO<sub>2</sub><sup>-</sup>生成b-NO<sub>3</sub><sup>-</sup>，为了刻画可见光下光生载流子触发m-NO<sub>3</sub><sup>-</sup>的分解机理，相关的反应过程如图F3d和图S9所示。</p>
+<h2 id="第二部分"><a href="#第二部分" class="headerlink" title="第二部分"></a>第二部分</h2><p>为了促进水蒸气在光催化表面硝酸盐分解中的影响通过原为漫反射红外光谱研究。表面硝酸盐红外瞬时透射谱如图F4a所示。相关的红外轮廓图和三维等高图如图F4d和F4g所示。在原位反应器中引入水蒸气之后，水的冯强度逐渐增加（如图F4a所示），预示着水分子成功吸附于催化剂表面。同时，如图F4b，F4c和F4e，F4f，硝酸盐的峰强（m-NO<sub>3</sub><sup>-</sup>和b-NO<sub>3</sub><sup>-</sup>）作为反应时间的函数在可见光照射下显示有两个反应阶段，包括表面硝酸盐的产生与消耗。根据以上的结果，那个b-NO<sub>3</sub><sup>-</sup>的增长源自于NO2-的光化学氧化。为了更进一步确定水的存在，我们制造一个硝酸盐缺乏的表面（例如支持信息中的S10a的绿线），当硝酸盐缺乏的表面被置于可见光照射下的潮湿空气中，b-NO<sub>3</sub><sup>-</sup>的增长被显著抑制，尤其是F-b-NO<sub>3</sub><sup>-</sup>（如图S10c所示）。因此，它显示b-NO<sub>3</sub><sup>-</sup>仍然是由NO2-的光化学氧化转化而来的，但是这个氧化过程可能会被OH自由基主导。光催化剂可以促进水分解为OH基团并转化为OH自由基。<br>此外，根据b-NO<sub>3</sub><sup>-</sup>的新增消耗与m-NO<sub>3</sub><sup>-</sup>的增加同步，这可以推断m-NO<sub>3</sub><sup>-</sup>的来源来自于b-NO<sub>3</sub><sup>-</sup>的转化（如图F4h，4i所示），随着峰强度的变化，谁的引入导致C-b-NO<sub>3</sub><sup>-</sup>和F-b-NO<sub>3</sub><sup>-</sup>发生了一个位移分别从1258cm<sup>-1</sup>和1575cm<sup>-1</sup>到1265和1565cm<sup>-1</sup>。这个和越高频率的V<sub>3</sub>分裂的峰，硝酸盐的热稳定性越高。b-NO<sub>3</sub><sup>-</sup>的V<sub>3</sub>振动峰从317减小至300cm<sup>-1</sup>证明了b-NO<sub>3</sub><sup>-</sup>的稳定性减小至<br>m-NO<sub>3</sub><sup>-</sup>。之前的研究报道称水吸附在TiO<sub>2</sub>表面之后可以分解，导致表面（OH）羟基浓度的上升。Ostaszewski等人发现表面的OH终端的氢键作用可以促进表面硝酸盐向单齿配位的m-NO<sub>3</sub><sup>-</sup>转化。为了进一步确定该结果，在黑暗的情况下将水蒸气引入硝酸盐富足的表面（如支持信息中S11所示）。像预期的那样，随着水的吸附，C-b-NO<sub>3</sub><sup>-</sup>的峰强度有所减弱同时m-NO<sub>3</sub><sup>-</sup>的强度上升。因此，可以正经引入水蒸气的催化剂表面分解并且有效提高表面羟基浓度并使驱动b-NO<sub>3</sub><sup>-</sup>向m-NO<sub>3</sub><sup>-</sup>的转变。如图F4b中所示的那样峰强度的快速减弱标示这羟基（OH）终端与表面配位的b-NO<sub>3</sub><sup>-</sup>的氧原子之间产生了氢键作用。作者提出的配位转化机理如机理Scheme 1a所示。<br>值得注意的是，在黑暗条件下，m-NO<sub>3</sub><sup>-</sup>在吸附平衡之后的消耗阶段消失（如图S11d所示），证明了图F4e中m-NO<sub>3</sub><sup>-</sup>的消耗仍旧是被可见光催化引发的。另外，OH（羟基）诱导的b-NO<sub>3</sub><sup>-</sup>的转化速率有所下降。他证明可见光可以加速水的分解。因此，通过控制实验条件可以证明这个费解的现象。通过引入低湿度气氛来证明在黑暗条件下水分解后主导的b-NO<sub>3</sub><sup>-</sup>的转化。正如图S12和S13所示的那样，当反应的相关湿度小于10%的时候硝酸盐的峰强度并没有发生明显的改变。这个事实说明引入一小部分水汽在黑暗情况下并不能造成表面硝酸盐配位情况的转变。有趣的是，在可见光下相似的实验条件发现了配位方式发生转化的信号（如图S14和S15所示）。这些结果和之前的研究一致：表明光催化剂可以促进表面水的吸附和分解，导致表面羟基的增加并表现出氢键相互作用。同时，m-NO<sub>3</sub><sup>-</sup>被逐渐消耗。然而，在低湿度的条件下照射，m-NO<sub>3</sub><sup>-</sup>在光强增加后开始展现出净消耗（如图S14d和S14e）。因此证明了表面羟基可以通过氢键所用有效地降低b-NO<sub>3</sub><sup>-</sup>的稳定性并且促进m-NO<sub>3</sub><sup>-</sup>的形成。表面羟基的含量可以通过调节湿度和光催化剂来调控。进一步，如图F1e中气相产物（NO）的生成可以解释为在可见光催化下表面羟基的存在。大量的m-NO<sub>3</sub><sup>-</sup>和b-NO<sub>3</sub><sup>-</sup>同时在湿气氛中的可见光照射下分解。b-NO<sub>3</sub><sup>-</sup>的光催化分解机理如Scheme 1a所刻画的那样。<br>更进一步，探究了表面硝酸盐的光催化分解机里中氧气所发挥的作用。如图F1f所示，氧气的存在反转了硝酸盐分解的气相产物分布致使NO2成为主要的产物。这可能是由于超氧自由基在NO—&gt;NO2光氧化过程中的贡献。之前的研究指出：氧气可以通过光氧化气相分解产物再生为硝酸盐从而降低硝酸盐的净分解速率。这解释了在湿空气中总的含氮气相产物的下降。然而，有气相产物的生成说明表面硝酸盐的分解过程并没有被完全抑制。类似的，当有氧气存在且有湿度时，可以观察到表面硝酸盐红外峰强度的减弱（如图S16所示）。甚至，在图F4a和S16中相同的趋势证明氧气存在并不能抑制水在表面硝酸盐分解过程中的作用。<br>为了更好的理解表面硝酸盐的分解机理，作者检测了可见光下潮湿空气下的峰强度演化关系。b-NO<sub>3</sub><sup>-</sup>和m-NO<sub>3</sub><sup>-</sup>的变化趋势作为时间的函数绘制在图F5所示，可以将其分解为三个连续的过程。第一阶段，两者的消耗和生成同步进行。b-NO<sub>3</sub><sup>-</sup>的增长来自于表面NO2-光催化氧化。表面b-NO<sub>3</sub><sup>-</sup>和羟基(OH)的氢键所用使得b-NO<sub>3</sub><sup>-</sup>转向m-NO<sub>3</sub><sup>-</sup>的生成，而可见光催化同时又引发了m-NO<sub>3</sub><sup>-</sup>的分解过程。而C-b-NO<sub>3</sub><sup>-</sup>和C-m-NO<sub>3</sub><sup>-</sup>的预先减少也说明了b-NO<sub>3</sub><sup>-</sup>的转化和m-NO<sub>3</sub><sup>-</sup>的分解均是从表面配位的N-O键开始的。在第二个阶段，b-NO<sub>3</sub><sup>-</sup>的净消耗速率开始出现于NO<sub>2</sub><sup>-</sup>的消耗之后。并且，b-NO<sub>3</sub><sup>-</sup>的的转化速率逐渐下降。同时，m-NO<sub>3</sub><sup>-</sup>的生成和分解速率达到稳定。在第三个阶段，m-NO<sub>3</sub><sup>-</sup>的净消耗速率开始显现，主要是由于b-NO<sub>3</sub><sup>-</sup>转化为m-NO<sub>3</sub><sup>-</sup>的停滞，导致m-NO<sub>3</sub><sup>-</sup>的生成速率减小，因而破坏了之前的稳态，因此表现出来净的m-NO<sub>3</sub><sup>-</sup>消耗速率。总之，光催化表面硝酸盐的分解次序是C-b-NO<sub>3</sub><sup>-</sup>、F-b-NO<sub>3</sub><sup>-</sup>、C-m-NO<sub>3</sub><sup>-</sup>、F-m-NO<sub>3</sub><sup>-</sup>。<br>除了水和氧气分子之外，之间的研究发现NO可以在光催化剂上与表面硝酸盐反应来诱发其分解。因此，作者通过原为漫反射红外光谱来研究其机理。为了清楚的区分NO的作用，硝酸盐充足的表面持续暴露在氩气和NO气氛中并伴有可见光照射（如图S17所示）。在惰性气氛中，峰强度作为时间的函数，只能观察到m-NO<sub>3</sub><sup>-</sup>有明显的消耗（如图S15e和S15f）。一旦引入NO之后，b-NO<sub>3</sub><sup>-</sup>的强度迅速下降，并伴随着m-NO<sub>3</sub><sup>-</sup>的持续消耗（如图S17c和S17d）。更进一步，表面硝酸盐连续暴露于NO和Ar的环境中，它和处于NO气氛中具。有相似的结果（如图S18所示）。这些结果表明NO可以在可见光照射下诱发纳米TiO<sub>2</sub>表面的b-NO<sub>3</sub><sup>-</sup>直接分解。<br>不同的是，b-NO<sub>3</sub><sup>-</sup>的峰强度在Ar环境中上升（如图S18c和S18d）。它证明了上述b-NO<sub>3</sub><sup>-</sup>的来源主要为表面NO<sub>2</sub><sup>-</sup>的光化学氧化。因此，在Ar环境中可能有NO诱导的硝酸盐分解过程中新产生的NO<sub>2</sub><sup>-</sup>来提供b-NO<sub>3</sub><sup>-</sup>的生成。它预示着NO可以捕获光生电子并通过NO<sub>3</sub><sup>-</sup>+NO<sup>-</sup> —&gt; 2NO<sub>2</sub><sup>-</sup> 路径来改变N元素的价态。为了弄清楚表面分解产物（NO<sub>2</sub><sup>-</sup> ）的形成途径，硝酸盐缺乏的表面被用于研究（如图F6a中的绿色的线条）如F6b中所示，NO的引入引发了硝酸盐的急剧分解，尤其是b-NO<sub>3</sub><sup>-</sup>在可见光照射下。同时，NO<sub>2</sub><sup>-</sup> 的峰逐渐上升（如图F6所示）。根据C-b-NO<sub>3</sub><sup>-</sup>比F-b-NO<sub>3</sub><sup>-</sup>的消耗速率快，可以推断NO首先攻击配位的N-O键将其分解为NO<sub>2</sub><sup>-</sup> ，正如图F6d所描述的那样。值得注意的是，当在NO和O2共存的条件下，表面硝酸盐的消耗速率明显下降（如图S19所示），这可归因于NO<sub>2</sub><sup>-</sup> 更容易被自由基氧化。因此，这个分解机理经常容易被大气化学所忽视，然而新产生的<br>NO<sub>2</sub><sup>-</sup> 的解离吸附是形成HONO的一个重要的途径。<br>硝酸盐的分解是大气中一个复杂的光化学过程。他的分解产物NOx是对加剧空气污染的一个重要的前体物。之前的研究证明硝酸盐的分解起始于紫外波段（~300 nm），主要是基于硝酸盐的激发波长。本研究提供了一个新的新的途径硝酸盐可以在可见光（&gt;380 nm）下分解为NOx，纳米TiO2在其中扮演了一个关键的角色。随着现代化进程的不断发展，环境中吸附了<br>NO<sub>3</sub><sup>-</sup>的纳米TiO<sub>2</sub>随处可见。因此，很多地方随处可见的光化学分解硝酸盐生成NOx过程之前被忽视。更深的，它预示了表面硝酸盐的配位不同和共存的表面羟基（OH）是影响可见光照射下表面硝酸盐分解成气相产物（NOx）的重要因素。</p>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>在可见光照射下观察到的光催化表面硝酸盐的分解产物（NO和NO2），对于提高大气中PM2.5和臭氧浓度的明显贡献者。作者使用原位漫反射红外光谱和理论计算来说明表面不同配位模式的硝酸盐在不同条件下的分解机理。由于m-NO<sub>3</sub><sup>-</sup>的稳定性较弱，它可以被光生电子攻击并经历光催化分解，导致形成NO和NO2。同时，光生空穴被表面亚硝酸盐吸收用于形成b-NO<sub>3</sub><sup>-</sup>。当引入水分子之后其增加表面的羟基浓度，并导致b-NO<sub>3</sub><sup>-</sup>向-NO<sub>3</sub><sup>-</sup>的转化通过氢键作用。可见光照射下光催化分解过程提高了气相产物的浓度。单独来说，b-NO<sub>3</sub><sup>-</sup>在可见光照射下可以被NO攻击直接分解为亚硝酸盐，但是责怪过程容易被氧气的存在给掩盖。本研究不仅第一次提出可见光下催化形成NOx的关键作用，而且为表面不同配位的硝酸盐的分解机里过程提供了全新的认识。</p>
+
+    </div>
+
+    
+    
+    <div class="post-widgets">
+      <div id="needsharebutton-postbottom">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    </div>
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%9C%BA%E7%90%86%E7%A0%94%E7%A9%B6/" rel="tag"># 机理研究</a>
+              <a href="/tags/%E6%96%87%E7%8C%AE%E7%BF%BB%E8%AF%91/" rel="tag"># 文献翻译</a>
+              <a href="/tags/%E7%A1%9D%E9%85%B8%E7%9B%90/" rel="tag"># 硝酸盐</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/6a074caa/" rel="prev" title="初识果壳">
+      <i class="fa fa-chevron-left"></i> 初识果壳
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/772cb70f/" rel="next" title="理论表面科学——第一章">
+      理论表面科学——第一章 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%87%E7%8C%AE%E9%93%BE%E6%8E%A5"><span class="nav-number">2.</span> <span class="nav-text">文献链接</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%91%98%E8%A6%81"><span class="nav-number">2.1.</span> <span class="nav-text">摘要</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D"><span class="nav-number">2.2.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E6%9E%9C%E4%B8%8E%E8%AE%A8%E8%AE%BA"><span class="nav-number">2.3.</span> <span class="nav-text">结果与讨论</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86"><span class="nav-number">2.4.</span> <span class="nav-text">第二部分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA"><span class="nav-number">2.5.</span> <span class="nav-text">结论</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Hengshuai Shang</p>
+  <div class="site-description" itemprop="description">study</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hengshuai Shang</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.js"></script>
+  <script>
+      pbOptions = {};
+        pbOptions.iconStyle = "box";
+        pbOptions.boxForm = "horizontal";
+        pbOptions.position = "bottomCenter";
+        pbOptions.networks = "Wechat,QQZone,Weibo,Douban,Twitter,Facebook";
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+  </script>
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'Ka4ubzmsbl0JVIyhTlFpMDQE-gzGzoHsz',
+      appKey     : 'NsRGFAadaaHTNxqS5Daeoj6N',
+      placeholder: "请在此输入您的留言",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/z16.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script></body>
+</html>

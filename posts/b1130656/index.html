@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="有效质量1对于固体材料中的电子或空穴，有效质量（m）是一个用于通过模拟具有该质量的自由粒子的行为来简化能带结构的量。在半导体（如Ge, Si, GaAs, …）的最高价带的电子和例如半导体（GaAs, …）的最低导带能级的，能带E(k)可以近似表述为：E(k)是在每一个带中电子波矢的能量，E0是一个常数给出了每一个带的边界，因此（m）可以通过以下方程计算：通常来说，我们仅仅对于那些从一个高对称点到">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vaspkit-教程翻译（有效质量）">
+<meta property="og:url" content="http://example.com/posts/b1130656/index.html">
+<meta property="og:site_name" content="Hengshuai Shang">
+<meta property="og:description" content="有效质量1对于固体材料中的电子或空穴，有效质量（m）是一个用于通过模拟具有该质量的自由粒子的行为来简化能带结构的量。在半导体（如Ge, Si, GaAs, …）的最高价带的电子和例如半导体（GaAs, …）的最低导带能级的，能带E(k)可以近似表述为：E(k)是在每一个带中电子波矢的能量，E0是一个常数给出了每一个带的边界，因此（m）可以通过以下方程计算：通常来说，我们仅仅对于那些从一个高对称点到">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/shuai0511/blog-img/main/2-1">
+<meta property="og:image" content="https://raw.githubusercontent.com/shuai0511/blog-img/main/2-2">
+<meta property="og:image" content="https://raw.githubusercontent.com/shuai0511/blog-img/main/2-3">
+<meta property="og:image" content="https://raw.githubusercontent.com/shuai0511/blog-img/main/2-4">
+<meta property="og:image" content="https://raw.githubusercontent.com/shuai0511/blog-img/main/2-5">
+<meta property="og:image" content="https://raw.githubusercontent.com/shuai0511/blog-img/main/2-6">
+<meta property="article:published_time" content="2023-09-10T04:12:57.000Z">
+<meta property="article:modified_time" content="2023-09-10T05:29:28.704Z">
+<meta property="article:author" content="Hengshuai Shang">
+<meta property="article:tag" content="vaspkit">
+<meta property="article:tag" content="翻译">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/shuai0511/blog-img/main/2-1">
+
+<link rel="canonical" href="http://example.com/posts/b1130656/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.css"><style>
+#needsharebutton-postbottom {
+  cursor: pointer;
+  height: 26px;
+  margin-top: 10px;
+  position: relative;
+}
+#needsharebutton-postbottom .btn {
+  border: 1px solid $btn-default-border-color;
+  border-radius: 3px;
+  display: initial;
+  padding: 1px 4px;
+}
+</style>
+  <title>vaspkit-教程翻译（有效质量） | Hengshuai Shang</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hengshuai Shang</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">hengshuai shang</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/b1130656/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hengshuai Shang">
+      <meta itemprop="description" content="study">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hengshuai Shang">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          vaspkit-教程翻译（有效质量）
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-09-10 12:12:57 / 修改时间：13:29:28" itemprop="dateCreated datePublished" datetime="2023-09-10T12:12:57+08:00">2023-09-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/vaspkit/" itemprop="url" rel="index"><span itemprop="name">vaspkit</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/vaspkit/efficient-mass/" itemprop="url" rel="index"><span itemprop="name">efficient mass</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/b1130656/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/b1130656/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="有效质量"><a href="#有效质量" class="headerlink" title="有效质量"></a>有效质量</h1><h2 id="1"><a href="#1" class="headerlink" title="1"></a>1</h2><p>对于固体材料中的电子或空穴，有效质量（m<em>）是一个用于通过模拟具有该质量的自由粒子的行为来简化能带结构的量。在半导体（如Ge, Si, GaAs, …）的最高价带的电子和例如半导体（GaAs, …）的最低导带能级的，能带E(<strong>k</strong>)可以近似表述为：<br><img src="https://raw.githubusercontent.com/shuai0511/blog-img/main/2-1"><br>E(<strong>k</strong>)是在每一个带中电子波矢的能量，E0是一个常数给出了每一个带的边界，因此（m</em>）可以通过以下方程计算：<br><img src="https://raw.githubusercontent.com/shuai0511/blog-img/main/2-2"><br>通常来说，我们仅仅对于那些从一个高对称点到另一个对称点的有效质量（m*）感兴趣。所以对于ki和kj方向的相同，such as K -&gt; M, K -&gt; Γ. 为了得到二阶偏导数， <code>KPOINTS</code> 文件中要包含特别靠近高对称点的 <code>K</code> 点， <code>vaspkit</code> 可以自动生成用于 <code>vasp</code> 计算有效质量的 <code>KPOINTS</code> 文件。（<strong>注意：现在，<code>vaspkit</code> 仅仅可以用于计算不带电荷且不含有磁性的半导体的有效质量！</strong>）<br><img src="https://raw.githubusercontent.com/shuai0511/blog-img/main/2-3"></p>
+<h2 id="例子：单层MoS2的有效质量"><a href="#例子：单层MoS2的有效质量" class="headerlink" title="例子：单层MoS2的有效质量"></a>例子：单层MoS2的有效质量</h2><ul>
+<li>1、通过能带计算找到带边位置，价带顶和导带底均处在 <code>K</code> 点处，为直接半导体。</li>
+<li>2、选择二阶偏微分的方向。在这里，我们选择K -&gt; M, K -&gt; Γ来计算他们电子和空穴的有效质量。</li>
+<li>3、准备需要的 <code>POSCAR</code> 和 VPKIT.in&#96; 文件。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1       # &quot;1&quot; for pre-process (generate KPOINTS), &quot;2&quot; for post-process(calculate m*)</span><br><span class="line">6       # number of points for quadratic function fitting.</span><br><span class="line">0.015   # k-cutoff, unit Å-1.</span><br><span class="line">2       # number of tasks for effective mass calculation</span><br><span class="line">0.333333 0.3333333 0.000 0.000 0.000 0.000 K-&gt;Γ # Specified two K-points and direction</span><br><span class="line">0.333333 0.3333333 0.000 0.500 0.000 0.000 K-&gt;M # Specified two K-points and direction</span><br></pre></td></tr></table></figure></li>
+<li>4、使用 <code>vaspkit</code> 的 <code>912</code> 功能，然后输入 <code>K-mesh</code> 模式的参数，之后 <code>vaspkit</code> 将会基于 <code>VPKIT.in</code> 生成一个包含0权重的 <code>KPOINTS</code> 文件。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">+-------------------------- Warm Tips --------------------------+</span><br><span class="line">      Test ONLY for Non-Charged &amp; Non-Magnetic Semiconductor!</span><br><span class="line"> +---------------------------------------------------------------+</span><br><span class="line">  --&gt;&gt; (01) Reading VPKIT.in File...</span><br><span class="line">  --&gt;&gt; (02) Reading Structural Parameters from POSCAR File...</span><br><span class="line"> ======================= K-Mesh Scheme ==========================</span><br><span class="line"> 1) Monkhorst-Pack Scheme</span><br><span class="line"> 2) Gamma Scheme</span><br><span class="line"></span><br><span class="line"> 0)   Quit</span><br><span class="line"> 9)   Back</span><br><span class="line"> -------------&gt;&gt;</span><br><span class="line">2</span><br><span class="line"> +-------------------------- Warm Tips --------------------------+</span><br><span class="line"></span><br><span class="line">- Accuracy Levels: Gamma-Only: 0;</span><br><span class="line">   Low: 0.06~0.04;</span><br><span class="line">   Medium: 0.04~0.03;</span><br><span class="line">   Fine: 0.02-0.01.</span><br><span class="line">- 0.03-0.04 is Generally Precise Enough!</span><br><span class="line">  +---------------------------------------------------------------+</span><br><span class="line">   Input KPT-Resolved Value (e.g., 0.04, in unit of 2*PI/Angstrom):</span><br><span class="line">   ------------&gt;&gt;</span><br><span class="line">  0.04</span><br><span class="line">       1</span><br><span class="line">    --&gt;&gt; (03) Written KPOINTS File!</span><br><span class="line">    --&gt;&gt; (04) Written INCAR file!</span><br><span class="line">    --&gt;&gt; (05) Written POTCAR File with the Standard Potential!</span><br></pre></td></tr></table></figure>
+自动产生的 <code>KPOINTS</code> 文件如下：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">Parameters to Generate KPOINTS (Don&#x27;t Edit This Line):     0.0400    12     2     6</span><br><span class="line">    24</span><br><span class="line">Reciprocal lattice</span><br><span class="line">    0.00000000000000    0.00000000000000    0.00000000000000     1</span><br><span class="line">    0.11111111111111    0.00000000000000    0.00000000000000     6</span><br><span class="line">    0.22222222222222    0.00000000000000    0.00000000000000     6</span><br><span class="line">    0.33333333333333    0.00000000000000    0.00000000000000     6</span><br><span class="line">    0.44444444444444    0.00000000000000    0.00000000000000     6</span><br><span class="line">    0.11111111111111    0.11111111111111    0.00000000000000     6</span><br><span class="line">    0.22222222222222    0.11111111111111    0.00000000000000    12</span><br><span class="line">    0.33333333333333    0.11111111111111    0.00000000000000    12</span><br><span class="line">    0.44444444444444    0.11111111111111    0.00000000000000     6</span><br><span class="line">    0.22222222222222    0.22222222222222    0.00000000000000     6</span><br><span class="line">    0.33333333333333    0.22222222222222    0.00000000000000    12</span><br><span class="line">    0.33333333333333    0.33333333333333    0.00000000000000     2</span><br><span class="line">    0.33333300000000    0.33333330000000    0.00000000000000     0 # K-&gt;Γ</span><br><span class="line">    0.32795808307727    0.33136593967371    0.00000000000000     0</span><br><span class="line">    0.32258316615454    0.32939857934742    0.00000000000000     0</span><br><span class="line">    0.31720824923180    0.32743121902113    0.00000000000000     0</span><br><span class="line">    0.31183333230907    0.32546385869484    0.00000000000000     0</span><br><span class="line">    0.30645841538634    0.32349649836855    0.00000000000000     0</span><br><span class="line">    0.33333300000000    0.33333330000000    0.00000000000000     0 # K-&gt;M</span><br><span class="line">    0.33673240318272    0.32574567174541    0.00000000000000     0</span><br><span class="line">    0.34013180636544    0.31815804349082    0.00000000000000     0</span><br><span class="line">    0.34353120954815    0.31057041523622    0.00000000000000     0</span><br><span class="line">    0.34693061273087    0.30298278698163    0.00000000000000     0</span><br><span class="line">    0.35033001591359    0.29539515872704    0.00000000000000     0</span><br></pre></td></tr></table></figure></li>
+<li>5、提交 <code>vasp</code> 任务，</li>
+<li>6、使用 <code>2</code>代替 <code>VPKIT.in</code> 文件的第一行，然后重新运行 <code>vaspkit</code> 的 <code>913</code> 功能去得到电子和空穴的有效质量（m*）。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">913</span><br><span class="line"> +-------------------------- Warm Tips --------------------------+</span><br><span class="line">      Test ONLY for Non-Charged &amp; Non-Magnetic Semiconductor!</span><br><span class="line"> +---------------------------------------------------------------+</span><br><span class="line">  --&gt;&gt; (01) Reading VPKIT.in File...</span><br><span class="line">  --&gt;&gt; (02) Reading Structural Parameters from POSCAR File...</span><br><span class="line">  --&gt;&gt; (03) Reading Input Parameters From INCAR File...</span><br><span class="line">  --&gt;&gt; (04) Reading Energy-Levels From EIGENVAL File...</span><br><span class="line"> +-------------------------- Summary ----------------------------+</span><br><span class="line"> Effective-Mass is obtained by fitting a third order polynomial,</span><br><span class="line"> which yields masses are less sensitive to the employed k-points.</span><br><span class="line"> Band Index:                LUMO =   10               HOMO =   9</span><br><span class="line"> Effective-Mass (in m0)     Electron (Prec.)          Hole (Prec.)</span><br><span class="line"> K-Path Index 1: K-&gt;Γ        0.480 (0.2E-07)      -0.577 (0.2E-07)</span><br><span class="line"> K-Path Index 2: K-&gt;M        0.527 (0.8E-07)      -0.705 (0.2E-06)</span><br><span class="line"> +---------------------------------------------------------------+</span><br></pre></td></tr></table></figure>
+<code>Kormányos</code> 等人计算量单层MoS2电子和空穴载流子的有效质量分别为 <code>0.44</code> 和 <code>0.54</code> .（ [see 2D Mater. 2 (2015) 049501]）<strong>注意：如果价带和导带底</strong>再生(就像<code>GaAs</code> and <code>GaN</code>)，将很难同时保证结果的准确性。</li>
+</ul>
+<h1 id="能带的反折叠"><a href="#能带的反折叠" class="headerlink" title="能带的反折叠"></a>能带的反折叠</h1><p>真实材料的电子结构通常会被大量的结构杂质、缺陷、合金的元素占比的变化等因素所扰乱。在密度泛函理论的计算中，结构缺陷和不对称性通常需要通过超胞(SC)模型来研究，在原胞（PC）中对能带的解释使用E(k⃗ )比k⃗ 更有效，<code>Popescu</code> 和 <code>Zunger</code> [见 PRL 104, 236403 (2010) and PRB 85, 085201 (2012)]提出了有效能带结构（EBS）方法，可以应用反折叠方法将超胞的能带处理到原胞的布里渊区（BZ），这样的反折叠技术可以很大程度上简化结果的分析并且可以直接与实验测量结果进行直接比较。例如，角度分辨光发射光谱（ARPES）经常代表了沿着原胞（PC）布里渊区（BZ）高对称点方向。<br><img src="https://raw.githubusercontent.com/shuai0511/blog-img/main/2-4"></p>
+<h2 id="第一步，准备以下文件"><a href="#第一步，准备以下文件" class="headerlink" title="第一步，准备以下文件"></a>第一步，准备以下文件</h2><ul>
+<li>1、单层MoS2的 <code>POSCAR</code><br>  原胞：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">MoS2-H.POSCAR</span><br><span class="line">   1.00000000000000000</span><br><span class="line">     3.1904063769892548    0.0000000000000000    0.0000000000000000</span><br><span class="line">    -1.5952031884946274    2.7629729709066906    0.0000000000000000</span><br><span class="line">     0.0000000000000000    0.0000000000000000   17.6585355706663840</span><br><span class="line">   Mo   S</span><br><span class="line">     1     2</span><br><span class="line">Direct</span><br><span class="line">  0.3333333429999996  0.6666666870000029  0.5000000000000000</span><br><span class="line">  0.6666666870000029  0.3333333429999996  0.4117002781430051</span><br><span class="line">  0.6666666870000029  0.3333333429999996  0.5882996918569924</span><br></pre></td></tr></table></figure></li>
+<li>2、<code>MoS2</code> 的 <code>KPATH.in</code><br>原胞（不用进行超胞），你可以运行 <code>vaspkit</code> 的 <code>302</code> 功能（二维材料）或者 <code>303</code> (体相材料)产生原胞，或者手动进行修改。对于单层的 <code>MoS2</code> ，我们选择 <code>M-K-Γ</code> 这个 <code>K-path</code> 。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">KPATH for MoS2</span><br><span class="line">20</span><br><span class="line">Line mode</span><br><span class="line">Rec</span><br><span class="line">  0.00000000000 0.50000000000 0.00000000000 # M</span><br><span class="line">  0.33333333333 0.33333333333 0.00000000000 # K</span><br><span class="line"></span><br><span class="line">  0.33333333333 0.33333333333 0.00000000000 # K</span><br><span class="line">  0.00000000000 0.00000000000 0.00000000000 # GAMMA</span><br></pre></td></tr></table></figure></li>
+<li>3、对于静态计算的 <code>INCAR</code> 文件，将 <code>LWAVE=.TRUE</code> 避免’ERROR! Computed NPLANE&#x3D; **** !&#x3D; input NPLANE&#x3D; ****’这个报错，请将 <code>PREC</code> 参数设置为 <code>Normal</code> 或者设置一个中等或者更低的截断能（ENCUT）。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">SYSTEM = MoS2</span><br><span class="line">ISTART = 1</span><br><span class="line">LREAL = F</span><br><span class="line">PREC = N</span><br><span class="line">LWAVE = .TRUE.</span><br><span class="line">LCHARG = F</span><br><span class="line">ISMEAR = 0</span><br><span class="line">SIGMA = 0.05</span><br><span class="line">NELM = 60</span><br><span class="line">NELMIN = 6</span><br><span class="line">EDIFF = 1E-08</span><br></pre></td></tr></table></figure></li>
+<li>4、<code>TRANSMAT.in</code> 文件（可选），这个文件的目录<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Read transformation matrix from the TRANSMAT.in file if it exists.</span><br><span class="line">  2  0  0   # must be three integers</span><br><span class="line">  0  3  0   # must be three integers</span><br><span class="line">  0  0  3   # must be three integers</span><br></pre></td></tr></table></figure>
+第一行是评论行，第二到第四行的整数是一个3行3列的转换矩阵，M是超胞E(A⃗ )晶格矢量之间的联系去满足E(a⃗ )。<br><img src="https://raw.githubusercontent.com/shuai0511/blog-img/main/2-5"><br>在矩阵M中，非对角线元素为0，超胞的晶格矢量将会与原胞的晶格矢量平行。</li>
+</ul>
+<h2 id="第二步-运行-vaspkit-的-400-功能产生一个超胞文件-SUPERCELL-vasp-和-TRANSMAT-如果不存在-TANSMAT-in-文件-。我们修改-SUPERCELL-vasp-文件删去一个-S-原子来制造一个-S-空位。"><a href="#第二步-运行-vaspkit-的-400-功能产生一个超胞文件-SUPERCELL-vasp-和-TRANSMAT-如果不存在-TANSMAT-in-文件-。我们修改-SUPERCELL-vasp-文件删去一个-S-原子来制造一个-S-空位。" class="headerlink" title="第二步 运行 vaspkit 的 400 功能产生一个超胞文件 SUPERCELL.vasp 和 TRANSMAT (如果不存在 TANSMAT.in 文件)。我们修改 SUPERCELL.vasp 文件删去一个 S 原子来制造一个 S 空位。"></a>第二步 运行 <code>vaspkit</code> 的 <code>400</code> 功能产生一个超胞文件 <code>SUPERCELL.vasp</code> 和 <code>TRANSMAT</code> (如果不存在 <code>TANSMAT.in</code> 文件)。我们修改 <code>SUPERCELL.vasp</code> 文件删去一个 <code>S</code> 原子来制造一个 <code>S</code> 空位。</h2><p>单层的MoS2的原胞属于六方晶系。我们可以通过使用 <code>vaspkit</code> 的 <code>400</code> 建立一个正交超胞，如果 <code>TRANSMAT.in</code> 文件不存在，<code>vaspkit</code> 将会通过对话框来读取 <code>M</code> 的9个元素（见下面的命令），否则，将会从<code>TRANSMAT.in</code> 文件中读取矩阵 <code>M</code> 。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">vaspkit -task 400</span><br><span class="line"> +---------------------------------------------------------------+</span><br><span class="line"> |           VASPKIT Version: 1.00.RC (17 Jun. 2019)             |</span><br><span class="line"> |       A Pre- and Post-Processing Program for VASP Code        |</span><br><span class="line"> |            Running VASPKIT Under Command-Line Mode            |</span><br><span class="line"> +---------------------------------------------------------------+</span><br><span class="line">  --&gt;&gt; (01) Reading Structural Parameters from POSCAR File...</span><br><span class="line"> Enter the new lattice verctor a in terms of old:</span><br><span class="line"> (MUST be three integers, e.g., 1 2 3)</span><br><span class="line">   4   0   0</span><br><span class="line"> Enter the new lattice verctor b in terms of old:</span><br><span class="line">   2   4   0</span><br><span class="line"> Enter the new lattice verctor c in terms of old:</span><br><span class="line">   0   0   1</span><br><span class="line"> +-------------------------- Summary ----------------------------+</span><br><span class="line"> The Transformation Matrix P is:</span><br><span class="line">   4   0   0</span><br><span class="line">   2   4   0</span><br><span class="line">   0   0   1</span><br><span class="line"> Lattice Constants in New Cell:  12.762  11.052  17.659</span><br><span class="line"> Lattice Angles in New Cell:   90.00   90.00   90.00</span><br><span class="line"> Total Atoms in New Cell:  48</span><br><span class="line"> Volume of New Cell is 16 times of the Old Cell</span><br><span class="line"> +---------------------------------------------------------------+</span><br><span class="line">  --&gt;&gt; (02) Written SUPERCELL.vasp File</span><br></pre></td></tr></table></figure>
+<h2 id="第三步：将-SUPERCELL-vasp-复制为-POSCAR-并且将-TRANSMAT-复制为-TRANSMAT-in-（如果不存在-TRANSMAT-in-文件），然后运行-vaspkit-的-281-命令产生-KPOINTS-文件。"><a href="#第三步：将-SUPERCELL-vasp-复制为-POSCAR-并且将-TRANSMAT-复制为-TRANSMAT-in-（如果不存在-TRANSMAT-in-文件），然后运行-vaspkit-的-281-命令产生-KPOINTS-文件。" class="headerlink" title="第三步：将 SUPERCELL.vasp 复制为 POSCAR ,并且将 TRANSMAT 复制为 TRANSMAT.in （如果不存在 TRANSMAT.in 文件），然后运行 vaspkit 的 281 命令产生 KPOINTS 文件。"></a>第三步：将 <code>SUPERCELL.vasp</code> 复制为 <code>POSCAR</code> ,并且将 <code>TRANSMAT</code> 复制为 <code>TRANSMAT.in</code> （如果不存在 <code>TRANSMAT.in</code> 文件），然后运行 <code>vaspkit</code> 的 <code>281</code> 命令产生 <code>KPOINTS</code> 文件。</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">------------&gt;&gt;</span><br><span class="line">28</span><br><span class="line"> +-------------------------- Warm Tips --------------------------+</span><br><span class="line">       See some examples in vaspkit/examples/band_unfolding.</span><br><span class="line">          Only Support KPOINTS file Generated by VASPKIT.</span><br><span class="line">            Please Set LWAVE= .TRUE. in the INCAR file.</span><br><span class="line"> +---------------------------------------------------------------+</span><br><span class="line"> ================== Band-Unfolding ==============================</span><br><span class="line"> 281) Generate KPOINTS File for Band-Unfolding Calculation</span><br><span class="line"> 282) Calculate Effective Band Structure</span><br><span class="line"></span><br><span class="line"> 0)   Quit</span><br><span class="line"> 9)   Back</span><br><span class="line"> ------------&gt;&gt;</span><br><span class="line">281</span><br><span class="line"></span><br><span class="line">  --&gt;&gt; (01) Reading Structural Parameters from POSCAR File...</span><br><span class="line"> +---------------------------------------------------------------+</span><br><span class="line"> |               Selective Dynamics is Activated!                |</span><br><span class="line"> +---------------------------------------------------------------+</span><br><span class="line"> ======================= K-Mesh Scheme ==========================</span><br><span class="line"> 1) Monkhorst-Pack Scheme</span><br><span class="line"> 2) Gamma Scheme</span><br><span class="line"></span><br><span class="line"> 0)   Quit</span><br><span class="line"> 9)   Back</span><br><span class="line"> -------------&gt;&gt;</span><br><span class="line">2</span><br><span class="line"> +-------------------------- Warm Tips --------------------------+</span><br><span class="line"> Input Resolution Value to Determine K-Mesh for SCF Calculation:</span><br><span class="line"> (Typical Value: 0.02-0.03 is Generally Precise Enough)</span><br><span class="line"> ------------&gt;&gt;</span><br><span class="line">0.03</span><br><span class="line"> Input Resolution Value along K-Path for Band Calculation:</span><br><span class="line"> (Typical Value: 0.02-0.04 for DFT and 0.04-0.06 for hybrid DFT)</span><br><span class="line"> ------------&gt;&gt;</span><br><span class="line">0.03</span><br><span class="line"> +---------------------------------------------------------------+</span><br><span class="line">  --&gt;&gt; (02) Readin Transformation Matrix from TRANSMAT.in file...</span><br><span class="line">  --&gt;&gt; (03) Reading K-Paths From KPATH.in File...</span><br><span class="line"> +-------------------------- Summary ----------------------------+</span><br><span class="line"> K-Mesh for SCF Calculation:    3    3    1    # Based on SC reciprocal lattice length</span><br><span class="line"> The Number of K-Point along K-Path 1:  21     # Based on PC reciprocal lattice length</span><br><span class="line"> The Number of K-Point along K-Path 2:  43     # Based on PC reciprocal lattice length</span><br><span class="line"> +---------------------------------------------------------------+</span><br></pre></td></tr></table></figure>
+<h2 id="第四步-提交任务"><a href="#第四步-提交任务" class="headerlink" title="第四步 提交任务"></a>第四步 提交任务</h2><h2 id="第五步-运行-vaspkit-的-282-功能来得到有效能带结构-EBS"><a href="#第五步-运行-vaspkit-的-282-功能来得到有效能带结构-EBS" class="headerlink" title="第五步 运行 vaspkit 的 282 功能来得到有效能带结构 EBS ."></a>第五步 运行 <code>vaspkit</code> 的 <code>282</code> 功能来得到有效能带结构 <code>EBS</code> .</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">------------&gt;&gt;</span><br><span class="line">282</span><br><span class="line"> +-------------------------- Warm Tips --------------------------+</span><br><span class="line">   Current Version Only Support the Stardard Version of VASP code.</span><br><span class="line"> +---------------------------------------------------------------+</span><br><span class="line">  --&gt;&gt; (01) Reading the header information in WAVECAR file...</span><br><span class="line"> +--------------------- WAVECAR Header --------------------------+</span><br><span class="line"> SPIN =    1</span><br><span class="line"> NKPTS =   68</span><br><span class="line"> NBANDS = 252</span><br><span class="line"> ENCUT =   280.00</span><br><span class="line"> Coefficients Precision: Complex*8</span><br><span class="line"> Maximum number of G values: GX =   18, GY =   16, GZ =   25</span><br><span class="line"> Estimated maximum number of plane-waves:   30159</span><br><span class="line"> +---------------------------------------------------------------+</span><br><span class="line">  --&gt;&gt; (02) Start to read WAVECAR file, take your time ^.^</span><br><span class="line">            Percentage complete:  25.0%</span><br><span class="line">            Percentage complete:  50.0%</span><br><span class="line">            Percentage complete:  75.0%</span><br><span class="line">            Percentage complete: 100.0%</span><br><span class="line">  --&gt;&gt; (03) Readin Transformation Matrix from TRANSMAT.in file...</span><br><span class="line">  --&gt;&gt; (04) Reading Fermi-Energy from DOSCAR File...</span><br><span class="line"> ooooooooo The Fermi Energy will be set to zero eV ooooooooooooooo</span><br><span class="line">  --&gt;&gt; (05) Reading KPOINTS_MAPPING_TABLE.in file...</span><br><span class="line">  --&gt;&gt; (06) Reading K-Paths From KPATH.in File...</span><br><span class="line">  --&gt;&gt; (07) Start to Calculate Effective Band Structure...</span><br><span class="line">            Percentage complete:  25.0%</span><br><span class="line">            Percentage complete:  50.0%</span><br><span class="line">            Percentage complete:  75.0%</span><br><span class="line">            Percentage complete: 100.0%</span><br><span class="line">  --&gt;&gt; (08) Written EBS.dat File!</span><br><span class="line">  --&gt;&gt; (09) Written KLABELS File!</span><br></pre></td></tr></table></figure>
+<h2 id="第六步：你可以使用-vaspkit-examples-band-unfolding-eps-plot-py-或者其他脚本绘图。"><a href="#第六步：你可以使用-vaspkit-examples-band-unfolding-eps-plot-py-或者其他脚本绘图。" class="headerlink" title="第六步：你可以使用 vaspkit/examples/band_unfolding/eps_plot.py 或者其他脚本绘图。"></a>第六步：你可以使用 <code>vaspkit/examples/band_unfolding/eps_plot.py</code> 或者其他脚本绘图。</h2><h1 id="三维能带结构"><a href="#三维能带结构" class="headerlink" title="三维能带结构"></a>三维能带结构</h1><p>在固体物理中，最普通的是二维电子能带结构（或者称为简化能带结构），它显示了能量随着 <code>k-Path</code> 的变化。<br><code>vaspkit</code> 也可以做三维能带结构，可以选择不可约布里渊区的表面的 <code>K-path</code> 。然后基于这些 <code>K</code> 点计算k依赖的带的能量。这个方法经常被用于二维材料，例如（石墨烯）。</p>
+<h2 id="例子-石墨烯的三维能带结构"><a href="#例子-石墨烯的三维能带结构" class="headerlink" title="例子 石墨烯的三维能带结构"></a>例子 石墨烯的三维能带结构</h2><ul>
+<li>1、准备石墨烯的 <code>POSCAR</code> 和 <code>INCAR</code> 文件用于自洽计算。在博客<code>https://shuai0511.github.io/posts/b9df750d/</code> 中有介绍。</li>
+<li>2、运行 <code>vaspkit</code> 的 <code>231</code> 功能生成一个用于三维能带计算的 <code>KPOINTS</code> 文件。如下面那样执行。产生的 <code>KPOINTS</code> 包括权重为 <code>1</code> 的 <code>k</code> 点和权重为 <code>0</code> 的 <code>k</code> 点.（<strong>注意：为了得到圆滑的三位能带结构，用于产生 <code>KPOINTS</code> 的解析值应设置为 <code>0.01</code> 附近。</strong>）<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">231</span><br><span class="line"></span><br><span class="line"> +-------------------------- Warm Tips --------------------------+</span><br><span class="line">   * Accuracy Levels: (1) Low:    0.04~0.03;</span><br><span class="line">                      (2) Medium: 0.03~0.02;</span><br><span class="line">                      (3) Fine:   0.02~0.01.</span><br><span class="line">   * 0.015 is Generally Precise Enough!</span><br><span class="line"> +---------------------------------------------------------------+</span><br><span class="line"> Input KP-Resolved Value (unit: 2*PI/Ang):</span><br><span class="line"> ------------&gt;&gt;</span><br><span class="line">0.015</span><br><span class="line"></span><br><span class="line">  --&gt;&gt; (01) Reading Structural Parameters from POSCAR File...</span><br><span class="line">  --&gt;&gt; (02) Written KPOINTS File!</span><br></pre></td></tr></table></figure></li>
+<li>3、提交任务</li>
+<li>4、在计算完成之后，再次运行 <code>vaspkit</code> 并使用 <code>232</code> 或者 <code>233</code> 命令。<code>233</code> 命令可以输出价带顶和导带底分别到 <code>BAND.HOMO.grd</code> 和 <code>BAND.LUMO.grd</code>文件。<code>232</code> 可以得到其他带的计算数据。这里我们选择 <code>233</code> 。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">------------&gt;&gt;</span><br><span class="line">233</span><br><span class="line"> +-------------------------- Warm Tips --------------------------+</span><br><span class="line">           ONLY Reliable for Band-Structure Calculations!</span><br><span class="line"> +---------------------------------------------------------------+</span><br><span class="line"> --&gt;&gt; (1) Reading Input Parameters From INCAR File...</span><br><span class="line"> --&gt;&gt; (2) Reading Structural Parameters from POSCAR File...</span><br><span class="line"> --&gt;&gt; (3) Reading Fermi-Level From DOSCAR File...</span><br><span class="line">ooooooooo The Fermi Energy will be set to zero eV oooooooooooooooo</span><br><span class="line"> --&gt;&gt; (4) Reading Energy-Levels From EIGENVAL File...</span><br><span class="line"> --&gt;&gt; (5) Reading Kmesh From KPOINTS File...</span><br><span class="line"> --&gt;&gt; (6) Written BAND.HOMO.grd File.</span><br><span class="line"> --&gt;&gt; (7) Written BAND.LUMO.grd File.</span><br><span class="line"> --&gt;&gt; (8) Written KX.grd and KY.grd Files.</span><br></pre></td></tr></table></figure></li>
+<li>5、 运行 <code>python VASPKITdir/examples/3D_band/how_to_visual.py</code> 绘制三维能带结构。<br><img src="https://raw.githubusercontent.com/shuai0511/blog-img/main/2-6"></li>
+</ul>
+
+    </div>
+
+    
+    
+    <div class="post-widgets">
+      <div id="needsharebutton-postbottom">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    </div>
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/vaspkit/" rel="tag"># vaspkit</a>
+              <a href="/tags/%E7%BF%BB%E8%AF%91/" rel="tag"># 翻译</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/39848d7/" rel="prev" title="vaspkit 能带结构处理">
+      <i class="fa fa-chevron-left"></i> vaspkit 能带结构处理
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/508631a2/" rel="next" title="vaspkit翻译-（态密度）">
+      vaspkit翻译-（态密度） <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9C%89%E6%95%88%E8%B4%A8%E9%87%8F"><span class="nav-number">1.</span> <span class="nav-text">有效质量</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1"><span class="nav-number">1.1.</span> <span class="nav-text">1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BE%8B%E5%AD%90%EF%BC%9A%E5%8D%95%E5%B1%82MoS2%E7%9A%84%E6%9C%89%E6%95%88%E8%B4%A8%E9%87%8F"><span class="nav-number">1.2.</span> <span class="nav-text">例子：单层MoS2的有效质量</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%83%BD%E5%B8%A6%E7%9A%84%E5%8F%8D%E6%8A%98%E5%8F%A0"><span class="nav-number">2.</span> <span class="nav-text">能带的反折叠</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E6%AD%A5%EF%BC%8C%E5%87%86%E5%A4%87%E4%BB%A5%E4%B8%8B%E6%96%87%E4%BB%B6"><span class="nav-number">2.1.</span> <span class="nav-text">第一步，准备以下文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E6%AD%A5-%E8%BF%90%E8%A1%8C-vaspkit-%E7%9A%84-400-%E5%8A%9F%E8%83%BD%E4%BA%A7%E7%94%9F%E4%B8%80%E4%B8%AA%E8%B6%85%E8%83%9E%E6%96%87%E4%BB%B6-SUPERCELL-vasp-%E5%92%8C-TRANSMAT-%E5%A6%82%E6%9E%9C%E4%B8%8D%E5%AD%98%E5%9C%A8-TANSMAT-in-%E6%96%87%E4%BB%B6-%E3%80%82%E6%88%91%E4%BB%AC%E4%BF%AE%E6%94%B9-SUPERCELL-vasp-%E6%96%87%E4%BB%B6%E5%88%A0%E5%8E%BB%E4%B8%80%E4%B8%AA-S-%E5%8E%9F%E5%AD%90%E6%9D%A5%E5%88%B6%E9%80%A0%E4%B8%80%E4%B8%AA-S-%E7%A9%BA%E4%BD%8D%E3%80%82"><span class="nav-number">2.2.</span> <span class="nav-text">第二步 运行 vaspkit 的 400 功能产生一个超胞文件 SUPERCELL.vasp 和 TRANSMAT (如果不存在 TANSMAT.in 文件)。我们修改 SUPERCELL.vasp 文件删去一个 S 原子来制造一个 S 空位。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E6%AD%A5%EF%BC%9A%E5%B0%86-SUPERCELL-vasp-%E5%A4%8D%E5%88%B6%E4%B8%BA-POSCAR-%E5%B9%B6%E4%B8%94%E5%B0%86-TRANSMAT-%E5%A4%8D%E5%88%B6%E4%B8%BA-TRANSMAT-in-%EF%BC%88%E5%A6%82%E6%9E%9C%E4%B8%8D%E5%AD%98%E5%9C%A8-TRANSMAT-in-%E6%96%87%E4%BB%B6%EF%BC%89%EF%BC%8C%E7%84%B6%E5%90%8E%E8%BF%90%E8%A1%8C-vaspkit-%E7%9A%84-281-%E5%91%BD%E4%BB%A4%E4%BA%A7%E7%94%9F-KPOINTS-%E6%96%87%E4%BB%B6%E3%80%82"><span class="nav-number">2.3.</span> <span class="nav-text">第三步：将 SUPERCELL.vasp 复制为 POSCAR ,并且将 TRANSMAT 复制为 TRANSMAT.in （如果不存在 TRANSMAT.in 文件），然后运行 vaspkit 的 281 命令产生 KPOINTS 文件。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E5%9B%9B%E6%AD%A5-%E6%8F%90%E4%BA%A4%E4%BB%BB%E5%8A%A1"><span class="nav-number">2.4.</span> <span class="nav-text">第四步 提交任务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%94%E6%AD%A5-%E8%BF%90%E8%A1%8C-vaspkit-%E7%9A%84-282-%E5%8A%9F%E8%83%BD%E6%9D%A5%E5%BE%97%E5%88%B0%E6%9C%89%E6%95%88%E8%83%BD%E5%B8%A6%E7%BB%93%E6%9E%84-EBS"><span class="nav-number">2.5.</span> <span class="nav-text">第五步 运行 vaspkit 的 282 功能来得到有效能带结构 EBS .</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E5%85%AD%E6%AD%A5%EF%BC%9A%E4%BD%A0%E5%8F%AF%E4%BB%A5%E4%BD%BF%E7%94%A8-vaspkit-examples-band-unfolding-eps-plot-py-%E6%88%96%E8%80%85%E5%85%B6%E4%BB%96%E8%84%9A%E6%9C%AC%E7%BB%98%E5%9B%BE%E3%80%82"><span class="nav-number">2.6.</span> <span class="nav-text">第六步：你可以使用 vaspkit&#x2F;examples&#x2F;band_unfolding&#x2F;eps_plot.py 或者其他脚本绘图。</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%89%E7%BB%B4%E8%83%BD%E5%B8%A6%E7%BB%93%E6%9E%84"><span class="nav-number">3.</span> <span class="nav-text">三维能带结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BE%8B%E5%AD%90-%E7%9F%B3%E5%A2%A8%E7%83%AF%E7%9A%84%E4%B8%89%E7%BB%B4%E8%83%BD%E5%B8%A6%E7%BB%93%E6%9E%84"><span class="nav-number">3.1.</span> <span class="nav-text">例子 石墨烯的三维能带结构</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Hengshuai Shang</p>
+  <div class="site-description" itemprop="description">study</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hengshuai Shang</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.js"></script>
+  <script>
+      pbOptions = {};
+        pbOptions.iconStyle = "box";
+        pbOptions.boxForm = "horizontal";
+        pbOptions.position = "bottomCenter";
+        pbOptions.networks = "Wechat,QQZone,Weibo,Douban,Twitter,Facebook";
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+  </script>
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'Ka4ubzmsbl0JVIyhTlFpMDQE-gzGzoHsz',
+      appKey     : 'NsRGFAadaaHTNxqS5Daeoj6N',
+      placeholder: "请在此输入您的留言",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/z16.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script></body>
+</html>

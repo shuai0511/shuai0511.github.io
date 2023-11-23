@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="基础表征—XRD原理（X射线衍射）摘要 &amp;thinsp;对于实验工作者来说，表征无疑是观测微观世界的眼睛。为我们打开了观察新世界的大门。如下，第一张为笔者从事科研中的一幅电镜照片，可以清晰看出其微观结构。图二为[尼康2022微观世界显微摄影大赛作品](尼康2022微观世界显微摄影大赛：9张令人惊叹的微观世界照片 - 知乎 (zhihu.com))，成年小鼠肠道内的血管网络*。10倍物镜，Satu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基础表征-XRD中	X射线产生机理">
+<meta property="og:url" content="http://example.com/posts/fe1e810/index.html">
+<meta property="og:site_name" content="Hengshuai Shang">
+<meta property="og:description" content="基础表征—XRD原理（X射线衍射）摘要 &amp;thinsp;对于实验工作者来说，表征无疑是观测微观世界的眼睛。为我们打开了观察新世界的大门。如下，第一张为笔者从事科研中的一幅电镜照片，可以清晰看出其微观结构。图二为[尼康2022微观世界显微摄影大赛作品](尼康2022微观世界显微摄影大赛：9张令人惊叹的微观世界照片 - 知乎 (zhihu.com))，成年小鼠肠道内的血管网络*。10倍物镜，Satu">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/shuai0511/blog-img/%E7%94%B5%E9%95%9C%E7%85%A7%E7%89%87.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/shuai0511/blog-img/%E5%BE%AE%E8%A7%82%E6%91%84%E5%BD%B1.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/shuai0511/blog-img/X%E5%B0%84%E7%BA%BF%E4%BA%A7%E7%94%9F%E7%A4%BA%E6%84%8F%E5%9B%BE_%E7%94%BB%E6%9D%BF%201.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/shuai0511/blog-img/X%E5%85%89%E7%AE%A1.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/shuai0511/blog-img/%E7%94%B5%E7%A3%81%E6%B3%A2%E8%B0%B1.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/shuai0511/blog-img/%E5%BC%95%E5%87%BA%E7%89%B9%E5%BE%81X%E5%B0%84%E7%BA%BF_%E7%94%BB%E6%9D%BF%201.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/shuai0511/blog-img/%E7%89%B9%E5%BE%81X%E5%B0%84%E7%BA%BF%E4%BA%A7%E7%94%9F%E6%9C%BA%E7%90%86_%E7%94%BB%E6%9D%BF%201.jpg">
+<meta property="article:published_time" content="2023-08-27T13:59:57.000Z">
+<meta property="article:modified_time" content="2023-09-15T14:36:50.550Z">
+<meta property="article:author" content="Hengshuai Shang">
+<meta property="article:tag" content="XRD">
+<meta property="article:tag" content="X射线">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/shuai0511/blog-img/%E7%94%B5%E9%95%9C%E7%85%A7%E7%89%87.jpg">
+
+<link rel="canonical" href="http://example.com/posts/fe1e810/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.css"><style>
+#needsharebutton-postbottom {
+  cursor: pointer;
+  height: 26px;
+  margin-top: 10px;
+  position: relative;
+}
+#needsharebutton-postbottom .btn {
+  border: 1px solid $btn-default-border-color;
+  border-radius: 3px;
+  display: initial;
+  padding: 1px 4px;
+}
+</style>
+  <title>基础表征-XRD中	X射线产生机理 | Hengshuai Shang</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hengshuai Shang</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">hengshuai shang</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/fe1e810/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hengshuai Shang">
+      <meta itemprop="description" content="study">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hengshuai Shang">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          基础表征-XRD中	X射线产生机理
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-08-27 21:59:57" itemprop="dateCreated datePublished" datetime="2023-08-27T21:59:57+08:00">2023-08-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-09-15 22:36:50" itemprop="dateModified" datetime="2023-09-15T22:36:50+08:00">2023-09-15</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%BA%E7%90%86/" itemprop="url" rel="index"><span itemprop="name">机理</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/fe1e810/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/fe1e810/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="基础表征—XRD原理（X射线衍射）"><a href="#基础表征—XRD原理（X射线衍射）" class="headerlink" title="基础表征—XRD原理（X射线衍射）"></a>基础表征—XRD原理（X射线衍射）</h1><h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p> <strong>&thinsp;对于实验工作者来说，表征无疑是观测微观世界的眼睛。为我们打开了观察新世界的大门。如下，第一张为笔者从事科研中的一幅电镜照片，可以清晰看出其微观结构。图二为[尼康2022微观世界显微摄影大赛作品](<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/576376977">尼康2022微观世界显微摄影大赛：9张令人惊叹的微观世界照片 - 知乎 (zhihu.com)</a>)，</strong>成年小鼠肠道内的血管网络*<em>。</em>10倍物镜，Satu Paavonsalo 与 Sinem Karaman，赫尔辛基大学* </p>
+<p>可见在现代科学研究中，已经越来越离不开高精尖超分辨仪器，化学家们经常研究的尺度特别小，10<sup>-10</sup> m（Å），引用一句古文：君子性非异也，善假于物也！</p>
+<p><img src="https://cdn.jsdelivr.net/gh/shuai0511/blog-img/%E7%94%B5%E9%95%9C%E7%85%A7%E7%89%87.jpg"></p>
+<p><strong>图一</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/shuai0511/blog-img/%E5%BE%AE%E8%A7%82%E6%91%84%E5%BD%B1.jpg"></p>
+<p><strong>图二</strong></p>
+<h2 id="XRD的功能"><a href="#XRD的功能" class="headerlink" title="XRD的功能"></a>XRD的功能</h2><p>可应用于：</p>
+<ol>
+<li><p>材料的物相组成</p>
+</li>
+<li><p>某种特殊相的晶体种类、晶格常数</p>
+</li>
+<li><p>各种物相的比例</p>
+</li>
+<li><p>确定是晶体还是非晶，可以得到晶粒尺寸</p>
+</li>
+<li><p>可以计算残余应力</p>
+</li>
+</ol>
+<h2 id="X光的产生"><a href="#X光的产生" class="headerlink" title="X光的产生"></a>X光的产生</h2><p>伦琴首先发现X射线并获得诺贝尔物理学奖，随之X射线应用于医疗诊断。</p>
+<p>在阴极加上几十kV的电压可以产生高能电子束，高速电子束碰撞阳极，引起阳极产生X射线。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/shuai0511/blog-img/X%E5%B0%84%E7%BA%BF%E4%BA%A7%E7%94%9F%E7%A4%BA%E6%84%8F%E5%9B%BE_%E7%94%BB%E6%9D%BF%201.jpg"></p>
+<p>图三</p>
+<p><img src="https://cdn.jsdelivr.net/gh/shuai0511/blog-img/X%E5%85%89%E7%AE%A1.jpg"></p>
+<p>图四</p>
+<p>上图四为X光管结构，整个光管内为高真空环境，阴极钨丝产生电子经加速后使阳极产生X射线，阳极受热温度升高，因而需要用冷却水降温，得到的X光通过铍窗进而可以被用于照射样品产生衍射。X射线产生条件：a、高能的电子；b、定向高速运动；c、被障碍物减速。</p>
+<p>X射线的本质：是一种频率很高的电磁波，与可见光完全相同，仅仅是波长短而已，因此具有波粒二象性。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/shuai0511/blog-img/%E7%94%B5%E7%A3%81%E6%B3%A2%E8%B0%B1.png"></p>
+<p>图五</p>
+<p>可以明显看出X射线与我们要研究的尺度非常吻合。这也是一个很好的佐证方式。</p>
+<h1 id="特征X射线"><a href="#特征X射线" class="headerlink" title="特征X射线"></a>特征X射线</h1><p><img src="https://cdn.jsdelivr.net/gh/shuai0511/blog-img/%E5%BC%95%E5%87%BA%E7%89%B9%E5%BE%81X%E5%B0%84%E7%BA%BF_%E7%94%BB%E6%9D%BF%201.jpg"></p>
+<p>图六</p>
+<p>图六中水平线的背底是连续X射线得到的，而出峰的地方为特征X射线得到的，所以我们要了解什么是特征X射线及其产生机理。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/shuai0511/blog-img/%E7%89%B9%E5%BE%81X%E5%B0%84%E7%BA%BF%E4%BA%A7%E7%94%9F%E6%9C%BA%E7%90%86_%E7%94%BB%E6%9D%BF%201.jpg"></p>
+<p>图七</p>
+<p>特征X射线的产生机理与阳极物质的原子结构紧密相关，原子系统内的电子分布于各个能级，在电子轰击样机的过程中，当某个具有足够能量的电子将阳极靶中原子的内层电子击出时，于是低能级上出现空位，体系能量升高，处于不稳定激发态（激发）。较高能级上的电子向低能级上的空位跃迁，为保持体系能量平衡，跃迁的同时，这些电子会将多余能量以光子的形式辐射出特征X射线。</p>
+<p>K层电子被击出后，原子系统能量由基态升高到K激发态，高能级电子向K层空位填充，产生K系辐射，由L层电子填充产生K<sub>α</sub>辐射；M层电子填充产生K<sub>β</sub>辐射。[且：a、辐射光子能量K<sub>β</sub>&gt;K<sub>α</sub>，但K与L相邻，因此L层填充的几率大，所以K<sub>α</sub>的强度是K<sub>β</sub>强度的5倍。b、产生K系激发，阴极电子的能量eU至少为轰出一个K层电子所做的功W<sub>k</sub>，因此U<sub>k</sub>被记为激发电压。]</p>
+<h1 id="X射线吸收"><a href="#X射线吸收" class="headerlink" title="X射线吸收"></a>X射线吸收</h1><p>光电效应</p>
+<p>当用X射线轰击物质时，若X射线能量大于物质原子对其内层电子的束缚时，入射X射线的能量就会被吸收，从而导致内层电子（如K层电子）被激发，并使高能级电子跃迁至K层空位而发射新的特征X射线。（又称二次特征X射线或荧光X射线）这种以光子激发电子所产生的激发和辐射过程成称为光电效应，被击出的电子叫做光电子。</p>
+<p>光电效应消耗了大量入射光的能量，表现为吸收系数突增（<mark>作者自问：这与同步辐射是否又存在着某种关系呢？</mark>），对应的入射波长记为吸收限（K层吸收限，仅与被照射物质本身的原子结构有关，最内层电子的额结合能，故属于物质的特征参数）。</p>
+<p>产生的二次特征X射线的波长与激发他们所需要的能量取决于物质的原子种类和结构。若要使K层电子产生光电效应，入射X射线的能量必须不小于原子中K层电子的逸出功W<sub>k</sub>。$hVk &#x3D; Wk , hc&#x2F;λk &gt;&#x3D; Wk,所以λk&lt;&#x3D; hc&#x2F;Wk$,因此为避免K<sub>β</sub>射线产生干扰，我们使用滤波片滤去K<sub>β</sub>射线，在这里使用了吸收限的原理。</p>
+<p>选择滤波片，应尽量使其吸收限靠近K<sub>α</sub>，以便强烈吸收K<sub>β</sub>，K<sub>α</sub>吸收限小（对应说的是波长，波长越小，对应的能量就越大）。经验原则[Z<sub>靶材</sub> &lt; 40时，Z<sub>滤</sub> &#x3D; Z<sub>靶材</sub> - 1；Z<sub>靶材</sub> &gt; 40时，Z<sub>滤</sub> &#x3D; Z<sub>靶材</sub> - 2，此处的Z代指原子序数。]</p>
+<p>L层上8个电子分别处在3个亚层上，K<sub>α</sub>双线系分别由L<sub>iii</sub>四个电子（K<sub>α1</sub>）和L<sub>ii</sub>上的两个电子（K<sub>α2</sub>）跃迁到K层辐射出来的两根射线。</p>
+<p>而特征X射线波长仅与靶材电子能级结构有关，满足莫塞莱定律，特征X射线频率与原子序数的关系如下：</p>
+<p>$$<br>\sqrt{1&#x2F;λ} &#x3D; C (Z-Θ)，式中C为常数，与原子量子数有关；λ为X射线波长；Θ为屏蔽常数，与电子所在的壳层有关；是X射线荧光光谱和电子探针分析的理论基础。<br>$$</p>
+<p>吸收限的应用2：阳极靶的选择</p>
+<p>为避免X射线被试样强烈吸收产生二次X射线（产生背底），应使入射X射线波长略大于试样的吸收限，波长或远小于试样的吸收限波长，一般选取经验（Z<sub>靶 </sub>&lt;&#x3D;Z <sub>试样</sub> + 1，或Z<sub>靶</sub> &lt;&lt; Z<sub>试样</sub>。）</p>
+<p>以上综合解释了X涉嫌的产生机理与初步应用。X射线在晶体结构分析中的应用后续将更新。</p>
+
+    </div>
+
+    
+    
+    <div class="post-widgets">
+      <div id="needsharebutton-postbottom">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    </div>
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/XRD/" rel="tag"># XRD</a>
+              <a href="/tags/X%E5%B0%84%E7%BA%BF/" rel="tag"># X射线</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/9fe06fdc/" rel="prev" title="吸附科学：气体净化与分离">
+      <i class="fa fa-chevron-left"></i> 吸附科学：气体净化与分离
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/5d401c16/" rel="next" title="光催化入门（2）——基础表征">
+      光催化入门（2）——基础表征 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E8%A1%A8%E5%BE%81%E2%80%94XRD%E5%8E%9F%E7%90%86%EF%BC%88X%E5%B0%84%E7%BA%BF%E8%A1%8D%E5%B0%84%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">基础表征—XRD原理（X射线衍射）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%91%98%E8%A6%81"><span class="nav-number">1.1.</span> <span class="nav-text">摘要</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XRD%E7%9A%84%E5%8A%9F%E8%83%BD"><span class="nav-number">1.2.</span> <span class="nav-text">XRD的功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#X%E5%85%89%E7%9A%84%E4%BA%A7%E7%94%9F"><span class="nav-number">1.3.</span> <span class="nav-text">X光的产生</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%89%B9%E5%BE%81X%E5%B0%84%E7%BA%BF"><span class="nav-number">2.</span> <span class="nav-text">特征X射线</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#X%E5%B0%84%E7%BA%BF%E5%90%B8%E6%94%B6"><span class="nav-number">3.</span> <span class="nav-text">X射线吸收</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Hengshuai Shang</p>
+  <div class="site-description" itemprop="description">study</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hengshuai Shang</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.js"></script>
+  <script>
+      pbOptions = {};
+        pbOptions.iconStyle = "box";
+        pbOptions.boxForm = "horizontal";
+        pbOptions.position = "bottomCenter";
+        pbOptions.networks = "Wechat,QQZone,Weibo,Douban,Twitter,Facebook";
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+  </script>
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'Ka4ubzmsbl0JVIyhTlFpMDQE-gzGzoHsz',
+      appKey     : 'NsRGFAadaaHTNxqS5Daeoj6N',
+      placeholder: "请在此输入您的留言",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/z16.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script></body>
+</html>

@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="vaspkit-tutorials（Band Structure）vaspkit是一个针对于vasp计算能带很好的前处理和后处理软件。 能带计算的预处理为了进行能带的计算，你必须准备一个原胞（ primitive cell ）和一些沿着不可约布里渊区的 K 点路径（ K-path ）。例如，对于常见的 FCC 晶胞，其不可约布里渊区和高对称点。典型的 BCC 晶胞，其不可约布里渊区和高对称点的分布">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Hengshuai Shang">
+<meta property="og:url" content="http://example.com/%E5%8D%9A%E5%AE%A2/vaspkit-tutorials%EF%BC%88Band%20Structure%EF%BC%89.html">
+<meta property="og:site_name" content="Hengshuai Shang">
+<meta property="og:description" content="vaspkit-tutorials（Band Structure）vaspkit是一个针对于vasp计算能带很好的前处理和后处理软件。 能带计算的预处理为了进行能带的计算，你必须准备一个原胞（ primitive cell ）和一些沿着不可约布里渊区的 K 点路径（ K-path ）。例如，对于常见的 FCC 晶胞，其不可约布里渊区和高对称点。典型的 BCC 晶胞，其不可约布里渊区和高对称点的分布">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/shuai0511/blog-img/main/01.png">
+<meta property="article:published_time" content="2023-09-04T02:22:33.173Z">
+<meta property="article:modified_time" content="2023-09-04T02:22:33.173Z">
+<meta property="article:author" content="Hengshuai Shang">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/shuai0511/blog-img/main/01.png">
+
+<link rel="canonical" href="http://example.com/%E5%8D%9A%E5%AE%A2/vaspkit-tutorials%EF%BC%88Band%20Structure%EF%BC%89">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.css"><style>
+#needsharebutton-postbottom {
+  cursor: pointer;
+  height: 26px;
+  margin-top: 10px;
+  position: relative;
+}
+#needsharebutton-postbottom .btn {
+  border: 1px solid $btn-default-border-color;
+  border-radius: 3px;
+  display: initial;
+  padding: 1px 4px;
+}
+</style>
+  <title> | Hengshuai Shang
+</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hengshuai Shang</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">hengshuai shang</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+  
+  
+
+          <div class="content page posts-expand">
+            
+
+    
+    
+    
+    <div class="post-block" lang="zh-CN">
+      <header class="post-header">
+
+<h1 class="post-title" itemprop="name headline">
+</h1>
+
+<div class="post-meta">
+  
+
+</div>
+
+</header>
+
+      
+      
+      
+      <div class="post-body">
+          <h1 id="vaspkit-tutorials（Band-Structure）"><a href="#vaspkit-tutorials（Band-Structure）" class="headerlink" title="vaspkit-tutorials（Band Structure）"></a>vaspkit-tutorials（Band Structure）</h1><p>vaspkit是一个针对于vasp计算能带很好的前处理和后处理软件。</p>
+<h2 id="能带计算的预处理"><a href="#能带计算的预处理" class="headerlink" title="能带计算的预处理"></a>能带计算的预处理</h2><p>为了进行能带的计算，你必须准备一个原胞（ <code>primitive cell</code> ）和一些沿着不可约布里渊区的 <code>K</code> 点路径（ <code>K-path</code> ）。<br>例如，对于常见的 <code>FCC</code> 晶胞，其不可约布里渊区和高对称点。<br><img src="https://raw.githubusercontent.com/shuai0511/blog-img/main/01.png"><br>典型的 <code>BCC</code> 晶胞，其不可约布里渊区和高对称点的分布如下：<br>![[02.png]]<br>    <code>K-path</code> 并不奇特，通常来说，他并不必选择所有的高对称点之间的连线，只需要选择那些具有代表性并且重要的以线性模式被写入 <code>K-POINTS</code> ，对于大规模的计算，我们必须有一个从结构信息定义 <code>K</code> 点路径的方式。<code>pymatgen</code> 和 <code>seeK-path</code> 仅仅提供了 <code>3D</code> 系统的路径解决方案。而 <code>vaspkit</code> 提供的一个工具基于一个系统的规则可以为1维、2维、3维材料生成 <code>K</code> 点路径。<br>    这是2维材料的布里渊区<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1806.04285">V. Wang, Y.-Y. Liang, Y. Kawazeo, W.-T. Geng, High-Throughput Computational Screening of Two-Dimensional Semiconductors, arXiv:1806.04285.</a>)<br>![[03 2.png]]<br>通过 <code>pymatgen</code> 自动产生 <code>K</code>点路径的方法见 <code>pymatgen</code>（<a target="_blank" rel="noopener" href="https://pymatgen.org/">https://pymatgen.org/</a>）,Computational Materials Science 49 (2010) 299–312. seek-path（<a target="_blank" rel="noopener" href="https://www.materialscloud.org/work/tools/seekpath">https://www.materialscloud.org/work/tools/seekpath</a>）Computational Materials Science 128 (2017) 140–184.</p>
+<h2 id="Example-Single-layer-MoS2"><a href="#Example-Single-layer-MoS2" class="headerlink" title="Example: Single-layer MoS2"></a>Example: Single-layer MoS2</h2><p>不包括自旋轨道耦合和自旋极化的单层<code>MoS2</code> 的能带。<br>1、准备MoS2的 <code>POSCAR</code> 文件<br>    因为 <code>vaspkit</code> 自动生成 <code>K</code> 点路径基于标准的原胞，所以第一步先标准化原胞。对于二维材料：确保二维材料的 <code>z</code> 轴中心在 <code>|c|/2</code> 处。（例如： <code>Z</code> 轴的分数坐标设置为0.5.）。这个可以使用 <code>vaspkit</code> 的 <code>921</code> 和 <code>923</code> , <code>vasp</code> 923 功能针对标准的二维晶胞。（i） 在 <code>Z</code> 轴设置真空层，（ii）把二维材料放在<code>Z</code> 轴中心。<br>    对于三维材料，使用 <code>vaspkit</code> 的 <code>602</code> 功能去产生一个标准原胞，名字文件为 <code>PRIMCELL.vasp</code>, 然后代替原来的 <code>POSCAR</code> , 这是二维材料MoS2的 <code>POSCAR</code> 文件：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">MoS2</span><br><span class="line">1.0</span><br><span class="line">        3.1659998894         0.0000000000         0.0000000000</span><br><span class="line">       -1.5829999447         2.7418363326         0.0000000000</span><br><span class="line">        0.0000000000         0.0000000000        18.4099998474</span><br><span class="line">    S   Mo</span><br><span class="line">    2    1</span><br><span class="line">Direct</span><br><span class="line">     0.000000000         0.000000000         0.413899988</span><br><span class="line">     0.000000000         0.000000000         0.586099982</span><br><span class="line">     0.666666687         0.333333343         0.500000000</span><br><span class="line"></span><br><span class="line">92</span><br><span class="line"> +-------------------------- Warm Tips --------------------------+</span><br><span class="line">             Please Use These Features with CAUTION!</span><br><span class="line"> +---------------------------------------------------------------+</span><br><span class="line"> ===================== 2D Materials Toolkit ======================</span><br><span class="line"> 921) Center Aomic-Layer along z direction</span><br><span class="line"> 922) Resize Vacuum Thickness</span><br><span class="line"> 923) Standardize 2D Crystal Cell</span><br><span class="line"> 926) Elastic Constants for 2D Materials</span><br><span class="line"> 927) Valence and Conduction Band Edges Referenced to Vacuum Level</span><br><span class="line"> 929) Summary for Relaxed 2D Structure</span><br><span class="line"></span><br><span class="line"> 0)   Quit</span><br><span class="line"> 9)   Back</span><br><span class="line"> ------------&gt;&gt;</span><br><span class="line">923</span><br><span class="line"> --&gt;&gt; (1) Reading Structural Parameters from POSCAR File...</span><br><span class="line"> --&gt;&gt; (2) Written POSCAR_NEW File!</span><br></pre></td></tr></table></figure>
+<p>做结构优化，然后做单电自洽计算去得到 <code>CHGCAR</code> .<br>在一个新的文件中运行 <code>vaspkit</code> 的 <code>302</code> ，得到一个二维的 <code>K-path</code> 文件。（<strong>Note:请检查空间群</strong>）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vaspkit 运行302 功能的代码</span><br></pre></td></tr></table></figure>
+<p><code>KPATH.in</code> 该文件包括线性模型的 <code>K=path</code> 并将其复制为 <code>KPOINTS</code> ，其中自动生成的路径中包括20个交叉部分。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp KPATH.in KPOINTS</span><br></pre></td></tr></table></figure>
+<p><code>HIGH_SYMMETRY_POINTS</code> : 包括所有的高对称点信息。<strong>vaspkit不保证k点路径的正确性，请将结果与seeK-path的结果进行比较（<a target="_blank" rel="noopener" href="https://www.materialscloud.org/work/tools/seekpath">https://www.materialscloud.org/work/tools/seekpath</a>）</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">High-symmetry points (in fractional coordinates). You can check them with the seekpath database [https://www.materialscloud.org/work/tools/seekpath].</span><br><span class="line">   0.0000000000   0.0000000000   0.0000000000     GAMMA</span><br><span class="line">   0.3333333333   0.3333333333   0.0000000000     K</span><br><span class="line">   0.5000000000   0.0000000000   0.0000000000     M</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">If you use this module, please cite the following work:</span><br><span class="line">[1] V. Wang, N. Xu, J.-C. Liu, G. Tang, W.-T. Geng, VASPKIT: A User-friendly Interface Facilitating High-throughput Computing and Analysis Using VASP Code, Computer Physics Communications 267, 108033 (2021).</span><br><span class="line">[2] V. Wang, Y.-Y. Liang, Y. Kawazeo, W.-T. Geng, High-Throughput Computational Screening of Two-Dimensional Semiconductors, arXiv:1806.04285.</span><br></pre></td></tr></table></figure>
+<p>从单点计算文件中读取 <code>CHGCAR</code> 并提交 <code>vasp</code> 的能带计算任务。<br>INCAR 例子</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">##### initial I/O #####</span><br><span class="line">SYSTEM = MoS2</span><br><span class="line">ICHARG = 11</span><br><span class="line">LWAVE = .TRUE.</span><br><span class="line">LCHARG = .TRUE.</span><br><span class="line">LVTOT = .FALSE.</span><br><span class="line">LVHAR = .FALSE.</span><br><span class="line">LELF = .FALSE.</span><br><span class="line">LORBIT = 11</span><br><span class="line">NEDOS = 1000</span><br><span class="line"></span><br><span class="line">##### SCF #####</span><br><span class="line">ENCUT = 500</span><br><span class="line">ISMEAR = 0</span><br><span class="line">SIGMA = 0.05</span><br><span class="line">EDIFF = 1E-6</span><br><span class="line">NELMIN = 5</span><br><span class="line">NELM = 300</span><br><span class="line">GGA = PE</span><br><span class="line">LREAL = .FALSE.</span><br><span class="line">PREC = Accurate</span><br></pre></td></tr></table></figure>
+<p>能带后处理软件（纯泛函）<br>计算之后，使用  <code>vaspkit</code> 的 <code>21</code> 进行能带后处理。<br>使用 <code>211</code> 得到基本能带结构，如果你有带有 <code>matplotlib</code> 模块的 <code>python</code> 环境，<code>vaspkit</code> 会输出自动输出一个 <code>band.png</code> 图像通过自动将费米能级移至 <code>0eV</code> .</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">211</span><br><span class="line">  --&gt;&gt; (01) Reading Input Parameters From INCAR File...</span><br><span class="line">  --&gt;&gt; (02) Reading Fermi-Energy from DOSCAR File...</span><br><span class="line"> ooooooooo The Fermi Energy will be set to zero eV ooooooooooooooo</span><br><span class="line">  --&gt;&gt; (03) Reading Energy-Levels From EIGENVAL File...</span><br><span class="line">  --&gt;&gt; (04) Reading Structural Parameters from POSCAR File...</span><br><span class="line">  --&gt;&gt; (05) Reading K-Paths From KPOINTS File...</span><br><span class="line">  --&gt;&gt; (06) Written BAND.dat File!</span><br><span class="line">  --&gt;&gt; (07) Written BAND_REFORMATTED.dat File!</span><br><span class="line">  --&gt;&gt; (08) Written KLINES.dat File!</span><br><span class="line">  --&gt;&gt; (09) Written KLABELS File!</span><br><span class="line">  --&gt;&gt; (10) Written BAND_GAP File!</span><br><span class="line"> If you want use the default setting, type 0, if modity type 1</span><br><span class="line">0</span><br><span class="line">/public1/home/pg2059/.local/lib/python2.7/site-packages/matplotlib/font_manager.py:1328: UserWarning: findfont: Font family [u&#x27;arial&#x27;] not found. Falling back to DejaVu Sans</span><br><span class="line">  (prop.get_family(), self.defaultFamily[fontext]))</span><br><span class="line">  --&gt;&gt; (11) Graph has been generated!</span><br></pre></td></tr></table></figure>
+<p>会输出以下文件：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">BAND.dat，BAND_REFORMATTED.dat，KLINES.dat，KLABELS，BAND_GAP</span><br></pre></td></tr></table></figure>
+<p><code>BAND.dat</code>，<code>BAND_REFORMATTED.dat</code> 文件包含了能带信息，该文件尽可以被 <code>origin</code> 软件打开。<br><code>BAND_REFORMATTED.dat</code> ：第一行是 <code>K-path</code> 的长度，其单位为 Å-1，后面几行是每一个波段的能量。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#K-Path     Energy-Level</span><br><span class="line">  0.000   -14.278   -13.063    -5.798    -2.813    -2.813    -1.962    -1.693    ...</span><br><span class="line">  0.060   -14.268   -13.058    -5.787    -2.836    -2.802    -2.055    -1.710    ...</span><br><span class="line">  0.120   -14.239   -13.044    -5.752    -2.906    -2.769    -2.226    -1.761    ...</span><br><span class="line">  0.180   -14.190   -13.021    -5.695    -3.015    -2.716    -2.416    -1.840    ...</span><br><span class="line">  0.240   -14.123   -12.989    -5.619    -3.157    -2.642    -2.614    -1.943    ...</span><br><span class="line">  0.300   -14.039   -12.948    -5.528    -3.321    -2.817    -2.551    -2.064    ...</span><br><span class="line">  0.360   -13.938   -12.900    -5.428    -3.496    -3.023    -2.443    -2.195    ...</span><br><span class="line">  0.420   -13.823   -12.846    -5.329    -3.671    -3.232    -2.333    -2.322    ...</span><br><span class="line">  0.480   -13.696   -12.786    -5.244    -3.830    -3.441    -2.471    -2.190    ...</span><br></pre></td></tr></table></figure>
+<p><code>KLABELS</code> ：保存了能到结构图中的高对称点信息。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">K-Label    K-Coordinate in band-structure plots</span><br><span class="line">GAMMA              0.000</span><br><span class="line">M                  1.140</span><br><span class="line">K                  1.798</span><br><span class="line">GAMMA              3.114</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">* Give the label for each high symmetry point in KPOINTS (KPATH.in) file. Otherwise, they will be identified as &#x27;Undefined or XX&#x27; in KLABELS file</span><br></pre></td></tr></table></figure>
+<p><strong>Note：确保你已经对vasp的KPOINTS文件中的每一个高对称点赋予了一个标签。</strong><br><code>BAND_GAP</code> :该文件保存了能带间隔（带隙）、价带顶、导带底以及它在倒易晶格中的位置的信息。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">+-------------------------- Summary ----------------------------+</span><br><span class="line">         Band Character:    Direct</span><br><span class="line">          Band Gap (eV):    1.6743</span><br><span class="line"> Eigenvalue of VBM (eV):   -0.2257</span><br><span class="line"> Eigenvalue of CBM (eV):    1.4485</span><br><span class="line">      HOMO &amp; LUMO Bands:         9        10</span><br><span class="line">        Location of VBM:  0.333333  0.333333  0.000000</span><br><span class="line">        Location of CBM:  0.333333  0.333333  0.000000</span><br><span class="line">+---------------------------------------------------------------+</span><br><span class="line"></span><br><span class="line">NOTE: The VBM and CBM are subtracted by the Fermi Energy.</span><br></pre></td></tr></table></figure>
+<p>如果用户有附带 <code>matplotlib</code> 模块的 <code>python</code> 环境，<code>vaspkit</code> 会自动输出图像文件： <code>BAND.png</code> 。<br><strong>212，213，214可以得到投影能带结构</strong><br>确保在 <code>INCAR</code> 的输出信息中你添加了<code>LORBIT = 10</code> 或者 <code>LORBIT = 11</code> 参数<br>212）得到选定原子的投影能带<br>通过原子编号 <code>1-4</code> <code>7</code> <code>8</code> <code>24</code> 或者元素符号 <code>C</code> <code>Fe</code> <code>H</code> 来选定原子。<br>如果你想得到1和2号原子的投影能带，请输入 <code>1-2</code> 。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">212</span><br><span class="line">  --&gt;&gt; (01) Reading Input Parameters From INCAR File...</span><br><span class="line">  --&gt;&gt; (02) Reading Fermi-Energy from DOSCAR File...</span><br><span class="line"> ooooooooo The Fermi Energy will be set to zero eV ooooooooooooooo</span><br><span class="line">  --&gt;&gt; (03) Reading Structural Parameters from POSCAR File...</span><br><span class="line">  --&gt;&gt; (04) Reading Energy-Levels From EIGENVAL File...</span><br><span class="line">  --&gt;&gt; (05) Reading Band-Weights From PROCAR File...</span><br><span class="line">  --&gt;&gt; (06) Reading K-Paths From KPOINTS File...</span><br><span class="line"> |---------------------------------------------------------------|</span><br><span class="line"> Input the element-symbol and/or atom-index to SUM [Total-atom: 3]</span><br><span class="line"> (Free Format is OK, e.g., C Fe H 1-4 7 8 24)</span><br><span class="line"></span><br><span class="line"> ------------&gt;&gt;</span><br><span class="line">1-2</span><br><span class="line">  --&gt;&gt; (07) Written SELECTED_ATOM_LIST File!</span><br><span class="line">  --&gt;&gt; (08) Written PBAND_A1.dat File!</span><br><span class="line">  --&gt;&gt; (09) Written PBAND_A2.dat File!</span><br><span class="line">  --&gt;&gt; (10) Written KLINES.dat File!</span><br><span class="line">  --&gt;&gt; (11) Written KLABELS File!</span><br></pre></td></tr></table></figure>
+<p><code>vaspkit</code> 会输出两个文件：<code>PBAND_A1.dat</code> 和<code>PBAND_A2.dat</code> 。每一个文件均包括选定原子的投影信息，以及他在每一个角动量上所占的比重：包括 <code>s py pz px dxy dyz dz2 dxz dx2-y2 tot</code> 。第一行是 <code>K-path</code> 的长度，其单位为 Å-1，第二行是能带的能量，后面几行是能带在每一个（li-orbitals）轨道上的投影。最后一行是选定原子在在这条能带上的总投影。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">#K-Path    Energy     s     py     pz     px    dxy    dyz    dz2    dxz  x2-y2    tot</span><br><span class="line">#Band-index    1</span><br><span class="line">   0.000   -14.278  0.275  0.000  0.005  0.000  0.000  0.000  0.000  0.000  0.000  0.281</span><br><span class="line">   0.060   -14.268  0.276  0.000  0.005  0.000  0.000  0.000  0.000  0.000  0.000  0.281</span><br><span class="line">   0.120   -14.239  0.276  0.000  0.005  0.000  0.000  0.000  0.000  0.000  0.000  0.281</span><br><span class="line">   0.180   -14.190  0.277  0.000  0.005  0.000  0.000  0.000  0.000  0.000  0.000  0.282</span><br><span class="line">   0.240   -14.123  0.278  0.000  0.005  0.000  0.000  0.000  0.000  0.000  0.000  0.284</span><br><span class="line">   0.300   -14.039  0.280  0.000  0.005  0.001  0.000  0.000  0.000  0.000  0.000  0.285</span><br><span class="line">   0.360   -13.938  0.281  0.000  0.005  0.001  0.000  0.000  0.000  0.000  0.000  0.288</span><br><span class="line">   0.420   -13.823  0.283  0.000  0.005  0.001  0.000  0.000  0.000  0.000  0.000  0.290</span><br><span class="line">   ...</span><br><span class="line">#Band-index    2</span><br><span class="line">   3.114   -13.063  0.315  0.000  0.000  0.000  0.000  0.000  0.000  0.000  0.000  0.316</span><br><span class="line">   3.045   -13.056  0.315  0.000  0.000  0.000  0.000  0.000  0.000  0.000  0.000  0.316</span><br><span class="line">   ...</span><br><span class="line">#Band-index    3</span><br><span class="line">   0.000    -5.798  0.018  0.000  0.125  0.000  0.000  0.000  0.000  0.000  0.000  0.143</span><br><span class="line">   0.060    -5.787  0.018  0.000  0.125  0.000  0.000  0.000  0.000  0.000  0.000  0.143</span><br><span class="line">   ...</span><br></pre></td></tr></table></figure>
+<p><strong>213）每一个元素的投影态密度</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">213</span><br><span class="line"> --&gt;&gt; (1) Reading Input Parameters From INCAR File...</span><br><span class="line"> --&gt;&gt; (2) Reading Fermi-Level From DOSCAR File...</span><br><span class="line"> ooooooooo The Fermi Energy will be set to zero eV ooooooooooooooo</span><br><span class="line"> --&gt;&gt; (3) Reading Structural Parameters from POSCAR File...</span><br><span class="line"> --&gt;&gt; (4) Reading Energy-Levels From EIGENVAL File...</span><br><span class="line"> --&gt;&gt; (5) Reading Band-Weights From PROCAR File...</span><br><span class="line"> --&gt;&gt; (6) Reading K-Paths From KPOINTS File...</span><br><span class="line"> --&gt;&gt; (7) Written PBAND_S.dat File!</span><br><span class="line"> --&gt;&gt; (8) Written PBAND_Mo.dat File!</span><br><span class="line"> --&gt;&gt; (9) Written KLINES.dat File!</span><br><span class="line"> --&gt;&gt; (*) Written KLABELS File!</span><br></pre></td></tr></table></figure>
+<p><code>PBAND_S.dat</code> 和 <code>PBAND_Mo.dat</code> 的类型和 <code>PBAND_A1.dat</code> 一致，三者均可以使用 <code>origin</code> 打开。<code>origin</code> 的绘图详见***origin绘制能带结构图 。</p>
+<p>214）选定原子的投影能带之和</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">214</span><br><span class="line">  --&gt;&gt; (01) Reading Input Parameters From INCAR File...</span><br><span class="line">  --&gt;&gt; (02) Reading Fermi-Energy from DOSCAR File...</span><br><span class="line"> ooooooooo The Fermi Energy will be set to zero eV ooooooooooooooo</span><br><span class="line">  --&gt;&gt; (03) Reading Structural Parameters from POSCAR File...</span><br><span class="line">  --&gt;&gt; (04) Reading Energy-Levels From EIGENVAL File...</span><br><span class="line">  --&gt;&gt; (05) Reading Band-Weights From PROCAR File...</span><br><span class="line">  --&gt;&gt; (06) Reading K-Paths From KPOINTS File...</span><br><span class="line"> |---------------------------------------------------------------|</span><br><span class="line"> Input the element-symbol and/or atom-index to SUM [Total-atom: 3]</span><br><span class="line"> (Free Format is OK, e.g., C Fe H 1-4 7 8 24)</span><br><span class="line"></span><br><span class="line"> ------------&gt;&gt;</span><br><span class="line">1-2</span><br><span class="line">  --&gt;&gt; (07) Written SELECTED_ATOM_LIST File!</span><br><span class="line">  --&gt;&gt; (08) Written PBAND_SUM.dat File!</span><br><span class="line">  --&gt;&gt; (09) Written KLINES.dat File!</span><br><span class="line">  --&gt;&gt; (10) Written KLABELS File!</span><br></pre></td></tr></table></figure>
+<p>输出文件 <code>PBAND_SUM.dat</code> 中选定原子或元素的投影能带之和，这对于研究分层能带（layered band ） 、比较表面能带和内能带的区别时比较有用。</p>
+<h3 id="Single-shot（单次片段）-Band-Structue"><a href="#Single-shot（单次片段）-Band-Structue" class="headerlink" title="Single-shot（单次片段） Band Structue"></a>Single-shot（单次片段） Band Structue</h3><p><code>vasp6.3.0</code> 或者更新的版本支持通过 <code>single-shot</code> 计算能带结构，如果我们在编译 <code>vasp</code> 的时候没有在 <code>makefile.include</code> 文件中的 <code>CPP_OPTIONS</code> 的后面添加 <code>-DVASP_HDF5</code> 参数，他将不会输出 <code>PROCAR_OPT</code> 文件。<br>如果我们修改 <code>vasp6.3.0/src/liner_response.F</code> 重新编译 <code>vasp</code> 之后可以自动产生 <code>PROCAR_OPT</code> 和 <code>EIGENVAL_OPT</code> (新添加的)。首先，我们需要删除 <code>vasp6.3.0/src/liner_response.F</code> 文件中的 <code>1804~1827</code> 行。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">#ifdef VASP_HDF5</span><br><span class="line">   CALL VH5_WRITE_DOS(IH5OUTFILEID, WDES_INTER, KPOINTS_INTER, DOS, DOSI, DOSPAR, EFERMI, &amp;</span><br><span class="line">                      T_INFO%NIONP, -1,SUBGROUP=&quot;electron_dos_kpoints_opt&quot;)</span><br><span class="line">   CALL VH5_WRITE_EIGENVAL(IH5OUTFILEID, WDES_INTER, W_INTER, KPOINTS_INTER, &amp;</span><br><span class="line">                           SUBGROUP=&quot;electron_eigenvalues_kpoints_opt&quot;)</span><br><span class="line"></span><br><span class="line">   ! Write projections</span><br><span class="line">   IF (JOBPAR/=0 .OR. IO%LORBIT&gt;=10) THEN</span><br><span class="line">     IF (IO%LORBIT==11.OR.IO%LORBIT==12) THEN</span><br><span class="line">       CALL VH5_WRITE_PROJECTORS(IH5OUTFILEID, T_INFO, WDES_INTER, W_INTER, IO%LORBIT, LPAR, PAR_INTER, LMCHAR, PHAS_INTER, &amp;</span><br><span class="line">                                 SUBGROUP=&quot;projectors_kpoints_opt&quot;)</span><br><span class="line">     ELSE</span><br><span class="line">       CALL VH5_WRITE_PROJECTORS(IH5OUTFILEID, T_INFO, WDES_INTER, W_INTER, IO%LORBIT, LPAR, PAR_INTER, LCHAR, PHAS_INTER, &amp;</span><br><span class="line">                                 SUBGROUP=&quot;projectors_kpoints_opt&quot;)</span><br><span class="line">     ENDIF</span><br><span class="line">     IF (IO%IU6&gt;=0) THEN</span><br><span class="line">       CALL XML_PROCAR(PAR, W_INTER%CELTOT, W_INTER%FERTOT, WDES_INTER%NB_TOT, WDES_INTER%NKPTS, LPAR,&amp;</span><br><span class="line">                     T_INFO%NIONP, WDES_INTER%NCDIJ, TAG=&quot;projected_kpoints_opt&quot;)</span><br><span class="line">       OPEN(UNIT=99,FILE=&#x27;PROCAR_OPT&#x27;,STATUS=&#x27;UNKNOWN&#x27;)</span><br><span class="line">       CALL WRITE_PROCAR(99,W_INTER,WDES_INTER,IO%LORBIT,LPAR,LMDIMP,PAR_INTER,PHAS_INTER,T_INFO,KPOINTS%EMIN,KPOINTS%EMAX)</span><br><span class="line">       CLOSE(99)</span><br><span class="line">     ENDIF</span><br><span class="line">   ENDIF</span><br><span class="line">#endif</span><br></pre></td></tr></table></figure>
+<p>然后添加以下代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">!  Added support to VASPKIT</span><br><span class="line">   OPEN(UNIT=99,FILE=&#x27;EIGENVAL_OPT&#x27;,STATUS=&#x27;UNKNOWN&#x27;)</span><br><span class="line">   WRITE(99,&#x27;(4I5)&#x27;) T_INFO%NIONS,T_INFO%NIONS,0.0,WDES_INTER%ISPIN</span><br><span class="line">   WRITE(99,&#x27;(5E15.7)&#x27;) 0.d0,0.d0,0.d0,0.d0,0.d0</span><br><span class="line">   WRITE(99,&#x27;(1E15.7)&#x27;) 0.d0</span><br><span class="line">   WRITE(99,*) &#x27; CAR &#x27;</span><br><span class="line">   WRITE(99,*) INFO%SZNAM1</span><br><span class="line">   WRITE(99,&#x27;(3I7)&#x27;) NINT(INFO%NELECT),WDES_INTER%NKPTS,WDES_INTER%NB_TOT</span><br><span class="line">   DO IK=1,WDES_INTER%NKPTS</span><br><span class="line">      WRITE(99,*)</span><br><span class="line">      WRITE(99,&#x27;((4E15.7))&#x27;) WDES_INTER%VKPT(1,IK),WDES_INTER%VKPT(2,IK),WDES_INTER%VKPT(3,IK),WDES_INTER%WTKPT(IK)</span><br><span class="line">      DO I=1,WDES_INTER%NB_TOT</span><br><span class="line">         IF (WDES_INTER%ISPIN==1) WRITE(99,852) I,REAL( W_INTER%CELTOT(I,IK,1) ,KIND=q),W%FERTOT(I,IK,1)</span><br><span class="line">         IF (WDES_INTER%ISPIN==2) WRITE(99,853) I,(REAL( W_INTER%CELTOT(I,IK,ISP) ,KIND=q),ISP=1,WDES_INTER%ISPIN),(W%FERTOT(I,IK,ISP),ISP=1,WDES_INTER%ISPIN)</span><br><span class="line">      ENDDO</span><br><span class="line">   ENDDO</span><br><span class="line">   CLOSE(99)</span><br><span class="line">   852 FORMAT(1X,I6,4X,F14.6,2X,F9.6)</span><br><span class="line">   853 FORMAT(1X,I6,4X,F14.6,2X,F14.6,2X,F9.6,2X,F9.6)</span><br><span class="line">   IF (JOBPAR/=0 .OR. IO%LORBIT&gt;=10) THEN</span><br><span class="line">     IF (IO%IU6&gt;=0) THEN</span><br><span class="line">       CALL XML_PROCAR(PAR, W_INTER%CELTOT, W_INTER%FERTOT, WDES_INTER%NB_TOT, WDES_INTER%NKPTS, LPAR,&amp;</span><br><span class="line">                     T_INFO%NIONP, WDES_INTER%NCDIJ, TAG=&quot;projected_kpoints_opt&quot;)</span><br><span class="line">       OPEN(UNIT=99,FILE=&#x27;PROCAR_OPT&#x27;,STATUS=&#x27;UNKNOWN&#x27;)</span><br><span class="line">       CALL WRITE_PROCAR(99,W_INTER,WDES_INTER,IO%LORBIT,LPAR,LMDIMP,PAR_INTER,PHAS_INTER,T_INFO,KPOINTS%EMIN,KPOINTS%EMAX)</span><br><span class="line">       CLOSE(99)</span><br><span class="line">     ENDIF</span><br><span class="line">   ENDIF</span><br><span class="line"></span><br><span class="line">#ifdef VASP_HDF5</span><br><span class="line">   CALL VH5_WRITE_DOS(IH5OUTFILEID, WDES_INTER, KPOINTS_INTER, DOS, DOSI, DOSPAR, EFERMI, &amp;</span><br><span class="line">                      T_INFO%NIONP, -1,SUBGROUP=&quot;electron_dos_kpoints_opt&quot;)</span><br><span class="line">   CALL VH5_WRITE_EIGENVAL(IH5OUTFILEID, WDES_INTER, W_INTER, KPOINTS_INTER, &amp;</span><br><span class="line">                           SUBGROUP=&quot;electron_eigenvalues_kpoints_opt&quot;)</span><br><span class="line"></span><br><span class="line">   ! Write projections</span><br><span class="line">   IF (JOBPAR/=0 .OR. IO%LORBIT&gt;=10) THEN</span><br><span class="line">     IF (IO%LORBIT==11.OR.IO%LORBIT==12) THEN</span><br><span class="line">       CALL VH5_WRITE_PROJECTORS(IH5OUTFILEID, T_INFO, WDES_INTER, W_INTER, IO%LORBIT, LPAR, PAR_INTER, LMCHAR, PHAS_INTER, &amp;</span><br><span class="line">                                 SUBGROUP=&quot;projectors_kpoints_opt&quot;)</span><br><span class="line">     ELSE</span><br><span class="line">       CALL VH5_WRITE_PROJECTORS(IH5OUTFILEID, T_INFO, WDES_INTER, W_INTER, IO%LORBIT, LPAR, PAR_INTER, LCHAR, PHAS_INTER, &amp;</span><br><span class="line">                                 SUBGROUP=&quot;projectors_kpoints_opt&quot;)</span><br><span class="line">     ENDIF</span><br><span class="line">!     IF (IO%IU6&gt;=0) THEN</span><br><span class="line">!       CALL XML_PROCAR(PAR, W_INTER%CELTOT, W_INTER%FERTOT, WDES_INTER%NB_TOT, WDES_INTER%NKPTS, LPAR,&amp;</span><br><span class="line">!                     T_INFO%NIONP, WDES_INTER%NCDIJ, TAG=&quot;projected_kpoints_opt&quot;)</span><br><span class="line">!       OPEN(UNIT=99,FILE=&#x27;PROCAR_OPT&#x27;,STATUS=&#x27;UNKNOWN&#x27;)</span><br><span class="line">!       CALL WRITE_PROCAR(99,W_INTER,WDES_INTER,IO%LORBIT,LPAR,LMDIMP,PAR_INTER,PHAS_INTER,T_INFO,KPOINTS%EMIN,KPOINTS%EMAX)</span><br><span class="line">!       CLOSE(99)</span><br><span class="line">!     ENDIF</span><br><span class="line">   ENDIF</span><br><span class="line">#endif</span><br></pre></td></tr></table></figure>
+<p>最后重复编译 <code>vasp</code> ，<code>vaspkit1.3.2</code> 或者更新的版本可以从 <code>EIGENVAL_OPT</code> 和 <code>PROCAR_OPT</code>文件中读取普通和投影能带的数据。</p>
+
+      </div>
+      
+      
+      
+    </div>
+    
+
+    
+    
+    
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#vaspkit-tutorials%EF%BC%88Band-Structure%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">vaspkit-tutorials（Band Structure）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%BD%E5%B8%A6%E8%AE%A1%E7%AE%97%E7%9A%84%E9%A2%84%E5%A4%84%E7%90%86"><span class="nav-number">1.1.</span> <span class="nav-text">能带计算的预处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Example-Single-layer-MoS2"><span class="nav-number">1.2.</span> <span class="nav-text">Example: Single-layer MoS2</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Single-shot%EF%BC%88%E5%8D%95%E6%AC%A1%E7%89%87%E6%AE%B5%EF%BC%89-Band-Structue"><span class="nav-number">1.2.1.</span> <span class="nav-text">Single-shot（单次片段） Band Structue</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Hengshuai Shang</p>
+  <div class="site-description" itemprop="description">study</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hengshuai Shang</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.js"></script>
+  <script>
+      pbOptions = {};
+        pbOptions.iconStyle = "box";
+        pbOptions.boxForm = "horizontal";
+        pbOptions.position = "bottomCenter";
+        pbOptions.networks = "Wechat,QQZone,Weibo,Douban,Twitter,Facebook";
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+  </script>
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'Ka4ubzmsbl0JVIyhTlFpMDQE-gzGzoHsz',
+      appKey     : 'NsRGFAadaaHTNxqS5Daeoj6N',
+      placeholder: "请在此输入您的留言",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/z16.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script></body>
+</html>

@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="原子光谱项笔者曾在核电子能级答疑(https:&#x2F;&#x2F;shuai0511.github.io&#x2F;posts&#x2F;bf144593&#x2F;)中写到相关X射线的谱线标记符号，当时是为了解释X射线的产生机理。在大气化学课程以及化学反应动力学中涉及到光谱符号的书写，总会有一些疑问，对此，笔者对其进行讲解。 电子的表示 从中学的知识中我们了解到，电子排布主要遵循从内层往外层排列，其优先排列在低能轨道上，在最低能轨道上排满之">
+<meta property="og:type" content="article">
+<meta property="og:title" content="原子光谱项-2">
+<meta property="og:url" content="http://example.com/posts/aadf6be9/index.html">
+<meta property="og:site_name" content="Hengshuai Shang">
+<meta property="og:description" content="原子光谱项笔者曾在核电子能级答疑(https:&#x2F;&#x2F;shuai0511.github.io&#x2F;posts&#x2F;bf144593&#x2F;)中写到相关X射线的谱线标记符号，当时是为了解释X射线的产生机理。在大气化学课程以及化学反应动力学中涉及到光谱符号的书写，总会有一些疑问，对此，笔者对其进行讲解。 电子的表示 从中学的知识中我们了解到，电子排布主要遵循从内层往外层排列，其优先排列在低能轨道上，在最低能轨道上排满之">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/shuai0511/blog-img/main/%E5%85%89%E8%B0%B1%E9%A1%B9L%E6%B1%82%E8%A7%A3.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/shuai0511/blog-img/main/%E5%85%89%E8%B0%B1%E9%A1%B9%E4%BE%8B%E9%A2%98.jpg">
+<meta property="article:published_time" content="2023-09-27T04:00:57.000Z">
+<meta property="article:modified_time" content="2023-09-27T04:39:14.999Z">
+<meta property="article:author" content="Hengshuai Shang">
+<meta property="article:tag" content="光谱项">
+<meta property="article:tag" content="量子数">
+<meta property="article:tag" content="能态">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/shuai0511/blog-img/main/%E5%85%89%E8%B0%B1%E9%A1%B9L%E6%B1%82%E8%A7%A3.png">
+
+<link rel="canonical" href="http://example.com/posts/aadf6be9/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.css"><style>
+#needsharebutton-postbottom {
+  cursor: pointer;
+  height: 26px;
+  margin-top: 10px;
+  position: relative;
+}
+#needsharebutton-postbottom .btn {
+  border: 1px solid $btn-default-border-color;
+  border-radius: 3px;
+  display: initial;
+  padding: 1px 4px;
+}
+</style>
+  <title>原子光谱项-2 | Hengshuai Shang</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hengshuai Shang</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">hengshuai shang</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/aadf6be9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hengshuai Shang">
+      <meta itemprop="description" content="study">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hengshuai Shang">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          原子光谱项-2
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-09-27 12:00:57 / 修改时间：12:39:14" itemprop="dateCreated datePublished" datetime="2023-09-27T12:00:57+08:00">2023-09-27</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%85%89%E8%B0%B1%E9%A1%B9/" itemprop="url" rel="index"><span itemprop="name">光谱项</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/aadf6be9/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/aadf6be9/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="原子光谱项"><a href="#原子光谱项" class="headerlink" title="原子光谱项"></a>原子光谱项</h1><p>笔者曾在核电子能级答疑(<a target="_blank" rel="noopener" href="https://shuai0511.github.io/posts/bf144593/)%E4%B8%AD%E5%86%99%E5%88%B0%E7%9B%B8%E5%85%B3X%E5%B0%84%E7%BA%BF%E7%9A%84%E8%B0%B1%E7%BA%BF%E6%A0%87%E8%AE%B0%E7%AC%A6%E5%8F%B7%EF%BC%8C%E5%BD%93%E6%97%B6%E6%98%AF%E4%B8%BA%E4%BA%86%E8%A7%A3%E9%87%8AX%E5%B0%84%E7%BA%BF%E7%9A%84%E4%BA%A7%E7%94%9F%E6%9C%BA%E7%90%86%E3%80%82%E5%9C%A8%E5%A4%A7%E6%B0%94%E5%8C%96%E5%AD%A6%E8%AF%BE%E7%A8%8B%E4%BB%A5%E5%8F%8A%E5%8C%96%E5%AD%A6%E5%8F%8D%E5%BA%94%E5%8A%A8%E5%8A%9B%E5%AD%A6%E4%B8%AD%E6%B6%89%E5%8F%8A%E5%88%B0%E5%85%89%E8%B0%B1%E7%AC%A6%E5%8F%B7%E7%9A%84%E4%B9%A6%E5%86%99%EF%BC%8C%E6%80%BB%E4%BC%9A%E6%9C%89%E4%B8%80%E4%BA%9B%E7%96%91%E9%97%AE%EF%BC%8C%E5%AF%B9%E6%AD%A4%EF%BC%8C%E7%AC%94%E8%80%85%E5%AF%B9%E5%85%B6%E8%BF%9B%E8%A1%8C%E8%AE%B2%E8%A7%A3%E3%80%82">https://shuai0511.github.io/posts/bf144593/)中写到相关X射线的谱线标记符号，当时是为了解释X射线的产生机理。在大气化学课程以及化学反应动力学中涉及到光谱符号的书写，总会有一些疑问，对此，笔者对其进行讲解。</a></p>
+<h2 id="电子的表示"><a href="#电子的表示" class="headerlink" title="电子的表示"></a>电子的表示</h2><ul>
+<li>从中学的知识中我们了解到，电子排布主要遵循从内层往外层排列，其优先排列在低能轨道上，在最低能轨道上排满之后去排次低能轨道，我们用的轨道是 <code>K、L、M</code> 这样的轨道描述，每个轨道上可以放 2n<sup>2</sup> 个电子，那么<code>K</code> 对应1，以此类推。所以对于钠原子，我们可以写出其电子排布如下：可参见博客<a target="_blank" rel="noopener" href="https://shuai0511.github.io/posts/bf144593/">核电子能级答疑</a>，另外对于更多的原子的电子排布，我们可以使用检索工具检索或者使用软件进行查看。</li>
+</ul>
+<h2 id="原子光谱"><a href="#原子光谱" class="headerlink" title="原子光谱"></a>原子光谱</h2><p>首先我们介绍两种原子最常见的光谱，即原子吸收与原子发射光谱；原子发射光谱对应的是，处于激发态的原子在退激时发出的特征谱线，如果对光进行棱镜分解，可以得到一些明显的线状光谱，而吸收光谱是对于一束光，经原子吸收过之后进行棱镜分解，会看到若干条纹与这束光直接经棱镜分解相比会有若干条线状谱线变暗，因此这就是在这谱线处原子发生了吸收。<br>那么何为&#x3D;&#x3D;激发态&#x3D;&#x3D;？其实与之对应的是基态，此时原子的能量最低，可以通过检索原子排布得到，凡是不是基态排布的电子排布都是激发态。<br><strong>对于光谱来说，我们要注意到每一条谱线对应的是原子的两个状态，即存在关系：hμ&#x3D;E<sub>1</sub>-E<sub>2</sub>，其中E<sub>1</sub>和E<sub>2</sub>分别表示两个能级，而h为普朗克常量，μ为光的频率。</strong></p>
+<h2 id="光谱项"><a href="#光谱项" class="headerlink" title="光谱项"></a>光谱项</h2><h2 id="补充知识"><a href="#补充知识" class="headerlink" title="补充知识"></a>补充知识</h2><p><strong>本博文仅从理解和应用角度来说明，如果你想从量子力学的角度来考虑，请参考《结构化学》李平主编——科学出版社出版</strong><br>首先对于电子，通过求解薛定谔方程，我们可以得到其的三个量子数即：主量子数 n &#x3D;1, 2, 3, 4, …… 可用字母符号K, L, M, N 等表示，以标记原子的主壳层，它是能量的主要因素。角量子数 l &#x3D;0, 1, 2, 3, …, (n-1)，通常用 s, p, d, f 等符号表示，它决定能量的次要因素。磁量子数(m)的取值与角量子数(l)有关，当角量子数(l)的取值为(N-1)(N为正整数)时，磁量子数(m)的取值为0,±1,±2,±3,…,±(N-1)。用来描述原子轨道在空间中的伸展方向，一个取值对应着一个伸展方向。比如对于：n&#x3D;1，l&#x3D;1，m可以取1、0、-1三个值，分别对应于三重简并的p轨道即：px、py、pz。后来研究证明，电子存在自旋，故其自旋运动状态由自旋波函数或量子数s和m<sub>s</sub>来表示。这五个量子数中：n、l、s三个与磁场无关，而m和m<sub>s</sub>与磁场有关，因此可以用与磁场无光的量子数来表达无磁场作用下原子的电子组态。<br>整个原子运动状态影视各个电子所处的轨道与自旋状态的总和。但是，量子数仅仅是从量子力学中近似得到的，他们未涉及到电子间的相互作用，也未涉及到轨道运动和自选运动之间的相互作用，因此仅用量子数的简单加和不足以表达原子的真实运动状态，故不能和原子光谱实验观察到的光谱直接联系。和原子光谱直接相互联系的是原子的能态，它由一套原子的量子数L、S、J来描述，这些量子数分别规定了原子的轨道角动量M<sub>L</sub>、自旋角动量M<sub>S</sub>和总角动量M<sub>J</sub>，这些角动量在磁场上的分量则分别由m<sub>L</sub>、m<sub>S</sub>、m<sub>J</sub>规定。</p>
+<h2 id="光谱项书写"><a href="#光谱项书写" class="headerlink" title="光谱项书写"></a>光谱项书写</h2><p>原子的每一个能态对应一个光谱项，其中原子的能态可以由原子的量子数来表示，其中L可取非负自然数，而S代表体系总的自旋，定义多重度为2S+1，写在L的左上角即<sup>2S+1</sup>L，这就是原子的光谱项，L&#x3D;0、1、2、3、、、分别对应于S、P、D、F、G、、、。轨道—自旋耦合作用是每个光谱项分裂出（2S+1）或（2J+1）个光谱支项，产生（2S+1）或（2J+1）个不同的J，最后得到光谱支项<sup>2S+1</sup>L<sub>J</sub>，如<sup>1</sup>S<sub>1</sub>等。</p>
+<h2 id="求解不同的L、S、J值"><a href="#求解不同的L、S、J值" class="headerlink" title="求解不同的L、S、J值"></a>求解不同的L、S、J值</h2><h2 id="L求解"><a href="#L求解" class="headerlink" title="L求解"></a>L求解</h2><p>对于L的求解，相对简单，如下是P的三个简并轨道上边一排数字分别代表磁量子数即P轨道的不同方向，分别对应X、Y、Z三个方向，我们可以将电子排布在上面，每个轨道最多排布两个电子。那么在这种情况下总的L我们可以推算：<code>L = 2*1 + 1*0 +1*(-1) = 1</code> 。因此对应的就是L&#x3D;1，即光谱符号为P。<br><img src="https://raw.githubusercontent.com/shuai0511/blog-img/main/%E5%85%89%E8%B0%B1%E9%A1%B9L%E6%B1%82%E8%A7%A3.png" alt="光谱项L求解.png"><center></center></p>
+<center>图一  基态氧原子的2P轨道的电子排布</center>
+那么对于d轨道也可以采取类似的方法进行求算。
+
+<h2 id="S的求算"><a href="#S的求算" class="headerlink" title="S的求算"></a>S的求算</h2><p>S是自旋数，记为自旋向上为+1&#x2F;2，自旋向下为-1&#x2F;2。那么对于以上的图一，总的S的求算：<code>S = 3*1/2 - 1*(-1/2) = 1</code> 因此S&#x3D;1，2S+1 &#x3D; 3，可以写出光谱项<sup>3</sup>P 。</p>
+<h2 id="J的求算"><a href="#J的求算" class="headerlink" title="J的求算"></a>J的求算</h2><p>补充知识（摘自《结构化学》李平主编—科学出版社 P123）</p>
+<h2 id="自旋—轨道耦合与总角动量"><a href="#自旋—轨道耦合与总角动量" class="headerlink" title="自旋—轨道耦合与总角动量"></a>自旋—轨道耦合与总角动量</h2><p>在原子芯内，电子填满了所有亚壳层，每个亚壳层的任意轨道上，两个电子的角量子数相等，自旋相反，粽子选角动量及其磁场分量等于0，量子数S&#x3D;0，M<sub>S</sub>&#x3D;0，则总轨道角动量及其磁场分量必然为0，量子数L&#x3D;0，M&#x3D;0。由此可见，原子的内壳层轨道电子的角动量和自旋角动量耦合值均为0，角动量耦合净值为价层电子贡献，所以可以得出：表达原子基态和激发态的角动量和自旋角动量耦合所导致的分裂能级，必须首先确定原子的电子组态，在确定内壳层以及对角动量耦合有贡献的夹层轨道。</p>
+<h2 id="计算"><a href="#计算" class="headerlink" title="计算"></a>计算</h2><p>你可以选择背公式：J的取值可以是L+S、L+S-1、L+S-2、L+S-3、、、、|L-S|，所以一共有2S+1或者2L+1个光谱支项。还是对于上面图一中的氧原子来说，L&#x3D;1，S&#x3D;1，则J可以取2、1、0三个值。所以可以写为<sup>3</sup>P<sub>2</sub>、<sup>3</sup>P<sub>1</sub>、 <sup>3</sup>P<sub>0</sub> 三个光谱支项。</p>
+<h2 id="确定原子最稳定结构的光谱项"><a href="#确定原子最稳定结构的光谱项" class="headerlink" title="确定原子最稳定结构的光谱项"></a>确定原子最稳定结构的光谱项</h2><p><strong>我们都知道对于原子来说，稳定的结构只有一种，但是不稳定的结构无限多种，那么如何寻找最低能量的物质也是我们要研究的重中之重。</strong><br>1、首先有一种较为简单的方法，上文也有提到，我们可以检索，站在巨人的肩膀上来完成。<br>2、就需要我们根据谱项能级的规定来自行确定，下面我们叙述一下相关规则。</p>
+<h2 id="谱项能级的高低比较"><a href="#谱项能级的高低比较" class="headerlink" title="谱项能级的高低比较"></a>谱项能级的高低比较</h2><p>这是按照hund规则来定义的，也是hund规则的另一种表达方式：</p>
+<ul>
+<li>原子在同一组态时，S值最大的最稳定。</li>
+<li>S值相同时，L值最大者最稳定。</li>
+<li>一般地，若L和S的值相同时，电子少于半充满时，J值小，能量低；电子多于半充满时，J值越大，能量低，电子等于半充满时，L&#x3D;0，J&#x3D;S，因此只有一个光谱支项。</li>
+</ul>
+<h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><p>对于上述的氧原子的最低状态，最稳定的为<sup>3</sup>P<sub>2</sub>光谱支项。<br><img src="https://raw.githubusercontent.com/shuai0511/blog-img/main/%E5%85%89%E8%B0%B1%E9%A1%B9%E4%BE%8B%E9%A2%98.jpg" alt="光谱项例题.jpg"></p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p>《结构化学基础》周公度、段连运主编—北京大学出版社</p>
+<p>《结构化学》李平主编—科技出版社</p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/301598515#:~:text=%E5%BD%93l%3D0%20%28%E5%AF%B9%E5%BA%94s%E5%8E%9F%E5%AD%90%E8%BD%A8%E9%81%93%29%E6%97%B6%EF%BC%8Cm%E5%8F%AA%E6%9C%890%E4%B8%80%E4%B8%AA%E5%8F%96%E5%80%BC%2C%E8%AF%B4%E6%98%8Es%E5%8E%9F%E5%AD%90%E8%BD%A8%E9%81%93%E5%9C%A8%E7%A9%BA%E9%97%B4%E5%8F%AA%E6%9C%89%E4%B8%80%E7%A7%8D%E4%BC%B8%E5%B1%95%E6%96%B9%E5%90%91%EF%BC%8C%E5%8D%B3s%E5%8E%9F%E5%AD%90%E8%BD%A8%E9%81%93%E4%B8%AD%E5%8F%AA%E6%9C%89%E4%B8%80%E4%B8%AAs%E8%BD%A8%E9%81%93%E3%80%82,%E5%BD%93l%3D1%20%28%E5%AF%B9%E5%BA%94p%E5%8E%9F%E5%AD%90%E8%BD%A8%E9%81%93%29%E6%97%B6%EF%BC%8Cm%E6%9C%890%2C%C2%B11%E4%B8%89%E4%B8%AA%E5%8F%96%E5%80%BC%EF%BC%8C%E8%AF%B4%E6%98%8Ep%E5%8E%9F%E5%AD%90%E8%BD%A8%E9%81%93%E5%9C%A8%E7%A9%BA%E9%97%B4%E6%9C%89%E4%B8%89%E7%A7%8D%E4%BC%B8%E5%B1%95%E6%96%B9%E5%90%91%EF%BC%8C%E5%8D%B3p%E5%8E%9F%E5%AD%90%E8%BD%A8%E9%81%93%E4%B8%AD%E6%9C%89%E4%B8%89%E4%B8%AA%E5%88%86%E5%88%AB%E4%BB%A5x%EF%BC%8Cy%EF%BC%8Cz%E8%BD%B4%E4%B8%BA%E5%AF%B9%E7%A7%B0%E8%BD%B4%E7%9A%84px%EF%BC%8Cpy%EF%BC%8Cpz%E8%BD%A8%E9%81%93%E3%80%82">四个量子数 - 知乎 (zhihu.com)</a>）</p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/614532141">多原子分子的谱项记号 - 知乎 (zhihu.com)</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/619930216">【结构化学】原子的光谱项和光谱支项推求 - 知乎 (zhihu.com)</a></p>
+<p><a target="_blank" rel="noopener" href="https://shuai0511.github.io/posts/bf144593/">核电子能级答疑</a></p>
+
+    </div>
+
+    
+    
+    <div class="post-widgets">
+      <div id="needsharebutton-postbottom">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    </div>
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%85%89%E8%B0%B1%E9%A1%B9/" rel="tag"># 光谱项</a>
+              <a href="/tags/%E9%87%8F%E5%AD%90%E6%95%B0/" rel="tag"># 量子数</a>
+              <a href="/tags/%E8%83%BD%E6%80%81/" rel="tag"># 能态</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/5960ab7/" rel="prev" title="X射线衍射原理">
+      <i class="fa fa-chevron-left"></i> X射线衍射原理
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/356676c/" rel="next" title="晶体">
+      晶体 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8E%9F%E5%AD%90%E5%85%89%E8%B0%B1%E9%A1%B9"><span class="nav-number">1.</span> <span class="nav-text">原子光谱项</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%B5%E5%AD%90%E7%9A%84%E8%A1%A8%E7%A4%BA"><span class="nav-number">1.1.</span> <span class="nav-text">电子的表示</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%9F%E5%AD%90%E5%85%89%E8%B0%B1"><span class="nav-number">1.2.</span> <span class="nav-text">原子光谱</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%89%E8%B0%B1%E9%A1%B9"><span class="nav-number">1.3.</span> <span class="nav-text">光谱项</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%A5%E5%85%85%E7%9F%A5%E8%AF%86"><span class="nav-number">1.4.</span> <span class="nav-text">补充知识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%89%E8%B0%B1%E9%A1%B9%E4%B9%A6%E5%86%99"><span class="nav-number">1.5.</span> <span class="nav-text">光谱项书写</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B1%82%E8%A7%A3%E4%B8%8D%E5%90%8C%E7%9A%84L%E3%80%81S%E3%80%81J%E5%80%BC"><span class="nav-number">1.6.</span> <span class="nav-text">求解不同的L、S、J值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#L%E6%B1%82%E8%A7%A3"><span class="nav-number">1.7.</span> <span class="nav-text">L求解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#S%E7%9A%84%E6%B1%82%E7%AE%97"><span class="nav-number">1.8.</span> <span class="nav-text">S的求算</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#J%E7%9A%84%E6%B1%82%E7%AE%97"><span class="nav-number">1.9.</span> <span class="nav-text">J的求算</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E6%97%8B%E2%80%94%E8%BD%A8%E9%81%93%E8%80%A6%E5%90%88%E4%B8%8E%E6%80%BB%E8%A7%92%E5%8A%A8%E9%87%8F"><span class="nav-number">1.10.</span> <span class="nav-text">自旋—轨道耦合与总角动量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97"><span class="nav-number">1.11.</span> <span class="nav-text">计算</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A1%AE%E5%AE%9A%E5%8E%9F%E5%AD%90%E6%9C%80%E7%A8%B3%E5%AE%9A%E7%BB%93%E6%9E%84%E7%9A%84%E5%85%89%E8%B0%B1%E9%A1%B9"><span class="nav-number">1.12.</span> <span class="nav-text">确定原子最稳定结构的光谱项</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B0%B1%E9%A1%B9%E8%83%BD%E7%BA%A7%E7%9A%84%E9%AB%98%E4%BD%8E%E6%AF%94%E8%BE%83"><span class="nav-number">1.13.</span> <span class="nav-text">谱项能级的高低比较</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BA%94%E7%94%A8"><span class="nav-number">1.14.</span> <span class="nav-text">应用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">2.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Hengshuai Shang</p>
+  <div class="site-description" itemprop="description">study</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hengshuai Shang</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.js"></script>
+  <script>
+      pbOptions = {};
+        pbOptions.iconStyle = "box";
+        pbOptions.boxForm = "horizontal";
+        pbOptions.position = "bottomCenter";
+        pbOptions.networks = "Wechat,QQZone,Weibo,Douban,Twitter,Facebook";
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+  </script>
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'Ka4ubzmsbl0JVIyhTlFpMDQE-gzGzoHsz',
+      appKey     : 'NsRGFAadaaHTNxqS5Daeoj6N',
+      placeholder: "请在此输入您的留言",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/z16.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script></body>
+</html>

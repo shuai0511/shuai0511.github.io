@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="光催化入门（2）近年来光催化在各行各业的应用也异军突起，包括光解水制氢、污染物降解、CO2还原、自清洁表面、医疗杀菌等。 对于催化反应来说，其活性位均来自于表面物种，然而正确、清晰的认识表面结构对于催化活性具有重要意义。例如催化剂暴露晶面、是否有物种覆盖、能带结构、电子结构、对光电子响应等。 通过XRD可以测定催化剂晶体类型，借助表征结果的最高峰可以确认催化剂的主要晶面，可以用于计算模拟的建模，用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="光催化入门（2）——基础表征">
+<meta property="og:url" content="http://example.com/posts/5d401c16/index.html">
+<meta property="og:site_name" content="Hengshuai Shang">
+<meta property="og:description" content="光催化入门（2）近年来光催化在各行各业的应用也异军突起，包括光解水制氢、污染物降解、CO2还原、自清洁表面、医疗杀菌等。 对于催化反应来说，其活性位均来自于表面物种，然而正确、清晰的认识表面结构对于催化活性具有重要意义。例如催化剂暴露晶面、是否有物种覆盖、能带结构、电子结构、对光电子响应等。 通过XRD可以测定催化剂晶体类型，借助表征结果的最高峰可以确认催化剂的主要晶面，可以用于计算模拟的建模，用">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/shuai0511/shuai0511.github.io/picture-store/XPS_%E5%85%89%E7%94%B5%E6%95%88%E5%BA%941.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/shuai0511/shuai0511.github.io/picture-store/XPS_%E5%85%89%E7%94%B5%E6%95%88%E5%BA%942.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/shuai0511/shuai0511.github.io/picture-store/%E8%A1%A8%E9%9D%A2%E7%BC%BA%E9%99%B7_%E7%94%BB%E6%9D%BF%201.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/shuai0511/shuai0511.github.io/picture-store/EPR%E5%8E%9F%E7%90%86%201_%E7%94%BB%E6%9D%BF%201.jpg">
+<meta property="article:published_time" content="2023-08-28T04:12:57.000Z">
+<meta property="article:modified_time" content="2023-09-01T01:46:05.517Z">
+<meta property="article:author" content="Hengshuai Shang">
+<meta property="article:tag" content="XPS">
+<meta property="article:tag" content="EPR">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/shuai0511/shuai0511.github.io/picture-store/XPS_%E5%85%89%E7%94%B5%E6%95%88%E5%BA%941.png">
+
+<link rel="canonical" href="http://example.com/posts/5d401c16/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.css"><style>
+#needsharebutton-postbottom {
+  cursor: pointer;
+  height: 26px;
+  margin-top: 10px;
+  position: relative;
+}
+#needsharebutton-postbottom .btn {
+  border: 1px solid $btn-default-border-color;
+  border-radius: 3px;
+  display: initial;
+  padding: 1px 4px;
+}
+</style>
+  <title>光催化入门（2）——基础表征 | Hengshuai Shang</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hengshuai Shang</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">hengshuai shang</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/5d401c16/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hengshuai Shang">
+      <meta itemprop="description" content="study">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hengshuai Shang">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          光催化入门（2）——基础表征
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-08-28 12:12:57" itemprop="dateCreated datePublished" datetime="2023-08-28T12:12:57+08:00">2023-08-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-09-01 09:46:05" itemprop="dateModified" datetime="2023-09-01T09:46:05+08:00">2023-09-01</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%85%89%E5%82%AC%E5%8C%96/" itemprop="url" rel="index"><span itemprop="name">光催化</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/5d401c16/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/5d401c16/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="光催化入门（2）"><a href="#光催化入门（2）" class="headerlink" title="光催化入门（2）"></a>光催化入门（2）</h1><p>近年来光催化在各行各业的应用也异军突起，包括光解水制氢、污染物降解、CO2还原、自清洁表面、医疗杀菌等。</p>
+<p>对于催化反应来说，其活性位均来自于表面物种，然而正确、清晰的认识表面结构对于催化活性具有重要意义。例如催化剂暴露晶面、是否有物种覆盖、能带结构、电子结构、对光电子响应等。</p>
+<p>通过XRD可以测定催化剂晶体类型，借助表征结果的最高峰可以确认催化剂的主要晶面，可以用于计算模拟的建模，用jade进行物相检索可以得到对应的PDF卡片，运用谢乐公式可以求解晶粒尺寸。</p>
+<p>通过TEM和SEM可以观测催化剂结构，当想要从样品内部结构获得信息时，透射电镜（TEM）是最佳的选择，而当需要样品表面信息时，扫描电镜（SEM）是首选。当然，主要决定因素是两个系统之间的价格差异，以及易用性。通过TEM也可以用衍射模式得到衍射斑点标定后与XRD结果进行对比，相互印证。</p>
+<p>光电子能谱根据能量不同分为紫外光电子能谱和X光电子能谱，前者打来的电子能量低，电离掉的是价层电子；后者打来的光子能量很高，电离掉的是内层电子。前者在催化领域应用十分广泛，每种物质的逸出功与其所处的化学环境密切相关，例如纯净的表面与被污染表面其相差较大，如下图中 hv &#x3D; E<sub>b</sub> + E<sub>k</sub> [a]，光子能量转化为物质表面电子的逸出功和逃逸动能，而且其会和元素的电子外层排布有关，电子越靠近原子核的壳层，其结合能越大，此时需要的光电子能量就越高。</p>
+<pre><code>附：XPS的金属峰左移？
+a、在XPS中，金属峰的左移通常表示表面有氧化物存在，是因为氧会与金属之间形成化学键，并增加该化学键的键长和键能，从而形成金属离子从而导致金属电子被拉离，并产生化学位移，因此金属离子价电子产生的信号峰向高能区移动，产生金属峰的左移。
+b、金属峰的左移也可能是由于化学修饰或者其他表面存在的物质与金属发生相互作用所致，这些小的分子通常会在表面与金属形成化学键，并引起金属外电子的远离，会导致金属峰左移。
+综上，导致XPS金属峰左移的本质原因是位于金属本体的电子发生偏移，导致其远离金属本体而使金属原子呈现一定的正电性。
+对于XPS的右移，分析方法类似，但是更加细致入微的分析还需要借助其他表征来相互印证。
+</code></pre>
+<p><img src="https://raw.githubusercontent.com/shuai0511/shuai0511.github.io/picture-store/XPS_%E5%85%89%E7%94%B5%E6%95%88%E5%BA%941.png"></p>
+<p><img src="https://raw.githubusercontent.com/shuai0511/shuai0511.github.io/picture-store/XPS_%E5%85%89%E7%94%B5%E6%95%88%E5%BA%942.png"></p>
+<p>例如块体吸收能量变为表面之后，表面的物质变得更活泼，但是其仍然会趋于形成更小的表面，因此在表面附近会吸附一些物质来降低表面能，趋于稳定，例如球状SiO<sub>2</sub>吸附的OH用于稳定表面氧物种。例如常见的光催化剂TiO<sub>2</sub>表面吸附的OH基，曾有文献研究发现水在二氧化钛表面会发生解离，形成O和OH吸附在其表面，用于稳定TiO<sub>2</sub>表面，因此表面会存在磁矩。而且由于新鲜的表面刚构造出来，会形成各种各样的重构，其中包括缺陷、掺杂等。在这里介绍一下缺陷，例如TiO<sub>2</sub>表面的O缺陷，其会导致表面的电荷重新分布，进而改变Ti的表观电荷。笔者在之前的工作中接触过CeO<sub>2</sub>，其表面形成O空位，其会协调表面Ce的表观电荷，这样表面就可以储氧，致使Ce处于合适的价态加速催化反应，湖南大学王双印老师与其合作者曾首先制备出来并热处理CeO<sub>2</sub>形成O空位，相比于非空位表面可大幅度提升电催化硝酸根还原性能，接着他们又做了一些列工作，这种调控方法值得借鉴。</p>
+<p><img src="https://raw.githubusercontent.com/shuai0511/shuai0511.github.io/picture-store/%E8%A1%A8%E9%9D%A2%E7%BC%BA%E9%99%B7_%E7%94%BB%E6%9D%BF%201.jpg"></p>
+<pre><code>这里主要介绍一下电子顺磁共振（EPR），是由不配对的电子磁矩发源的一种磁共振技术，是研究化合物或者矿物中不成对电子状态的重要工具，可用于从定性和定量方面检测物质原子和分子中所含的不配对电子，并探索周围环境结构的特性。
+EPR原理：在垂直于B0的方向上施加频率为hv的电磁波，当满足hv=gβB0时，处于量能极简的电子发生受激发跃迁，导致部分处于低能级中的电子吸收电磁波能量跃迁到高能集中，这就叫顺次共振现象，受激跃迁产生的吸收信号经电子学系统处理可得EPR吸收线。
+</code></pre>
+<p><img src="https://raw.githubusercontent.com/shuai0511/shuai0511.github.io/picture-store/EPR%E5%8E%9F%E7%90%86%201_%E7%94%BB%E6%9D%BF%201.jpg"></p>
+<p>EPR经常用于研究以下问题：</p>
+<p>（1）自由基</p>
+<p>（2）双基或者多基</p>
+<p>（3）二重态分子</p>
+<p>（4）过渡金属离子或稀土离子</p>
+<p>（5）固体中晶格缺陷</p>
+<p>（6）具有奇数个电子的原子</p>
+
+    </div>
+
+    
+    
+    <div class="post-widgets">
+      <div id="needsharebutton-postbottom">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    </div>
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/XPS/" rel="tag"># XPS</a>
+              <a href="/tags/EPR/" rel="tag"># EPR</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/fe1e810/" rel="prev" title="基础表征-XRD中	X射线产生机理">
+      <i class="fa fa-chevron-left"></i> 基础表征-XRD中	X射线产生机理
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/bf144593/" rel="next" title="核电子能级答疑">
+      核电子能级答疑 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%89%E5%82%AC%E5%8C%96%E5%85%A5%E9%97%A8%EF%BC%882%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">光催化入门（2）</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Hengshuai Shang</p>
+  <div class="site-description" itemprop="description">study</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hengshuai Shang</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.js"></script>
+  <script>
+      pbOptions = {};
+        pbOptions.iconStyle = "box";
+        pbOptions.boxForm = "horizontal";
+        pbOptions.position = "bottomCenter";
+        pbOptions.networks = "Wechat,QQZone,Weibo,Douban,Twitter,Facebook";
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+  </script>
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'Ka4ubzmsbl0JVIyhTlFpMDQE-gzGzoHsz',
+      appKey     : 'NsRGFAadaaHTNxqS5Daeoj6N',
+      placeholder: "请在此输入您的留言",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/z16.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script></body>
+</html>

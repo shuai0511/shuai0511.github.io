@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="热力学校正计算催化剂中的热力学能变化量是一件相对来说比较重要的事情。但是 vasp 没有可以直接计算分子自由能的程序，因此，自由能矫正在一些出版物中不一致、不准确。（注意：计算化学软件包 Gaussian 有一个完整的自由能计算模块。） 气态分子自由能矫正在 vaspkit 中用于计算气体分子热力学数据的方程和 &#96;&#96;Gaussian 中的等同（Thermochemistry in">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vaspkit教程翻译-（热力学校正）">
+<meta property="og:url" content="http://example.com/posts/57f4a315/index.html">
+<meta property="og:site_name" content="Hengshuai Shang">
+<meta property="og:description" content="热力学校正计算催化剂中的热力学能变化量是一件相对来说比较重要的事情。但是 vasp 没有可以直接计算分子自由能的程序，因此，自由能矫正在一些出版物中不一致、不准确。（注意：计算化学软件包 Gaussian 有一个完整的自由能计算模块。） 气态分子自由能矫正在 vaspkit 中用于计算气体分子热力学数据的方程和 &#96;&#96;Gaussian 中的等同（Thermochemistry in">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/shuai0511/blog-img/main/4-1.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/shuai0511/blog-img/main/4-2.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/shuai0511/blog-img/main/4-3.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/shuai0511/blog-img/main/4-4.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/shuai0511/blog-img/main/4-5.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/shuai0511/blog-img/main/4-6.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/shuai0511/blog-img/main/4-7.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/shuai0511/blog-img/main/4-8.png">
+<meta property="article:published_time" content="2023-09-10T12:53:57.000Z">
+<meta property="article:modified_time" content="2023-09-10T13:06:12.689Z">
+<meta property="article:author" content="Hengshuai Shang">
+<meta property="article:tag" content="热力学校正">
+<meta property="article:tag" content="自由能计算">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/shuai0511/blog-img/main/4-1.png">
+
+<link rel="canonical" href="http://example.com/posts/57f4a315/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.css"><style>
+#needsharebutton-postbottom {
+  cursor: pointer;
+  height: 26px;
+  margin-top: 10px;
+  position: relative;
+}
+#needsharebutton-postbottom .btn {
+  border: 1px solid $btn-default-border-color;
+  border-radius: 3px;
+  display: initial;
+  padding: 1px 4px;
+}
+</style>
+  <title>vaspkit教程翻译-（热力学校正） | Hengshuai Shang</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hengshuai Shang</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">hengshuai shang</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/57f4a315/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hengshuai Shang">
+      <meta itemprop="description" content="study">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hengshuai Shang">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          vaspkit教程翻译-（热力学校正）
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-09-10 20:53:57 / 修改时间：21:06:12" itemprop="dateCreated datePublished" datetime="2023-09-10T20:53:57+08:00">2023-09-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/vaspkit/" itemprop="url" rel="index"><span itemprop="name">vaspkit</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/vaspkit/Gibbs-energy/" itemprop="url" rel="index"><span itemprop="name">Gibbs energy</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/57f4a315/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/57f4a315/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>热力学校正<br>计算催化剂中的热力学能变化量是一件相对来说比较重要的事情。但是 <code>vasp</code> 没有可以直接计算分子自由能的程序，因此，自由能矫正在一些出版物中不一致、不准确。（<strong>注意：计算化学软件包 <code>Gaussian</code> 有一个完整的自由能计算模块。</strong>）</p>
+<h2 id="气态分子自由能矫正"><a href="#气态分子自由能矫正" class="headerlink" title="气态分子自由能矫正"></a>气态分子自由能矫正</h2><p>在 <code>vaspkit</code> 中用于计算气体分子热力学数据的方程和 &#96;&#96;<br><code>Gaussian</code> 中的等同（<a target="_blank" rel="noopener" href="https://gaussian.com/thermo/">Thermochemistry in Gaussian | Gaussian.com</a>）。配分函数可以用于计算每一个部分对于热力学 <code>S</code> 熵的贡献：<br><img src="https://raw.githubusercontent.com/shuai0511/blog-img/main/4-1.png"><br>当给定了摩尔值n&#x3D;N&#x2F;NA，基于理想气体近似，NAkB&#x3D;R（NA是阿伏伽德罗常数，而kB是玻尔兹曼常数，R为理想气体常数）。我们可以将 <code>S</code> 写为：<br><img src="https://raw.githubusercontent.com/shuai0511/blog-img/main/4-2.png"><br>热力学内能 <em>U</em> 也可以通过配分函数得到：<br><img src="https://raw.githubusercontent.com/shuai0511/blog-img/main/4-3.png"><br>关于平动、电子、转动、振动对热力学的贡献可以见方程列表(<a target="_blank" rel="noopener" href="https://gaussian.com/thermo/">Thermochemistry in Gaussian | Gaussian.com</a>).然后可以计算特定温度和压力下的熵 <code>S</code> 和内能 &#96;U<br>的校正值。<br><img src="https://raw.githubusercontent.com/shuai0511/blog-img/main/4-4.png"></p>
+<p>对于线型分子，振动自由度为 <code>3N-5</code> (N为分子中的原子数)，<code>vaspkit</code> 将会忽略最小的五个频率，对于非线性分子，振动自由度为 <code>3N-6</code> (N为分子中的原子数)，<code>vaspkit</code> 将会忽略最小的六个频率。<br><code>vaspkit</code> 也包括从频率计算的 <code>OUTCAR</code> 中的用于热力学能矫正中的零点能 (ZPE)。<br><img src="https://raw.githubusercontent.com/shuai0511/blog-img/main/4-5.png"><br>吉布斯自由能(<em>G</em>)和焓(<em>H</em>)基于理想气体近似包括 <code>∆PV = ∆NRT</code> .<br><img src="https://raw.githubusercontent.com/shuai0511/blog-img/main/4-6.png"><br>吉布斯自由能(<em>G</em>)可以借助总的熵(<em>S</em>)导出：<br><img src="https://raw.githubusercontent.com/shuai0511/blog-img/main/4-7.png"><br>最后，<code>vaspkit</code> 将会输出</p>
+<ol>
+<li>Zero-point energy εZPE;</li>
+<li>Thermal correction to <em>U</em>(T), </li>
+<li>Thermal correction to H(T), </li>
+<li>Thermal correction to G(T),</li>
+</ol>
+<h2 id="例子：O2分子的热力学校正"><a href="#例子：O2分子的热力学校正" class="headerlink" title="例子：O2分子的热力学校正"></a>例子：O2分子的热力学校正</h2><ul>
+<li>1、进行频率计算，计算完成之后，检查频率:<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1 f  =   46.979964 THz   295.183821 2PiTHz 1567.082879 cm-1   194.293584 meV</span><br><span class="line">2 f  =    1.952595 THz    12.268518 2PiTHz   65.131565 cm-1     8.075288 meV</span><br><span class="line">3 f  =    1.120777 THz     7.042052 2PiTHz   37.385108 cm-1     4.635164 meV</span><br><span class="line">4 f/i=    0.006984 THz     0.043884 2PiTHz    0.232971 cm-1     0.028885 meV</span><br><span class="line">5 f/i=    1.046106 THz     6.572876 2PiTHz   34.894327 cm-1     4.326347 meV</span><br><span class="line">6 f/i=    1.294104 THz     8.131095 2PiTHz   43.166663 cm-1     5.351986 meV</span><br></pre></td></tr></table></figure>
+因为 <code>O2</code> 线型分子，振动自由度为 <code>3N-5</code> (N为分子中的原子数)，<code>vaspkit</code> 将会忽略最小的五个频率，<br>在相同文件下里，运行 <code>vaspkit</code> 的 <code>502</code> 功能，输入温度(K)，压力(Atm)和自旋多重度。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">502</span><br><span class="line"> +-------------------------- Warm Tips --------------------------+</span><br><span class="line">   See An Example in vaspkit/examples/thermo_correction/ethanol.</span><br><span class="line">  This Feature Was Contributed by Nan XU, Jincheng Liu and Sobereva.</span><br><span class="line"> Included Vibrations, Translation, Rotation &amp; Electron contributions.</span><br><span class="line"> GAS molecules should not be with any fix.</span><br><span class="line">  --&gt;&gt; (01) Reading Structural Parameters from CONTCAR File...</span><br><span class="line">  --&gt;&gt; (02) Analyzing Molecular Symmetry Information...</span><br><span class="line"> Molecular Symmetry is: D(inf)h</span><br><span class="line"> Linear molecule found!</span><br><span class="line"> +---------------------------------------------------------------+</span><br><span class="line"> Please input Temperature(K)!</span><br><span class="line">298.15</span><br><span class="line"> Please input Pressure(Atm)!</span><br><span class="line">1</span><br><span class="line"> Please input Spin multiplicity!--(Number of Unpaired electron + 1)</span><br><span class="line">3</span><br><span class="line"> ------------&gt;&gt;</span><br><span class="line">  --&gt;&gt; (03) Extracting frequencies from OUTCAR...</span><br><span class="line">  --&gt;&gt; (04) Reading OUTCAR File...</span><br><span class="line">  --&gt;&gt; (05) Calculating Thermal Corrections...</span><br><span class="line"> U(T) = ZPE + Delta_U(0-&gt;T)</span><br><span class="line"> H(T) = U(T) + PV = ZPE + Delta_U(0-&gt;T) + PV</span><br><span class="line"> G(T) = H(T) - TS = ZPE + Delta_U(0-&gt;T) + PV - TS</span><br><span class="line"></span><br><span class="line"> Zero-point energy E_ZPE   :       2.240 kcal/mol    0.097144 eV</span><br><span class="line"> Thermal correction to U(T):       3.724 kcal/mol    0.161475 eV</span><br><span class="line"> Thermal correction to H(T):       4.316 kcal/mol    0.187167 eV</span><br><span class="line"> Thermal correction to G(T):     -10.302 kcal/mol   -0.446723 eV</span><br><span class="line"> Entropy S                 :     205.141 J/(mol*K)   0.002126 eV</span><br></pre></td></tr></table></figure>
+所以，零点振动能(ZPE)为 <code>0.097144 eV</code>，对于 <em>U</em>(T), <em>H</em>(T), 和 <em>G</em>(T) 的热力学校正值分别为 <code>0.161475, 0.187167 和 -0.446723 eV</code> ，熵(<em>S</em>)的校正值为：<br><img src="https://raw.githubusercontent.com/shuai0511/blog-img/main/4-8.png"><br>为了得到 <code>O2</code>的吉布斯自由能，在电子能上添加自由能校正值：<code>G(O2) = -9.854 + -0.447 = -10.301 eV</code></li>
+</ul>
+<h2 id="吸附分子的自由能校正"><a href="#吸附分子的自由能校正" class="headerlink" title="吸附分子的自由能校正"></a>吸附分子的自由能校正</h2><p>不像气体分子那样，被吸附的分子和吸附表面之间形成化学键，它限制了吸附分子的平动和转动自由度，因此平动和转动对熵(<em>S</em>)和焓(<em>H</em>)的贡献明显减少(这被称为被限制的平动&#x2F;被限制的转动模式)。但是这并不意味着没有平动和转动的贡献。<br>一种常见的方式将转动和平动的贡献看作是属性为振动的贡献，那是因为表面吸附分子有3N 个振动(不包括虚频)都被用于计算热力学能的校正。<br>那些小的振动频率对于熵(<em>S</em>)有很大的贡献。一个非常小的振动频率将会导致熵(<em>S</em>)和自由能(<em>G</em>)校正的异常。因此建议当进行表面吸附分子的自由能校正时，那些小于<br><code>50 cm-1</code>的振动频率将按照<code>50 cm-1</code> 来计算，<code>vaspkit</code> 将会忽略那些电子移动因为他们的贡献很小。<br>并且 <code>PV</code> 项一般也会删除，最后 <code>vaspkit</code> 将会输出：</p>
+<ol>
+<li>Zero-point energy εZPE</li>
+<li>Thermal correction to <em>U</em>(T) </li>
+<li>Thermal correction to G(T)</li>
+</ol>
+<h2 id="例子：O吸附在Au-111-的热力学能校正"><a href="#例子：O吸附在Au-111-的热力学能校正" class="headerlink" title="例子：O吸附在Au(111)的热力学能校正"></a>例子：O吸附在Au(111)的热力学能校正</h2><ul>
+<li>1、固定表面金属原子，对吸附分子进行频率计算，检查频率是否存在虚频：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ grep cm OUTCAR</span><br><span class="line">   1 f  =   10.904836 THz    68.517103 2PiTHz  363.746154 cm-1    45.098792 meV</span><br><span class="line">   2 f  =   10.827330 THz    68.030119 2PiTHz  361.160834 cm-1    44.778253 meV</span><br><span class="line">   3 f  =   10.751668 THz    67.554721 2PiTHz  358.637024 cm-1    44.465340 meV</span><br></pre></td></tr></table></figure></li>
+<li>2、在同一文件夹下，运行 <code>vaspkit</code> 的 <code>501</code> 功能，输入温度(K)：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">501</span><br><span class="line"> +-------------------------- Warm Tips --------------------------+</span><br><span class="line"> This Feature Was Contributed by Nan XU, Qiang LI and Jincheng LIU.</span><br><span class="line">     See An Example in vaspkit/examples/thermo_correction/ORR.</span><br><span class="line"> Only vibrations! No Translation &amp; Rotation &amp; Electron contributions.</span><br><span class="line"> +---------------------------------------------------------------+</span><br><span class="line"></span><br><span class="line"> Please Enter The Temperature (K):</span><br><span class="line"></span><br><span class="line"> ------------&gt;&gt;</span><br><span class="line">298.15</span><br><span class="line">  --&gt;&gt; (01) Reading OUTCAR File...</span><br><span class="line"> +-------------------------- Summary ----------------------------+</span><br><span class="line"> Neglect PV contribution to translation for adsorbed molecules.</span><br><span class="line"> To avoid abnormal entropy contribution,</span><br><span class="line"> frequencies less than 50 cm-1 are set to 50 cm-1.</span><br><span class="line"> U(T) = H(T) = ZPE + Delat_U(0-&gt;T)</span><br><span class="line"> G(T) = H(T) - TS = ZPE + Delat_U(0-&gt;T) - TS</span><br><span class="line"></span><br><span class="line"> Temperature (K): 298.1</span><br><span class="line"> Zero-point energy E_ZPE   :       1.549 kcal/mol    0.067171 eV</span><br><span class="line"> Thermal correction to U(T):       2.206 kcal/mol    0.095670 eV</span><br><span class="line"> Thermal correction to H(T):       2.206 kcal/mol    0.095670 eV</span><br><span class="line"> Thermal correction to G(T):       1.207 kcal/mol    0.052342 eV</span><br><span class="line"> Entropy S                 :      14.021 J/(mol*K)   0.000145 eV</span><br></pre></td></tr></table></figure>
+所以，零点能(ZPE)为 <code>0.067171 eV</code>，对于 <em>U</em>(T), <em>H</em>(T), 和 <em>G</em>(T)的热力学校正分别为 <code>0.095670、0.187167 和 -0.446723 eV</code></li>
+</ul>
+<p>So, ZPE is 0.067171 eV. Thermal correction to <em>U</em>(T), <em>H</em>(T), and <em>G</em>(T) are 0.095670, 0.187167, and -0.446723 eV, respectively.</p>
+
+    </div>
+
+    
+    
+    <div class="post-widgets">
+      <div id="needsharebutton-postbottom">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    </div>
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%83%AD%E5%8A%9B%E5%AD%A6%E6%A0%A1%E6%AD%A3/" rel="tag"># 热力学校正</a>
+              <a href="/tags/%E8%87%AA%E7%94%B1%E8%83%BD%E8%AE%A1%E7%AE%97/" rel="tag"># 自由能计算</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/508631a2/" rel="prev" title="vaspkit翻译-（态密度）">
+      <i class="fa fa-chevron-left"></i> vaspkit翻译-（态密度）
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/5960ab7/" rel="next" title="X射线衍射原理">
+      X射线衍射原理 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B0%94%E6%80%81%E5%88%86%E5%AD%90%E8%87%AA%E7%94%B1%E8%83%BD%E7%9F%AB%E6%AD%A3"><span class="nav-number">1.</span> <span class="nav-text">气态分子自由能矫正</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BE%8B%E5%AD%90%EF%BC%9AO2%E5%88%86%E5%AD%90%E7%9A%84%E7%83%AD%E5%8A%9B%E5%AD%A6%E6%A0%A1%E6%AD%A3"><span class="nav-number">2.</span> <span class="nav-text">例子：O2分子的热力学校正</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%B8%E9%99%84%E5%88%86%E5%AD%90%E7%9A%84%E8%87%AA%E7%94%B1%E8%83%BD%E6%A0%A1%E6%AD%A3"><span class="nav-number">3.</span> <span class="nav-text">吸附分子的自由能校正</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BE%8B%E5%AD%90%EF%BC%9AO%E5%90%B8%E9%99%84%E5%9C%A8Au-111-%E7%9A%84%E7%83%AD%E5%8A%9B%E5%AD%A6%E8%83%BD%E6%A0%A1%E6%AD%A3"><span class="nav-number">4.</span> <span class="nav-text">例子：O吸附在Au(111)的热力学能校正</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Hengshuai Shang</p>
+  <div class="site-description" itemprop="description">study</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hengshuai Shang</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.js"></script>
+  <script>
+      pbOptions = {};
+        pbOptions.iconStyle = "box";
+        pbOptions.boxForm = "horizontal";
+        pbOptions.position = "bottomCenter";
+        pbOptions.networks = "Wechat,QQZone,Weibo,Douban,Twitter,Facebook";
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+  </script>
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'Ka4ubzmsbl0JVIyhTlFpMDQE-gzGzoHsz',
+      appKey     : 'NsRGFAadaaHTNxqS5Daeoj6N',
+      placeholder: "请在此输入您的留言",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/z16.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script></body>
+</html>
