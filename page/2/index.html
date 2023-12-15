@@ -176,6 +176,117 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/57f4a315/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Hengshuai Shang">
+      <meta itemprop="description" content="study">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hengshuai Shang">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/57f4a315/" class="post-title-link" itemprop="url">vaspkit教程翻译-（热力学校正）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-09-10 20:53:57 / 修改时间：21:06:12" itemprop="dateCreated datePublished" datetime="2023-09-10T20:53:57+08:00">2023-09-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/vaspkit/" itemprop="url" rel="index"><span itemprop="name">vaspkit</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/vaspkit/Gibbs-energy/" itemprop="url" rel="index"><span itemprop="name">Gibbs energy</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/57f4a315/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/57f4a315/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>热力学校正<br>计算催化剂中的热力学能变化量是一件相对来说比较重要的事情。但是 <code>vasp</code> 没有可以直接计算分子自由能的程序，因此，自由能矫正在一些出版物中不一致、不准确。（<strong>注意：计算化学软件包 <code>Gaussian</code> 有一个完整的自由能计算模块。</strong>）</p>
+<h2 id="气态分子自由能矫正"><a href="#气态分子自由能矫正" class="headerlink" title="气态分子自由能矫正"></a>气态分子自由能矫正</h2><p>在 <code>vaspkit</code> 中用于计算气体分子热力学数据的方程和 &#96;&#96;<br><code>Gaussian</code> 中的等同（<a target="_blank" rel="noopener" href="https://gaussian.com/thermo/">Thermochemistry in Gaussian | Gaussian.com</a>）。配分函数可以用于计算每一个部分对于热力学 <code>S</code> 熵的贡献：<br><img src="https://raw.githubusercontent.com/shuai0511/blog-img/main/4-1.png"><br>当给定了摩尔值n&#x3D;N&#x2F;NA，基于理想气体近似，NAkB&#x3D;R（NA是阿伏伽德罗常数，而kB是玻尔兹曼常数，R为理想气体常数）。我们可以将 <code>S</code> 写为：<br><img src="https://raw.githubusercontent.com/shuai0511/blog-img/main/4-2.png"><br>热力学内能 <em>U</em> 也可以通过配分函数得到：<br><img src="https://raw.githubusercontent.com/shuai0511/blog-img/main/4-3.png"><br>关于平动、电子、转动、振动对热力学的贡献可以见方程列表(<a target="_blank" rel="noopener" href="https://gaussian.com/thermo/">Thermochemistry in Gaussian | Gaussian.com</a>).然后可以计算特定温度和压力下的熵 <code>S</code> 和内能 &#96;U<br>的校正值。<br><img src="https://raw.githubusercontent.com/shuai0511/blog-img/main/4-4.png"></p>
+<p>对于线型分子，振动自由度为 <code>3N-5</code> (N为分子中的原子数)，<code>vaspkit</code> 将会忽略最小的五个频率，对于非线性分子，振动自由度为 <code>3N-6</code> (N为分子中的原子数)，<code>vaspkit</code> 将会忽略最小的六个频率。<br><code>vaspkit</code> 也包括从频率计算的 <code>OUTCAR</code> 中的用于热力学能矫正中的零点能 (ZPE)。<br><img src="https://raw.githubusercontent.com/shuai0511/blog-img/main/4-5.png"><br>吉布斯自由能(<em>G</em>)和焓(<em>H</em>)基于理想气体近似包括 <code>∆PV = ∆NRT</code> .<br><img src="https://raw.githubusercontent.com/shuai0511/blog-img/main/4-6.png"><br>吉布斯自由能(<em>G</em>)可以借助总的熵(<em>S</em>)导出：<br><img src="https://raw.githubusercontent.com/shuai0511/blog-img/main/4-7.png"><br>最后，<code>vaspkit</code> 将会输出</p>
+<ol>
+<li>Zero-point energy εZPE;</li>
+<li>Thermal correction to <em>U</em>(T), </li>
+<li>Thermal correction to H(T), </li>
+<li>Thermal correction to G(T),</li>
+</ol>
+<h2 id="例子：O2分子的热力学校正"><a href="#例子：O2分子的热力学校正" class="headerlink" title="例子：O2分子的热力学校正"></a>例子：O2分子的热力学校正</h2><ul>
+<li>1、进行频率计算，计算完成之后，检查频率:<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1 f  =   46.979964 THz   295.183821 2PiTHz 1567.082879 cm-1   194.293584 meV</span><br><span class="line">2 f  =    1.952595 THz    12.268518 2PiTHz   65.131565 cm-1     8.075288 meV</span><br><span class="line">3 f  =    1.120777 THz     7.042052 2PiTHz   37.385108 cm-1     4.635164 meV</span><br><span class="line">4 f/i=    0.006984 THz     0.043884 2PiTHz    0.232971 cm-1     0.028885 meV</span><br><span class="line">5 f/i=    1.046106 THz     6.572876 2PiTHz   34.894327 cm-1     4.326347 meV</span><br><span class="line">6 f/i=    1.294104 THz     8.131095 2PiTHz   43.166663 cm-1     5.351986 meV</span><br></pre></td></tr></table></figure>
+因为 <code>O2</code> 线型分子，振动自由度为 <code>3N-5</code> (N为分子中的原子数)，<code>vaspkit</code> 将会忽略最小的五个频率，<br>在相同文件下里，运行 <code>vaspkit</code> 的 <code>502</code> 功能，输入温度(K)，压力(Atm)和自旋多重度。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">502</span><br><span class="line"> +-------------------------- Warm Tips --------------------------+</span><br><span class="line">   See An Example in vaspkit/examples/thermo_correction/ethanol.</span><br><span class="line">  This Feature Was Contributed by Nan XU, Jincheng Liu and Sobereva.</span><br><span class="line"> Included Vibrations, Translation, Rotation &amp; Electron contributions.</span><br><span class="line"> GAS molecules should not be with any fix.</span><br><span class="line">  --&gt;&gt; (01) Reading Structural Parameters from CONTCAR File...</span><br><span class="line">  --&gt;&gt; (02) Analyzing Molecular Symmetry Information...</span><br><span class="line"> Molecular Symmetry is: D(inf)h</span><br><span class="line"> Linear molecule found!</span><br><span class="line"> +---------------------------------------------------------------+</span><br><span class="line"> Please input Temperature(K)!</span><br><span class="line">298.15</span><br><span class="line"> Please input Pressure(Atm)!</span><br><span class="line">1</span><br><span class="line"> Please input Spin multiplicity!--(Number of Unpaired electron + 1)</span><br><span class="line">3</span><br><span class="line"> ------------&gt;&gt;</span><br><span class="line">  --&gt;&gt; (03) Extracting frequencies from OUTCAR...</span><br><span class="line">  --&gt;&gt; (04) Reading OUTCAR File...</span><br><span class="line">  --&gt;&gt; (05) Calculating Thermal Corrections...</span><br><span class="line"> U(T) = ZPE + Delta_U(0-&gt;T)</span><br><span class="line"> H(T) = U(T) + PV = ZPE + Delta_U(0-&gt;T) + PV</span><br><span class="line"> G(T) = H(T) - TS = ZPE + Delta_U(0-&gt;T) + PV - TS</span><br><span class="line"></span><br><span class="line"> Zero-point energy E_ZPE   :       2.240 kcal/mol    0.097144 eV</span><br><span class="line"> Thermal correction to U(T):       3.724 kcal/mol    0.161475 eV</span><br><span class="line"> Thermal correction to H(T):       4.316 kcal/mol    0.187167 eV</span><br><span class="line"> Thermal correction to G(T):     -10.302 kcal/mol   -0.446723 eV</span><br><span class="line"> Entropy S                 :     205.141 J/(mol*K)   0.002126 eV</span><br></pre></td></tr></table></figure>
+所以，零点振动能(ZPE)为 <code>0.097144 eV</code>，对于 <em>U</em>(T), <em>H</em>(T), 和 <em>G</em>(T) 的热力学校正值分别为 <code>0.161475, 0.187167 和 -0.446723 eV</code> ，熵(<em>S</em>)的校正值为：<br><img src="https://raw.githubusercontent.com/shuai0511/blog-img/main/4-8.png"><br>为了得到 <code>O2</code>的吉布斯自由能，在电子能上添加自由能校正值：<code>G(O2) = -9.854 + -0.447 = -10.301 eV</code></li>
+</ul>
+<h2 id="吸附分子的自由能校正"><a href="#吸附分子的自由能校正" class="headerlink" title="吸附分子的自由能校正"></a>吸附分子的自由能校正</h2><p>不像气体分子那样，被吸附的分子和吸附表面之间形成化学键，它限制了吸附分子的平动和转动自由度，因此平动和转动对熵(<em>S</em>)和焓(<em>H</em>)的贡献明显减少(这被称为被限制的平动&#x2F;被限制的转动模式)。但是这并不意味着没有平动和转动的贡献。<br>一种常见的方式将转动和平动的贡献看作是属性为振动的贡献，那是因为表面吸附分子有3N 个振动(不包括虚频)都被用于计算热力学能的校正。<br>那些小的振动频率对于熵(<em>S</em>)有很大的贡献。一个非常小的振动频率将会导致熵(<em>S</em>)和自由能(<em>G</em>)校正的异常。因此建议当进行表面吸附分子的自由能校正时，那些小于<br><code>50 cm-1</code>的振动频率将按照<code>50 cm-1</code> 来计算，<code>vaspkit</code> 将会忽略那些电子移动因为他们的贡献很小。<br>并且 <code>PV</code> 项一般也会删除，最后 <code>vaspkit</code> 将会输出：</p>
+<ol>
+<li>Zero-point energy εZPE</li>
+<li>Thermal correction to <em>U</em>(T) </li>
+<li>Thermal correction to G(T)</li>
+</ol>
+<h2 id="例子：O吸附在Au-111-的热力学能校正"><a href="#例子：O吸附在Au-111-的热力学能校正" class="headerlink" title="例子：O吸附在Au(111)的热力学能校正"></a>例子：O吸附在Au(111)的热力学能校正</h2><ul>
+<li>1、固定表面金属原子，对吸附分子进行频率计算，检查频率是否存在虚频：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ grep cm OUTCAR</span><br><span class="line">   1 f  =   10.904836 THz    68.517103 2PiTHz  363.746154 cm-1    45.098792 meV</span><br><span class="line">   2 f  =   10.827330 THz    68.030119 2PiTHz  361.160834 cm-1    44.778253 meV</span><br><span class="line">   3 f  =   10.751668 THz    67.554721 2PiTHz  358.637024 cm-1    44.465340 meV</span><br></pre></td></tr></table></figure></li>
+<li>2、在同一文件夹下，运行 <code>vaspkit</code> 的 <code>501</code> 功能，输入温度(K)：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">501</span><br><span class="line"> +-------------------------- Warm Tips --------------------------+</span><br><span class="line"> This Feature Was Contributed by Nan XU, Qiang LI and Jincheng LIU.</span><br><span class="line">     See An Example in vaspkit/examples/thermo_correction/ORR.</span><br><span class="line"> Only vibrations! No Translation &amp; Rotation &amp; Electron contributions.</span><br><span class="line"> +---------------------------------------------------------------+</span><br><span class="line"></span><br><span class="line"> Please Enter The Temperature (K):</span><br><span class="line"></span><br><span class="line"> ------------&gt;&gt;</span><br><span class="line">298.15</span><br><span class="line">  --&gt;&gt; (01) Reading OUTCAR File...</span><br><span class="line"> +-------------------------- Summary ----------------------------+</span><br><span class="line"> Neglect PV contribution to translation for adsorbed molecules.</span><br><span class="line"> To avoid abnormal entropy contribution,</span><br><span class="line"> frequencies less than 50 cm-1 are set to 50 cm-1.</span><br><span class="line"> U(T) = H(T) = ZPE + Delat_U(0-&gt;T)</span><br><span class="line"> G(T) = H(T) - TS = ZPE + Delat_U(0-&gt;T) - TS</span><br><span class="line"></span><br><span class="line"> Temperature (K): 298.1</span><br><span class="line"> Zero-point energy E_ZPE   :       1.549 kcal/mol    0.067171 eV</span><br><span class="line"> Thermal correction to U(T):       2.206 kcal/mol    0.095670 eV</span><br><span class="line"> Thermal correction to H(T):       2.206 kcal/mol    0.095670 eV</span><br><span class="line"> Thermal correction to G(T):       1.207 kcal/mol    0.052342 eV</span><br><span class="line"> Entropy S                 :      14.021 J/(mol*K)   0.000145 eV</span><br></pre></td></tr></table></figure>
+所以，零点能(ZPE)为 <code>0.067171 eV</code>，对于 <em>U</em>(T), <em>H</em>(T), 和 <em>G</em>(T)的热力学校正分别为 <code>0.095670、0.187167 和 -0.446723 eV</code></li>
+</ul>
+<p>So, ZPE is 0.067171 eV. Thermal correction to <em>U</em>(T), <em>H</em>(T), and <em>G</em>(T) are 0.095670, 0.187167, and -0.446723 eV, respectively.</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/508631a2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1256,80 +1367,6 @@ EPR原理：在垂直于B0的方向上施加频率为hv的电磁波，当满足h
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/9fe06fdc/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Hengshuai Shang">
-      <meta itemprop="description" content="study">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hengshuai Shang">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/posts/9fe06fdc/" class="post-title-link" itemprop="url">吸附科学：气体净化与分离</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2023-08-27 13:05:31 / 修改时间：14:04:33" itemprop="dateCreated datePublished" datetime="2023-08-27T13:05:31+08:00">2023-08-27</time>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/posts/9fe06fdc/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/posts/9fe06fdc/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="吸附科学"><a href="#吸附科学" class="headerlink" title="吸附科学"></a>吸附科学</h1><p>吸附是一个很古老的词语，相传古人用炭清洁牙齿，这是利用了炭多孔的特性，可以吸附吸附质。当然，随处可见的化学反应的第一步也是发生在催化剂上的吸附。</p>
-<p>因为金属有机框架（MOF）、沸石等（zeolite）结构具有很大的空腔，具有很大的比表面积，所以其可以广泛应用于污染气体防治。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1399,20 +1436,20 @@ EPR原理：在垂直于B0的方向上施加频率为hv的电磁波，当满足h
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-count">24</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-count">24</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-count">36</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
